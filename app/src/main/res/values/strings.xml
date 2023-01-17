@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Pregame</string>
+
+    <!-- Landing Page -->
+    <string name="register_button">Register</string>
+    <string name="login_button">Login</string>
+    <string name="logo_description">Pregame Logo</string>
+    <string name="basketball_image_description">Basketball Player Image</string>
+
 </resources>
