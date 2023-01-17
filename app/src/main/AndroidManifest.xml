@@ -13,6 +13,20 @@
         android:theme="@style/Theme.Pregame"
         tools:targetApi="31">
         <activity
+            android:name=".CoachHomeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".PlayerHomeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".RegisterLogin.LoginActivity"
             android:exported="false">
             <meta-data

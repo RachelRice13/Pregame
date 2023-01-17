@@ -7,4 +7,15 @@
     <string name="logo_description">Pregame Logo</string>
     <string name="basketball_image_description">Basketball Player Image</string>
 
+    <!-- Login & Register Page -->
+    <string name="go_to_lp">Go to Landing Page</string>
+    <string name="player_rb">Player</string>
+    <string name="coach_rb">Coach</string>
+    <string name="first_name">First Name</string>
+    <string name="surname">Surname</string>
+    <string name="dob">DOB</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
 </resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "933082009511",
+    "project_id": "pregame-fyp",
+    "storage_bucket": "pregame-fyp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933082009511:android:7354402fcebc5d5cf37082",
+        "android_client_info": {
+          "package_name": "com.example.pregame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933082009511-8k1s615mqeghoot80sa2qpkvdt6hht6f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuYbdFafhPa4QYYyJiLh6K3OJNGxl1EjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933082009511-8k1s615mqeghoot80sa2qpkvdt6hht6f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
