@@ -2,27 +2,26 @@ package com.example.pregame.RegisterLogin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pregame.CoachHomeActivity;
 import com.example.pregame.LandingPage;
+import com.example.pregame.Model.Coach;
+import com.example.pregame.Model.Player;
 import com.example.pregame.PlayerHomeActivity;
 import com.example.pregame.R;
-import com.example.pregame.Team;
+import com.example.pregame.Model.Team;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

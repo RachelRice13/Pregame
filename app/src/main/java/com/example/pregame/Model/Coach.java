@@ -1,6 +1,4 @@
-package com.example.pregame.RegisterLogin;
-
-import com.example.pregame.Team;
+package com.example.pregame.Model;
 
 import java.util.ArrayList;
 

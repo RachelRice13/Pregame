@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item
+        android:id="@+id/nav_cb_team_stats"
+        android:icon="@drawable/ic_stats"
+        android:title="@string/nav_team_stats"
+        />
+    <item
+        android:id="@+id/nav_cb_messages"
+        android:icon="@drawable/ic_message"
+        android:title="@string/nav_message"
+        />
+    <item
+        android:id="@+id/nav_cb_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/nav_home"
+        />
+    <item
+        android:id="@+id/nav_cb_tactics_board"
+        android:icon="@drawable/ic_tactics_board"
+        android:title="@string/nav_tactics_board"
+        />
+    <item
+        android:id="@+id/nav_cb_game_stats"
+        android:icon="@drawable/ic_stats"
+        android:title="@string/nav_game_stats"
+        />
+</menu>
