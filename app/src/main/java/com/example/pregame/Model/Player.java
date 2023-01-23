@@ -1,12 +1,14 @@
 package com.example.pregame.Model;
 
+import com.google.firebase.firestore.DocumentReference;
+
 import java.util.ArrayList;
 
 public class Player {
     private String firstName, surname, dob, phoneNumber, email, password;
-    private ArrayList<Team> teams;
+    private ArrayList<DocumentReference> teams;
 
-    public Player(String firstName, String surname, String dob, String phoneNumber, String email, String password, ArrayList<Team> teams) {
+    public Player(String firstName, String surname, String dob, String phoneNumber, String email, String password, ArrayList<DocumentReference> teams) {
         this.firstName = firstName;
         this.surname = surname;
         this.dob = dob;
@@ -67,10 +69,10 @@ public class Player {
         this.password = password;
     }
 
-    public ArrayList<Team> getTeams() {
+    public ArrayList<DocumentReference> getTeams() {
         return teams;
     }
-    public void setTeams(ArrayList<Team> teams) {
+    public void setTeams(ArrayList<DocumentReference> teams) {
         this.teams = teams;
     }
 

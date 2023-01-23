@@ -67,26 +67,26 @@ public class CoachHomeActivity extends AppCompatActivity {
 
     public void buildMenu() {
         // Bottom Navigation
-        getSupportFragmentManager().beginTransaction().replace(R.id.coach_container, coachHomeFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, coachHomeFragment).commit();
         bottomNavigationView.getMenu().findItem(R.id.nav_cb_home).setChecked(true);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_cb_home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.coach_container, coachHomeFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, coachHomeFragment).commit();
                         return true;
                     case R.id.nav_cb_team_stats:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.coach_container, teamStatsFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, teamStatsFragment).commit();
                         return true;
                     case R.id.nav_cb_messages:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.coach_container, messageFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, messageFragment).commit();
                         return true;
                     case R.id.nav_cb_tactics_board:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.coach_container, coachesBoardFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, coachesBoardFragment).commit();
                         return true;
                     case R.id.nav_cb_game_stats:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.coach_container, gameStatsFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, gameStatsFragment).commit();
                         return true;
                 }
                 return false;
@@ -111,28 +111,28 @@ public class CoachHomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_cd_home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.coach_container, coachHomeFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, coachHomeFragment).commit();
                         drawerLayout.close();
                         bottomNavigationView.setVisibility(View.VISIBLE);
                         bottomNavigationView.getMenu().findItem(R.id.nav_cb_home).setChecked(true);
                         return true;
                     case R.id.nav_cd_profile:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.coach_container, profileFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commit();
                         drawerLayout.close();
                         bottomNavigationView.setVisibility(View.INVISIBLE);
                         return true;
                     case R.id.nav_cd_upload:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.coach_container, uploadFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, uploadFragment).commit();
                         drawerLayout.close();
                         bottomNavigationView.setVisibility(View.INVISIBLE);
                         return true;
                     case R.id.nav_cd_trainings_matches:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.coach_container, trainingMatchFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, trainingMatchFragment).commit();
                         drawerLayout.close();
                         bottomNavigationView.setVisibility(View.INVISIBLE);
                         return true;
                     case R.id.nav_cd_team_list:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.coach_container, teamFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, teamFragment).commit();
                         drawerLayout.close();
                         bottomNavigationView.setVisibility(View.INVISIBLE);
                         return true;

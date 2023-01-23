@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -200,7 +201,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Add to Firestore
-                            Player player = new Player(firstName, surname, dob, phone, email, password, new ArrayList<Team>());
+                            Player player = new Player(firstName, surname, dob, phone, email, password, new ArrayList<DocumentReference>());
                             String playerId = FirebaseAuth.getInstance().getUid();;
                             addPlayerToFireStore(player, playerId);
                         } else {
@@ -242,7 +243,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Add to Firestore
-                            Coach coach = new Coach(firstName, surname, phone, email, password, new ArrayList<Team>());
+                            Coach coach = new Coach(firstName, surname, dob, phone, email, password, new ArrayList<DocumentReference>());
                             String coachId = FirebaseAuth.getInstance().getUid();;
                             addCoachToFireStore(coach, coachId);
                         } else {

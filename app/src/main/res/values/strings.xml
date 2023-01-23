@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Pregame</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Landing Page -->
     <string name="register_button">Register</string>
@@ -32,5 +34,17 @@
     <string name="nav_tactics_board">Tactics</string>
     <string name="nav_game_stats">Game Stats</string>
     <string name="nav_logout">Logout</string>
+
+    <!-- Profile -->
+    <string name="full_name">Full Name</string>
+    <string name="profile_settings">Profile Settings</string>
+    <string name="profile_pic_description">Profile Picture for User</string>
+    <string name="cover_photo">Update Cover Photo    </string>
+
+    <!-- Team -->
+    <string name="create_team">Create Team</string>
+    <string name="join_team">Join Team</string>
+    <string name="team_name">Team Name</string>
+
 
 </resources>

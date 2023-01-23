@@ -1,13 +1,15 @@
 package com.example.pregame.Model;
 
+import com.google.firebase.firestore.DocumentReference;
+
 import java.util.ArrayList;
 
 public class Team {
     private String teamName, teamCode;
-    private ArrayList<Player> players;
-    private ArrayList<Coach> coaches;
+    private ArrayList<DocumentReference> players;
+    private ArrayList<DocumentReference> coaches;
 
-    public Team(String teamName, String teamCode, ArrayList<Player> players, ArrayList<Coach> coaches) {
+    public Team(String teamName, String teamCode, ArrayList<DocumentReference> players, ArrayList<DocumentReference> coaches) {
         this.teamName = teamName;
         this.teamCode = teamCode;
         this.players = players;
@@ -34,17 +36,17 @@ public class Team {
         this.teamCode = teamCode;
     }
 
-    public ArrayList<Player> getPlayers() {
+    public ArrayList<DocumentReference> getPlayers() {
         return players;
     }
-    public void setPlayers(ArrayList<Player> players) {
+    public void setPlayers(ArrayList<DocumentReference> players) {
         this.players = players;
     }
 
-    public ArrayList<Coach> getCoaches() {
+    public ArrayList<DocumentReference> getCoaches() {
         return coaches;
     }
-    public void setCoaches(ArrayList<Coach> coaches) {
+    public void setCoaches(ArrayList<DocumentReference> coaches) {
         this.coaches = coaches;
     }
 

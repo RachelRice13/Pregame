@@ -65,26 +65,26 @@ public class PlayerHomeActivity extends AppCompatActivity {
 
     public void buildMenu() {
         // Bottom Navigation
-        getSupportFragmentManager().beginTransaction().replace(R.id.player_container, playerHomeFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, playerHomeFragment).commit();
         bottomNavigationView.getMenu().findItem(R.id.nav_pb_home).setChecked(true);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_pb_home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.player_container, playerHomeFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, playerHomeFragment).commit();
                         return true;
                     case R.id.nav_pb_team_stats:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.player_container, teamStatsFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, teamStatsFragment).commit();
                         return true;
                     case R.id.nav_pb_messages:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.player_container, messageFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, messageFragment).commit();
                         return true;
                     case R.id.nav_pb_record_shooting:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.player_container, recordShootingFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, recordShootingFragment).commit();
                         return true;
                     case R.id.nav_pb_injury_report:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.player_container, injuryReportFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, injuryReportFragment).commit();
                         return true;
                 }
                 return false;
@@ -109,23 +109,23 @@ public class PlayerHomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_pd_home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.player_container, playerHomeFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, playerHomeFragment).commit();
                         drawerLayout.close();
                         bottomNavigationView.setVisibility(View.VISIBLE);
                         bottomNavigationView.getMenu().findItem(R.id.nav_pb_home).setChecked(true);
                         return true;
                     case R.id.nav_pd_profile:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.player_container, profileFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commit();
                         drawerLayout.close();
                         bottomNavigationView.setVisibility(View.INVISIBLE);
                         return true;
                     case R.id.nav_pd_fees:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.player_container, feesFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, feesFragment).commit();
                         drawerLayout.close();
                         bottomNavigationView.setVisibility(View.INVISIBLE);
                         return true;
                     case R.id.nav_pd_upload:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.player_container, uploadFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, uploadFragment).commit();
                         drawerLayout.close();
                         bottomNavigationView.setVisibility(View.INVISIBLE);
                         return true;
