@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +38,10 @@ public class TeamFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
+    private ArrayList<Team> teams;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private TeamListAdapter adapter;
 
     public TeamFragment() {}
 
@@ -47,7 +53,7 @@ public class TeamFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
 
-        getTeamsInfo();
+        buildRecyclerView();
 
         FloatingActionButton createTeam = view.findViewById(R.id.create_team_button);
         createTeam.setOnClickListener(new View.OnClickListener() {
@@ -79,15 +85,14 @@ public class TeamFragment extends Fragment {
                         // Search through the Coach's array of teams
                         for (int i = 0; i < currentCoach.getTeams().size(); i++) {
                             DocumentReference reference = currentCoach.getTeams().get(i);
-
                             // Get each teams info
                             reference.get()
                                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                                             Team team = documentSnapshot.toObject(Team.class);
-
-                                            // Add team details to RV
+                                            teams.add(team);
+                                            adapter.notifyDataSetChanged();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -99,6 +104,18 @@ public class TeamFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    public void buildRecyclerView() {
+        teams = new ArrayList<>();
+        recyclerView = view.findViewById(R.id.team_list_rv);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(view.getContext());
+        adapter = new TeamListAdapter(teams, getContext());
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        getTeamsInfo();
     }
 
     public void createTeam() {
@@ -133,6 +150,9 @@ public class TeamFragment extends Fragment {
                                 addTeamToCoach(documentReference.getId());
                                 Toast.makeText(getContext(), "Successfully created " + teamName, Toast.LENGTH_SHORT).show();
                                 alert.cancel();
+
+                                teams.add(newTeam);
+                                adapter.notifyDataSetChanged();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

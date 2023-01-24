@@ -70,10 +70,13 @@
 
     </LinearLayout>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/team_buttons_ll"-->
-<!--        android:layout_margin="30dp"/>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/team_list_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/team_buttons_ll"
+        android:layout_margin="20dp"
+        android:padding="6dp"
+        android:scrollbars="vertical"/>
 
 </RelativeLayout>

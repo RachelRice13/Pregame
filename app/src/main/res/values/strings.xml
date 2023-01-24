@@ -45,6 +45,8 @@
     <string name="create_team">Create Team</string>
     <string name="join_team">Join Team</string>
     <string name="team_name">Team Name</string>
+    <string name="team_code">Team Code</string>
+    <string name="num_of_people">People</string>
 
 
 </resources>
