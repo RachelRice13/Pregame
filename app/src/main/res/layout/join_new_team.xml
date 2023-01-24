@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="325dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/custom_border_grey"
+    android:layout_gravity="center"
+    app:circularflow_radiusInDP="10dp"
+    android:padding="5dp">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/join_team_go_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/ic_arrow_back"
+        android:focusable="true"
+        android:clickable="true"
+        android:backgroundTint="@color/transparent"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:maxImageSize="30dp"
+        app:fabSize="mini"/>
+
+    <TextView
+        android:id="@+id/join_new_team_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/join_team"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/enter_team_code_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_team_code"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_below="@id/join_new_team_title"/>
+
+    <LinearLayout
+        android:id="@+id/enter_team_code_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/enter_team_code_tv"
+        android:layout_margin="5dp">
+
+        <EditText
+            android:id="@+id/team_code_1"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:importantForAutofill="no"
+            android:background="@drawable/custom_border_black"
+            android:textAlignment="center"
+            android:maxLength="1"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#757575" />
+
+        <EditText
+            android:id="@+id/team_code_2"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:importantForAutofill="no"
+            android:background="@drawable/custom_border_black"
+            android:textAlignment="center"
+            android:maxLength="1"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#757575" />
+
+        <EditText
+            android:id="@+id/team_code_3"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:importantForAutofill="no"
+            android:background="@drawable/custom_border_black"
+            android:textAlignment="center"
+            android:maxLength="1"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#757575" />
+
+        <EditText
+            android:id="@+id/team_code_4"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:importantForAutofill="no"
+            android:background="@drawable/custom_border_black"
+            android:textAlignment="center"
+            android:maxLength="1"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#757575" />
+
+        <EditText
+            android:id="@+id/team_code_5"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:importantForAutofill="no"
+            android:background="@drawable/custom_border_black"
+            android:textAlignment="center"
+            android:maxLength="1"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#757575" />
+
+        <EditText
+            android:id="@+id/team_code_6"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:importantForAutofill="no"
+            android:background="@drawable/custom_border_black"
+            android:textAlignment="center"
+            android:maxLength="1"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#757575" />
+
+        <EditText
+            android:id="@+id/team_code_7"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:importantForAutofill="no"
+            android:background="@drawable/custom_border_black"
+            android:textAlignment="center"
+            android:maxLength="1"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#757575" />
+
+        <EditText
+            android:id="@+id/team_code_8"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:importantForAutofill="no"
+            android:background="@drawable/custom_border_black"
+            android:textAlignment="center"
+            android:maxLength="1"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#757575" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/join_team_messages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/enter_team_code_ll"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/join_team_message_1"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/join_team_message_2"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/join_team_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/join_team_messages"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/join_new_team_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/join_team"
+            android:textColor="@color/white"
+            android:layout_margin="5dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
