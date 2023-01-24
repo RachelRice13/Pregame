@@ -123,7 +123,7 @@
             android:layout_marginEnd="10dp"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:background="@drawable/custom_border"
+            android:background="@drawable/custom_border_grey"
             app:drawableStartCompat="@drawable/ic_calendar"
             app:errorEnabled="true" />
 

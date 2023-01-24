@@ -39,7 +39,10 @@
     <string name="full_name">Full Name</string>
     <string name="profile_settings">Profile Settings</string>
     <string name="profile_pic_description">Profile Picture for User</string>
-    <string name="cover_photo">Update Cover Photo    </string>
+    <string name="cover_photo">Update Cover Photo</string>
+    <string name="edit_full_name">Edit Full Name</string>
+    <string name="edit_phone_number">Edit Phone Number</string>
+    <string name="edit">Edit</string>
 
     <!-- Team -->
     <string name="create_team">Create Team</string>

@@ -1,15 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Profile.ProfileFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/user_profile_cv"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@color/cardview_dark_background"
+        android:layout_marginTop="40dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profile_image_cv"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="100dp">
+
+            <ImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_profile"
+                android:contentDescription="@string/profile_pic_description"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/profile_user_full_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_image_cv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/full_name"
+            android:textColor="#fff"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/profile_user_details"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Profile"
-        android:textSize="30sp"/>
+        android:layout_below="@+id/user_profile_cv"
+        android:orientation="vertical"
+        android:background="@drawable/customer_border_white_background"
+        android:layout_marginTop="-15dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp">
+
+            <!-- Email TextView -->
+            <TextView
+                android:id="@+id/profile_email_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_email"
+                android:drawablePadding="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <!-- Phone Number TextView -->
+            <TextView
+                android:id="@+id/profile_phone_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_number"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_phone"
+                android:drawablePadding="15dp"
+                android:layout_marginBottom="15dp" />
+
+            <!-- DOB TextView -->
+            <TextView
+                android:id="@+id/profile_dob_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dob"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_birthday"
+                android:drawablePadding="15dp" />
+
+    </LinearLayout>
+
+    <!-- Profile Settings TextView -->
+    <TextView
+        android:id="@+id/profile_settings_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_user_details"
+        android:background="@drawable/custom_border_grey"
+        android:text="@string/profile_settings"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:textColor="#000"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_profile"
+        app:drawableEndCompat="@drawable/ic_arrow_forward"
+        android:drawablePadding="15dp"
+        android:layout_marginTop="50dp"/>
 </RelativeLayout>

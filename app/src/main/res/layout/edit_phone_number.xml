@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="325dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/custom_border_grey"
+    android:layout_gravity="center"
+    app:circularflow_radiusInDP="10dp"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/edit_detail_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/edit_phone_number"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/black"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phone_number"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone_number"
+        app:startIconDrawable="@drawable/ic_phone"
+        app:startIconTint="@color/black"
+        android:textColorHint="@color/black"
+        app:boxStrokeColor="@color/grey"
+        app:boxStrokeWidth="1dp"
+        app:errorEnabled="true"
+        app:hintTextColor="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phone_number_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:maxLength="10"
+            android:textColorHint="#757575" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RelativeLayout
+        android:id="@+id/edit_phone_number_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/edit_phone_number_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit"
+            android:textColor="@color/white"
+            android:layout_margin="5dp"
+            android:layout_toStartOf="@id/cancel_edit_phone_number_button"/>
+
+        <Button
+            android:id="@+id/cancel_edit_phone_number_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            android:layout_margin="5dp"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
