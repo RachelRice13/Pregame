@@ -43,17 +43,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class EditProfileFragment extends Fragment {
-    public static String userType = "";
-    public static Player globalPlayer = new Player();
-    public static Coach globalCoach = new Coach();
-    public static final String TAG = "Profile";
+    public static final String TAG = "EditProfile";
     private View view;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
-    private TextView fullNameTv, emailTv, phoneTv, dobTv, passwordTv;
+    private TextView fullNameTv, emailTv, phoneTv, passwordTv;
     private ImageView profilePicIv;
     private Uri profileUri;
 
@@ -111,7 +108,6 @@ public class EditProfileFragment extends Fragment {
         fullNameTv = view.findViewById(R.id.edit_profile_full_name_tv);
         emailTv = view.findViewById(R.id.edit_profile_email_tv);
         phoneTv = view.findViewById(R.id.edit_profile_phone_tv);
-        dobTv = view.findViewById(R.id.edit_profile_dob_tv);
         passwordTv = view.findViewById(R.id.edit_profile_password_tv);
 
         // Setting Profile Picture
@@ -139,13 +135,10 @@ public class EditProfileFragment extends Fragment {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
                             Player player = documentSnapshot.toObject(Player.class);
-                            userType = "Player";
-                            globalPlayer = player;
 
                             fullNameTv.setText(player.getFirstName() + " " + player.getSurname());
                             emailTv.setText(player.getEmail());
                             phoneTv.setText(player.getPhoneNumber());
-                            dobTv.setText(player.getDob());
                             passwordTv.setText(player.getPassword());
                         } else {
                             // Check to see if user exist in the Coach collection
@@ -155,13 +148,10 @@ public class EditProfileFragment extends Fragment {
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                                             if (documentSnapshot.exists()) {
                                                 Coach coach = documentSnapshot.toObject(Coach.class);
-                                                userType = "Coach";
-                                                globalCoach = coach;
 
                                                 fullNameTv.setText(coach.getFirstName() + " " + coach.getSurname());
                                                 emailTv.setText(coach.getEmail());
                                                 phoneTv.setText(coach.getPhoneNumber());
-                                                dobTv.setText(coach.getDob());
                                                 passwordTv.setText(coach.getPassword());
                                             }
                                         }
@@ -231,12 +221,12 @@ public class EditProfileFragment extends Fragment {
         Button editFullNameButton = editFullNameV.findViewById(R.id.edit_full_name_button);
         Button goBack = editFullNameV.findViewById(R.id.cancel_full_name_button);
 
-        if (userType.equals("Player")) {
-            editFirstNameEt.setText(globalPlayer.getFirstName());
-            editSurnameEt.setText(globalPlayer.getSurname());
+        if (ProfileFragment.userType.equals("Player")) {
+            editFirstNameEt.setText(ProfileFragment.globalPlayer.getFirstName());
+            editSurnameEt.setText(ProfileFragment.globalPlayer.getSurname());
         } else {
-            editFirstNameEt.setText(globalCoach.getFirstName());
-            editSurnameEt.setText(globalCoach.getSurname());
+            editFirstNameEt.setText(ProfileFragment.globalCoach.getFirstName());
+            editSurnameEt.setText(ProfileFragment.globalCoach.getSurname());
         }
 
         editFullNameAD.setCancelable(false).setView(editFullNameV);
@@ -253,7 +243,7 @@ public class EditProfileFragment extends Fragment {
                     editFirstNameLO.setError("This is required");
                     editSurnameLO.setError("This is required");
                 } else {
-                    if (userType.equals("Player")) {
+                    if (ProfileFragment.userType.equals("Player")) {
                         updateFirestore("player", "firstName", firstName);
                         updateFirestore("player", "surname", surname);
                     } else {
@@ -289,10 +279,10 @@ public class EditProfileFragment extends Fragment {
         AlertDialog alert = editPhoneAD.create();
         alert.show();
 
-        if (userType.equals("Player")) {
-            editPhoneEt.setText(globalPlayer.getPhoneNumber());
+        if (ProfileFragment.userType.equals("Player")) {
+            editPhoneEt.setText(ProfileFragment.globalPlayer.getPhoneNumber());
         } else {
-            editPhoneEt.setText(globalCoach.getPhoneNumber());
+            editPhoneEt.setText(ProfileFragment.globalCoach.getPhoneNumber());
         }
 
         editPhoneButton.setOnClickListener(new View.OnClickListener() {
@@ -303,7 +293,7 @@ public class EditProfileFragment extends Fragment {
                 if (newPhoneNumber.isEmpty()) {
                     editPhoneLO.setError("This is required");
                 } else {
-                    if (userType.equals("Player")) {
+                    if (ProfileFragment.userType.equals("Player")) {
                         updateFirestore("player", "phoneNumber", newPhoneNumber);
                     } else {
                         updateFirestore("coach", "phoneNumber", newPhoneNumber);

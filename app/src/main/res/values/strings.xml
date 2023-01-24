@@ -43,6 +43,7 @@
     <string name="edit_full_name">Edit Full Name</string>
     <string name="edit_phone_number">Edit Phone Number</string>
     <string name="edit">Edit</string>
+    <string name="my_teams">My Teams</string>
 
     <!-- Team -->
     <string name="create_team">Create Team</string>

@@ -13,6 +13,15 @@
         android:background="@color/cardview_dark_background"
         android:layout_marginTop="40dp">
 
+        <Button
+            android:id="@+id/view_my_teams"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/my_teams"
+            android:textAllCaps="false"/>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/profile_image_cv"
             android:layout_width="140dp"

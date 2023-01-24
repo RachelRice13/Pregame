@@ -108,18 +108,6 @@
             android:drawablePadding="15dp"
             android:layout_marginBottom="15dp" />
 
-        <!-- DOB TextView -->
-        <TextView
-            android:id="@+id/edit_profile_dob_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dob"
-            android:textColor="#000"
-            android:textSize="20sp"
-            app:drawableStartCompat="@drawable/ic_birthday"
-            android:drawablePadding="15dp"
-            android:layout_marginBottom="15dp" />
-
         <!-- Password TextView -->
         <TextView
             android:id="@+id/edit_profile_password_tv"
