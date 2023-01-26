@@ -3,80 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Team.TeamFragment">
 
-    <LinearLayout
-        android:id="@+id/team_buttons_ll"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/team_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="70dp"
-        android:gravity="center_horizontal">
-
-        <LinearLayout
-            android:id="@+id/create_team_ll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_marginEnd="60dp">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/create_team_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add"
-                app:borderWidth="0dp"
-                android:backgroundTint="@color/cardview_dark_background"
-                app:tint="@color/white"
-                app:maxImageSize="35dp" />
-
-            <TextView
-                android:id="@+id/create_team_tv"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/create_team"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/join_team_ll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_marginStart="60dp">
-
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/join_team_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_search"
-                app:borderWidth="0dp"
-                android:backgroundTint="@color/cardview_dark_background"
-                app:tint="@color/white"
-                app:maxImageSize="35dp"
-                />
-
-            <TextView
-                android:id="@+id/join_team_tv"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/join_team"
-                android:gravity="center_horizontal"/>
-        </LinearLayout>
-
-    </LinearLayout>
+        android:text="@string/team_name"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/team_list_rv"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_below="@id/team_buttons_ll"
         android:layout_margin="20dp"
+        android:layout_below="@+id/team_name"
         android:padding="6dp"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical" />
 
 </RelativeLayout>
