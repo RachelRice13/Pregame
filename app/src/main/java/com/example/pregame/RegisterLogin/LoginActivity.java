@@ -9,19 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.pregame.CoachHomeActivity;
 import com.example.pregame.LandingPage;
-import com.example.pregame.PlayerHomeActivity;
 import com.example.pregame.R;
+import com.example.pregame.SelectTeamActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
@@ -82,7 +78,8 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "loginUserWithEmail: success");
-                                findUser();
+                                Intent selectTeamIntent = new Intent(LoginActivity.this, SelectTeamActivity.class);
+                                startActivity(selectTeamIntent);
                             } else {
                                 Log.e(TAG, "loginUserWithEmail: failure", task.getException());
                                 if (task.getException().getMessage().equals("There is no user record corresponding to this identifier. The user may have been deleted.")) {
@@ -96,37 +93,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
         }
-    }
-
-    public void findUser() {
-        String id = firebaseAuth.getCurrentUser().getUid();
-
-        // Check to see if user exist in the Player collection
-        firebaseFirestore.collection("player").document(id).get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            Intent playerIntent = new Intent(LoginActivity.this, PlayerHomeActivity.class);
-                            startActivity(playerIntent);
-                        } else {
-                            // Check to see if user exist in the Coach collection
-                            firebaseFirestore.collection("coach").document(id).get()
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                            if (documentSnapshot.exists()) {
-                                                Intent coachIntent = new Intent(LoginActivity.this, CoachHomeActivity.class);
-                                                startActivity(coachIntent);
-                                            } else {
-                                                Toast.makeText(LoginActivity.this, "Error Logging In", Toast.LENGTH_SHORT).show();
-                                                Log.e(TAG, "User doesn't exist in either the Player or Coach collections");
-                                            }
-                                        }
-                                    });
-                        }
-                    }
-                });
     }
 
     public boolean validateBlank(String text, TextInputLayout layout) {

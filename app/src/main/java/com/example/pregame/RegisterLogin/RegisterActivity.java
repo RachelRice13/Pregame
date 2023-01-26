@@ -15,13 +15,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pregame.CoachHomeActivity;
 import com.example.pregame.LandingPage;
 import com.example.pregame.Model.Coach;
 import com.example.pregame.Model.Player;
-import com.example.pregame.PlayerHomeActivity;
 import com.example.pregame.R;
-import com.example.pregame.Model.Team;
+import com.example.pregame.SelectTeamActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -222,8 +220,8 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d(TAG, "createUserWithEmail: successful");
-                        Intent playerIntent = new Intent(RegisterActivity.this, PlayerHomeActivity.class);
-                        startActivity(playerIntent);
+                        Intent selectTeamIntent = new Intent(RegisterActivity.this, SelectTeamActivity.class);
+                        startActivity(selectTeamIntent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -264,8 +262,8 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d(TAG, "createUserWithEmail: successful");
-                        Intent coachIntent = new Intent(RegisterActivity.this, CoachHomeActivity.class);
-                        startActivity(coachIntent);
+                        Intent selectTeamIntent = new Intent(RegisterActivity.this, SelectTeamActivity.class);
+                        startActivity(selectTeamIntent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

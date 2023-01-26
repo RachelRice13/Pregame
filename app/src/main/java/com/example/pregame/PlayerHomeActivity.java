@@ -11,12 +11,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.pregame.Fees.FeesFragment;
 import com.example.pregame.HomePage.PlayerHomeFragment;
 import com.example.pregame.InjuryReport.InjuryReportFragment;
 import com.example.pregame.Message.MessageFragment;
+import com.example.pregame.Model.Team;
 import com.example.pregame.Profile.ProfileFragment;
 import com.example.pregame.RecordShooting.RecordShootingFragment;
 import com.example.pregame.Stats.TeamStatsFragment;
@@ -29,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class PlayerHomeActivity extends AppCompatActivity {
+    public static Team currentTeam = new Team();
+    public static String userType = "";
     private BottomNavigationView bottomNavigationView;
     private MaterialToolbar toolbar;
     private DrawerLayout drawerLayout;
@@ -147,8 +149,9 @@ public class PlayerHomeActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(PlayerHomeActivity.this, currentUser.getEmail() + " has signed out", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(PlayerHomeActivity.this, currentUser.getEmail() + " has signed out", Toast.LENGTH_SHORT).show();
                         firebaseAuth.signOut();
+                        PlayerHomeActivity.userType = "";
                         Intent logoutIntent = new Intent(PlayerHomeActivity.this, LandingPage.class);
                         startActivity(logoutIntent);
                     }
