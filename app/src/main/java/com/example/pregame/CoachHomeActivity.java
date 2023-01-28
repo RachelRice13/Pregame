@@ -27,17 +27,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class CoachHomeActivity extends AppCompatActivity {
     public static Team currentTeam = new Team();
     public static String userType = "";
     private BottomNavigationView bottomNavigationView;
-    private MaterialToolbar toolbar;
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser currentUser;
 
     // Fragments
     private CoachHomeFragment coachHomeFragment = new CoachHomeFragment();
@@ -57,7 +53,6 @@ public class CoachHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_coach_home);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        currentUser = firebaseAuth.getCurrentUser();
         bottomNavigationView = findViewById(R.id.coach_bottom_navigation);
         buildMenu();
 
@@ -96,9 +91,9 @@ public class CoachHomeActivity extends AppCompatActivity {
         });
 
         // Drawer Navigation
-        toolbar = findViewById(R.id.coach_top_app_bar);
+        MaterialToolbar toolbar = findViewById(R.id.coach_top_app_bar);
         drawerLayout = findViewById(R.id.coach_drawer_layout);
-        navigationView = findViewById(R.id.coach_navigation_view);
+        NavigationView navigationView = findViewById(R.id.coach_navigation_view);
         drawerLayout.bringToFront();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -156,7 +151,6 @@ public class CoachHomeActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                        Toast.makeText(CoachHomeActivity.this, currentUser.getEmail() + " has signed out", Toast.LENGTH_SHORT).show();
                         firebaseAuth.signOut();
                         CoachHomeActivity.userType = "";
                         Intent logoutIntent = new Intent(CoachHomeActivity.this, LandingPage.class);

@@ -26,17 +26,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class PlayerHomeActivity extends AppCompatActivity {
     public static Team currentTeam = new Team();
     public static String userType = "";
     private BottomNavigationView bottomNavigationView;
-    private MaterialToolbar toolbar;
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser currentUser;
 
     // Fragments
     private PlayerHomeFragment playerHomeFragment = new PlayerHomeFragment();
@@ -55,7 +51,6 @@ public class PlayerHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player_home);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        currentUser = firebaseAuth.getCurrentUser();
         bottomNavigationView = findViewById(R.id.player_bottom_navigation);
         buildMenu();
 
@@ -94,9 +89,9 @@ public class PlayerHomeActivity extends AppCompatActivity {
         });
 
         // Drawer Navigation
-        toolbar = findViewById(R.id.player_top_app_bar);
+        MaterialToolbar toolbar = findViewById(R.id.player_top_app_bar);
         drawerLayout = findViewById(R.id.player_drawer_layout);
-        navigationView = findViewById(R.id.player_navigation_view);
+        NavigationView navigationView = findViewById(R.id.player_navigation_view);
         drawerLayout.bringToFront();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -149,7 +144,6 @@ public class PlayerHomeActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                        Toast.makeText(PlayerHomeActivity.this, currentUser.getEmail() + " has signed out", Toast.LENGTH_SHORT).show();
                         firebaseAuth.signOut();
                         PlayerHomeActivity.userType = "";
                         Intent logoutIntent = new Intent(PlayerHomeActivity.this, LandingPage.class);
