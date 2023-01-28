@@ -6,7 +6,7 @@ import com.google.firebase.firestore.Exclude;
 
 public class MatchId {
     @Exclude
-    private String MatchId;
+    public String MatchId;
 
     public <T extends MatchId> T withId(@NonNull final String id) {
         this.MatchId = id;

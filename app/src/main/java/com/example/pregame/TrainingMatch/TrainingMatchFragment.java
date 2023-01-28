@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -114,6 +115,8 @@ public class TrainingMatchFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(view.getContext());
         matchAdapter = new MatchAdapter(matches, getContext());
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MatchTouchHelper(matchAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(matchAdapter);

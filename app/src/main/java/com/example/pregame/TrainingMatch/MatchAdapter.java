@@ -14,8 +14,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pregame.Model.Match;
+import com.example.pregame.PlayerHomeActivity;
 import com.example.pregame.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -28,6 +34,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
     public static final String Match = "Match";
     private List<Match> matches;
     private Context context;
+    private FirebaseFirestore firebaseFirestore;
 
     public MatchAdapter (List<Match> matches, Context context) {
         this.matches = matches;
@@ -64,6 +71,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
     @Override
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.match_row_layout, parent, false);
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         return new ExampleViewHolder(view);
     }
@@ -146,5 +154,24 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
                 alert.cancel();
             }
         });
+    }
+
+    public void deleteMatch(int position) {
+        Match match = matches.get(position);
+
+        firebaseFirestore.collection("team").whereEqualTo("teamName", PlayerHomeActivity.currentTeam.getTeamName()).get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                                        String teamDoc = queryDocumentSnapshot.getId();
+                                        firebaseFirestore.collection("team").document(teamDoc).collection("match").document(match.MatchId).delete();
+                                        matches.remove(position);
+                                        notifyItemRemoved(position);
+                                    }
+                                }
+                            }
+                        });
     }
 }
