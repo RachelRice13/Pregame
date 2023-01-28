@@ -55,5 +55,26 @@
     <string name="join_team_message_1">Don\'t have one?</string>
     <string name="join_team_message_2">Ask your coach or a teammate</string>
 
+    <!-- Trainings & Matches -->
+    <string name="add_match">Add Match</string>
+    <string name="add_training">Add Training</string>
+    <string name="matches">Matches</string>
+    <string name="trainings">Trainings</string>
+    <string name="match">Match</string>
+    <string name="month">Month</string>
+    <string name="day_of_the_week">Day</string>
+
+    <string name="match_title">Match Title</string>
+    <string name="date">Date</string>
+    <string name="opponent_name">Opponent</string>
+    <string name="start_time">Start Time</string>
+    <string name="meet_time">Meet Time</string>
+    <string name="home">Home</string>
+    <string name="away">Away</string>
+    <string name="location">Location</string>
+    <string name="home_or_away">Home or Away</string>
+    <string name="status">Status</string>
+    <string name="score">Score</string>
+    <string name="go_back">Go Back</string>
 
 </resources>
