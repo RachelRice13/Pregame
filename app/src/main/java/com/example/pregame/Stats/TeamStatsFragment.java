@@ -1,5 +1,6 @@
 package com.example.pregame.Stats;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,13 +26,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.eazegraph.lib.charts.PieChart;
+import org.eazegraph.lib.models.PieModel;
+
 public class TeamStatsFragment extends Fragment {
     public static final String TAG = "TeamStats";
     private View view;
-    private TextView teamNameTv;
+    private TextView teamNameTv, winsLegendTv, loseLegendTv, drawsLegendTv, notPlayedLegendTv;
     private LinearLayout generalStatsLL, trainingStatsLL, matchStatsLL;
     private Button generalStatsBut, trainingStatsBut, matchStatsBut;
+    private PieChart matchResultsPieChart;
     private FirebaseFirestore firebaseFirestore;
+    private int totalPlayed, totalWins;
 
     public TeamStatsFragment() {}
 
@@ -47,6 +53,11 @@ public class TeamStatsFragment extends Fragment {
         trainingStatsBut = view.findViewById(R.id.training_stats_button);
         matchStatsLL = view.findViewById(R.id.match_stats_ll);
         matchStatsBut = view.findViewById(R.id.match_stats_button);
+        matchResultsPieChart = view.findViewById(R.id.match_results_pie_chart);
+        winsLegendTv = view.findViewById(R.id.wins_legend_tv);
+        loseLegendTv = view.findViewById(R.id.loses_legend_tv);
+        drawsLegendTv = view.findViewById(R.id.draws_legend_tv);
+        notPlayedLegendTv = view.findViewById(R.id.not_played_legend_tv);
 
         getTeamDetails();
         choose();
@@ -66,6 +77,7 @@ public class TeamStatsFragment extends Fragment {
         teamNameTv.setText(team.getTeamName());
 
         setGeneralTeamStats(team);
+        setMatchStats(team);
     }
 
     public void setGeneralTeamStats(Team team) {
@@ -99,6 +111,34 @@ public class TeamStatsFragment extends Fragment {
                         });
     }
 
+    public void setMatchStats(Team team) {
+        firebaseFirestore.collection("team").whereEqualTo("teamName", team.getTeamName()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                                String teamDoc = queryDocumentSnapshot.getId();
+
+                                // Get number of wins
+                                getCountWhere(teamDoc, "Won", "Wins", "#00FF00", winsLegendTv);
+
+                                // Get number of loses
+                                getCountWhere(teamDoc, "Lose", "Loses", "#FF0000", loseLegendTv);
+
+                                // Get number of draws
+                                getCountWhere(teamDoc, "Draw", "Draws", "#FFFF00", drawsLegendTv);
+
+                                // Get number of haven't played
+                                getCountWhere(teamDoc, "Haven't Played", "Haven't Played", "#0000FF", notPlayedLegendTv);
+
+                                matchResultsPieChart.startAnimation();
+                            }
+                        }
+                    }
+                });
+    }
+
     public void getCount(String teamDoc, String type, TextView textView) {
         firebaseFirestore.collection("team").document(teamDoc).collection(type).count()
                 .get(AggregateSource.SERVER)
@@ -108,6 +148,50 @@ public class TeamStatsFragment extends Fragment {
                         if (task.isSuccessful()) {
                             AggregateQuerySnapshot snapshot = task.getResult();
                             textView.setText(String.valueOf(snapshot.getCount()));
+                        } else {
+                            Log.e(TAG, "Count Failed: " + task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void getCountWhere(String teamDoc, String statusType, String status, String colour, TextView textView) {
+        firebaseFirestore.collection("team").document(teamDoc).collection("match").whereEqualTo("status", statusType).count()
+                .get(AggregateSource.SERVER)
+                .addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            AggregateQuerySnapshot snapshot = task.getResult();
+                            int count = (int) snapshot.getCount();
+                            double winPercentage;
+
+                            // Add pie slice to pie chart
+                            matchResultsPieChart.addPieSlice(
+                                    new PieModel(status, count, Color.parseColor(colour))
+                            );
+
+                            // Update Legend
+                            textView.setText(count + " " + status);
+
+                            // Calculate Win %
+                            if (!status.equals("Haven't Played")) {
+                                totalPlayed += count;
+                            }
+
+                            if (status.equals("Wins")) {
+                                totalWins = count;
+                            }
+
+                            if (totalPlayed == 0) {
+                                winPercentage = 0;
+                            } else {
+                                winPercentage = (totalWins*100)/totalPlayed;
+                            }
+
+                            matchResultsPieChart.setUseInnerValue(true);
+                            matchResultsPieChart.setInnerValueSize(70);
+                            matchResultsPieChart.setInnerValueString(winPercentage + "%");
                         } else {
                             Log.e(TAG, "Count Failed: " + task.getException());
                         }

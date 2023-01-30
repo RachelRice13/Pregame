@@ -92,5 +92,9 @@
     <string name="number">0</string>
     <string name="players">Players</string>
     <string name="coaches">Coaches</string>
+    <string name="wins">Wins</string>
+    <string name="loses">Loses</string>
+    <string name="draws">Draws</string>
+    <string name="not_played">Haven\'t Played</string>
 
 </resources>
