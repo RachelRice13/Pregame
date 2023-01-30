@@ -61,6 +61,7 @@
     <string name="matches">Matches</string>
     <string name="trainings">Trainings</string>
     <string name="match">Match</string>
+    <string name="training">Training</string>
     <string name="month">Month</string>
     <string name="day_of_the_week">Day</string>
 
@@ -85,5 +86,11 @@
     <string name="edit_match_opponent">Edit Match Opponent</string>
     <string name="edit_match_location">Edit Match Location</string>
     <string name="edit_match_score">Edit Match Score</string>
+
+    <!-- Stats -->
+    <string name="general_stats">General</string>
+    <string name="number">0</string>
+    <string name="players">Players</string>
+    <string name="coaches">Coaches</string>
 
 </resources>
