@@ -3,7 +3,6 @@ package com.example.pregame.TrainingMatch;
 import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -51,8 +50,7 @@ public class MatchTouchHelper extends ItemTouchHelper.SimpleCallback {
             AlertDialog dialog = builder.create();
             dialog.show();
         } else {
-            Toast.makeText(matchAdapter.getContext(), "Swiped Left", Toast.LENGTH_SHORT).show();
-            matchAdapter.notifyItemChanged(position);
+            matchAdapter.editMatchDetails(position);
         }
     }
 

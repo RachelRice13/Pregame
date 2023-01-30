@@ -75,6 +75,15 @@
     <string name="home_or_away">Home or Away</string>
     <string name="status">Status</string>
     <string name="score">Score</string>
+    <string name="team_score">Team Score</string>
+    <string name="opponent_score">Opponent Score</string>
     <string name="go_back">Go Back</string>
+
+    <string name="edit_details">Edit Details</string>
+    <string name="details">Details</string>
+    <string name="edit_match_title">Edit Match Title</string>
+    <string name="edit_match_opponent">Edit Match Opponent</string>
+    <string name="edit_match_location">Edit Match Location</string>
+    <string name="edit_match_score">Edit Match Score</string>
 
 </resources>
