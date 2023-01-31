@@ -66,6 +66,7 @@
     <string name="day_of_the_week">Day</string>
 
     <string name="match_title">Match Title</string>
+    <string name="training_title">Training Title</string>
     <string name="date">Date</string>
     <string name="opponent_name">Opponent</string>
     <string name="start_time">Start Time</string>

@@ -43,14 +43,42 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/match_training_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_below="@id/buttons"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/view_matches_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/matches"
+            android:layout_weight="1"
+            android:layout_margin="5dp"/>
+
+        <Button
+            android:id="@+id/view_trainings_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trainings"
+            android:layout_weight="1"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/matches_rl"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="400dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_below="@id/buttons"
-        android:layout_marginTop="20dp">
+        android:layout_below="@id/match_training_buttons"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/matches_rv_tv"
@@ -70,31 +98,31 @@
 
     </RelativeLayout>
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/trainings_rl"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="250dp"-->
-<!--        android:layout_marginStart="40dp"-->
-<!--        android:layout_marginEnd="40dp"-->
-<!--        android:layout_below="@id/matches_rl"-->
-<!--        android:layout_marginTop="20dp">-->
+    <RelativeLayout
+        android:id="@+id/training_rl"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/match_training_buttons"
+        android:layout_marginTop="20dp">
 
-<!--        <TextView-->
-<!--            android:id="@+id/trainings_rv_tv"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/trainings"-->
-<!--            android:textSize="18sp"/>-->
+        <TextView
+            android:id="@+id/trainings_rv_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trainings"
+            android:textSize="18sp"/>
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/training_rv"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/trainings_rv_tv"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:padding="6dp"-->
-<!--            android:scrollbars="vertical"/>-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/training_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/trainings_rv_tv"
+            android:layout_marginTop="5dp"
+            android:padding="6dp"
+            android:scrollbars="vertical"/>
 
-<!--    </RelativeLayout>-->
+    </RelativeLayout>
 
 </RelativeLayout>

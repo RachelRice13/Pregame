@@ -13,11 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pregame.CoachHomeActivity;
 import com.example.pregame.Model.Match;
 import com.example.pregame.Model.Team;
+import com.example.pregame.Model.Training;
 import com.example.pregame.PlayerHomeActivity;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,9 +39,13 @@ public class TrainingMatchFragment extends Fragment {
     public static final String TAG = "TrainingMatch";
     private View view;
     private ArrayList<Match> matches;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<Training> trainings;
+    private RecyclerView recyclerView, trainingRecyclerView;
+    private RecyclerView.LayoutManager layoutManager, trainingLayoutManager;;
+    private RelativeLayout matchRL, trainingRL;
+    private Button matchBut, trainingBut;
     private MatchAdapter matchAdapter;
+    private TrainingAdapter trainingAdapter;
     private TextView teamNameTv;
     private Team team;
     private FirebaseFirestore firebaseFirestore;
@@ -53,15 +59,28 @@ public class TrainingMatchFragment extends Fragment {
 
         teamNameTv = view.findViewById(R.id.team_name);
         firebaseFirestore = FirebaseFirestore.getInstance();
+        matchBut = view.findViewById(R.id.view_matches_button);
+        trainingBut = view.findViewById(R.id.view_trainings_button);
+        matchRL = view.findViewById(R.id.matches_rl);
+        trainingRL = view.findViewById(R.id.training_rl);
 
         getTeamDetails();
-        buildMatchRecyclerView();
+        buildTrainingRecyclerView();
+        choose();
 
         Button addMatch = view.findViewById(R.id.add_match_button);
         addMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AddMatch.newInstance().show(getParentFragmentManager(), AddMatch.TAG);
+            }
+        });
+
+        Button addTraining = view.findViewById(R.id.add_training_button);
+        addTraining.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddTraining.newInstance().show(getParentFragmentManager(), AddTraining.TAG);
             }
         });
 
@@ -109,6 +128,36 @@ public class TrainingMatchFragment extends Fragment {
                 });
     }
 
+    public void populateTrainings() {
+        firebaseFirestore.collection("team").whereEqualTo("teamName", team.getTeamName()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                                String teamDoc = queryDocumentSnapshot.getId();
+
+                                Query query = firebaseFirestore.collection("team").document(teamDoc).collection("training").orderBy("date", Query.Direction.ASCENDING);
+
+                                listenerRegistration = query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                        for (DocumentChange change : value.getDocumentChanges()) {
+                                            if (change.getType() == DocumentChange.Type.ADDED) {
+                                                Training training = change.getDocument().toObject(Training.class).withId(change.getDocument().getId());
+                                                trainings.add(training);
+                                                trainingAdapter.notifyDataSetChanged();
+                                            }
+                                        }
+                                        listenerRegistration.remove();
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+    }
+
     public void buildMatchRecyclerView() {
         matches = new ArrayList<>();
         recyclerView = view.findViewById(R.id.match_rv);
@@ -121,5 +170,38 @@ public class TrainingMatchFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(matchAdapter);
         populateMatches();
+    }
+
+    public void buildTrainingRecyclerView() {
+        trainings = new ArrayList<>();
+        trainingRecyclerView = view.findViewById(R.id.training_rv);
+        trainingRecyclerView.setHasFixedSize(true);
+        trainingLayoutManager = new LinearLayoutManager(view.getContext());
+        trainingAdapter = new TrainingAdapter(trainings, getContext());
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new TrainingTouchHelper(trainingAdapter));
+//        itemTouchHelper.attachToRecyclerView(trainingRecyclerView);
+
+        trainingRecyclerView.setLayoutManager(trainingLayoutManager);
+        trainingRecyclerView.setAdapter(trainingAdapter);
+        populateTrainings();
+    }
+
+    public void choose() {
+        matchBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                matchRL.setVisibility(View.VISIBLE);
+                trainingRL.setVisibility(View.INVISIBLE);
+                buildMatchRecyclerView();
+            }
+        });
+
+        trainingBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                matchRL.setVisibility(View.INVISIBLE);
+                trainingRL.setVisibility(View.VISIBLE);
+            }
+        });
     }
 }

@@ -16,8 +16,10 @@ import android.widget.LinearLayout;
 
 import com.example.pregame.CoachHomeActivity;
 import com.example.pregame.Model.Match;
+import com.example.pregame.Model.Training;
 import com.example.pregame.R;
 import com.example.pregame.TrainingMatch.MatchAdapter;
+import com.example.pregame.TrainingMatch.TrainingAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
@@ -38,9 +40,11 @@ public class CoachHomeFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private ListenerRegistration listenerRegistration;
     private ArrayList<Match> matches;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<Training> trainings;
+    private RecyclerView recyclerView, trainingRecyclerView;
+    private RecyclerView.LayoutManager layoutManager, trainingLayoutManager;
     private MatchAdapter matchAdapter;
+    private TrainingAdapter trainingAdapter;
 
     public CoachHomeFragment() { }
 
@@ -54,7 +58,7 @@ public class CoachHomeFragment extends Fragment {
         matchLL = view.findViewById(R.id.match_ll);
         trainingLL = view.findViewById(R.id.training_ll);
 
-        buildMatchRecyclerView();
+        buildTrainingRecyclerView();
         choose();
 
         return view;
@@ -90,6 +94,36 @@ public class CoachHomeFragment extends Fragment {
                 });
     }
 
+    public void populateTrainings() {
+        firebaseFirestore.collection("team").whereEqualTo("teamName", CoachHomeActivity.currentTeam.getTeamName()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                                String teamDoc = queryDocumentSnapshot.getId();
+
+                                Query query = firebaseFirestore.collection("team").document(teamDoc).collection("training").orderBy("date", Query.Direction.ASCENDING);
+
+                                listenerRegistration = query.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                        for (DocumentChange change : value.getDocumentChanges()) {
+                                            if (change.getType() == DocumentChange.Type.ADDED) {
+                                                Training training = change.getDocument().toObject(Training.class).withId(change.getDocument().getId());
+                                                trainings.add(training);
+                                                trainingAdapter.notifyDataSetChanged();
+                                            }
+                                        }
+                                        listenerRegistration.remove();
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+    }
+
     public void buildMatchRecyclerView() {
         matches = new ArrayList<>();
         recyclerView = view.findViewById(R.id.matches_rv);
@@ -102,12 +136,27 @@ public class CoachHomeFragment extends Fragment {
         populateMatches();
     }
 
+    public void buildTrainingRecyclerView() {
+        trainings = new ArrayList<>();
+        trainingRecyclerView = view.findViewById(R.id.training_rv);
+        trainingRecyclerView.setHasFixedSize(true);
+        trainingLayoutManager = new LinearLayoutManager(view.getContext());
+        trainingAdapter = new TrainingAdapter(trainings, getContext());
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new TrainingTouchHelper(trainingAdapter));
+//        itemTouchHelper.attachToRecyclerView(trainingRecyclerView);
+
+        trainingRecyclerView.setLayoutManager(trainingLayoutManager);
+        trainingRecyclerView.setAdapter(trainingAdapter);
+        populateTrainings();
+    }
+
     public void choose() {
         matchBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 matchLL.setVisibility(View.VISIBLE);
                 trainingLL.setVisibility(View.INVISIBLE);
+                buildMatchRecyclerView();
             }
         });
 
