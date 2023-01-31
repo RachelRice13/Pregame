@@ -178,8 +178,8 @@ public class TrainingMatchFragment extends Fragment {
         trainingRecyclerView.setHasFixedSize(true);
         trainingLayoutManager = new LinearLayoutManager(view.getContext());
         trainingAdapter = new TrainingAdapter(trainings, getContext());
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new TrainingTouchHelper(trainingAdapter));
-//        itemTouchHelper.attachToRecyclerView(trainingRecyclerView);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new TrainingTouchHelper(trainingAdapter));
+        itemTouchHelper.attachToRecyclerView(trainingRecyclerView);
 
         trainingRecyclerView.setLayoutManager(trainingLayoutManager);
         trainingRecyclerView.setAdapter(trainingAdapter);

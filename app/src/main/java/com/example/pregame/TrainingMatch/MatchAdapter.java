@@ -166,7 +166,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
     public void deleteMatch(int position) {
         Match match = matches.get(position);
 
-        firebaseFirestore.collection("team").whereEqualTo("teamName", PlayerHomeActivity.currentTeam.getTeamName()).get()
+        firebaseFirestore.collection("team").whereEqualTo("teamName", CoachHomeActivity.currentTeam.getTeamName()).get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -221,8 +221,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notifyItemChanged(position);
                 alert.cancel();
+                notifyItemChanged(position);
             }
         });
 

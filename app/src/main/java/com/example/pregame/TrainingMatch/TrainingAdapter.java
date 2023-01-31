@@ -6,15 +6,22 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pregame.CoachHomeActivity;
 import com.example.pregame.Model.Training;
 import com.example.pregame.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -91,6 +98,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Exampl
             @Override
             public void onClick(View view) {
                 Training training = trainings.get(position);
+                viewTrainingDetails(training);
             }
         });
     }
@@ -103,4 +111,56 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Exampl
     public Context getContext() {
         return context;
     }
+
+    public void viewTrainingDetails(Training training) {
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        View viewMTrainingDetailsV = layoutInflater.inflate(R.layout.view_training_details, null);
+        AlertDialog.Builder viewTrainingDetailsAD = new AlertDialog.Builder(getContext());
+
+        TextView trainingTitleTv = viewMTrainingDetailsV.findViewById(R.id.training_title_tv);
+        TextView dateTv = viewMTrainingDetailsV.findViewById(R.id.date_tv);
+        TextView startTimeTv = viewMTrainingDetailsV.findViewById(R.id.start_time_tv);
+        TextView meetTimeTv = viewMTrainingDetailsV.findViewById(R.id.meet_time_tv);
+        TextView locationTv = viewMTrainingDetailsV.findViewById(R.id.location_tv);
+        TextView detailsTv = viewMTrainingDetailsV.findViewById(R.id.details_tv);
+        Button goBack = viewMTrainingDetailsV.findViewById(R.id.go_back_button);
+
+        trainingTitleTv.setText(training.getTrainingTitle());
+        dateTv.setText("Date: " + training.getDate());
+        startTimeTv.setText("Start Time: " + training.getStartTime());
+        meetTimeTv.setText("Meet Time: " + training.getMeetTime());
+        locationTv.setText("Location: " + training.getLocation());
+        detailsTv.setText("Details: " + training.getDetails());
+
+        viewTrainingDetailsAD.setCancelable(false).setView(viewMTrainingDetailsV);
+        AlertDialog alert = viewTrainingDetailsAD.create();
+        alert.show();
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.cancel();
+            }
+        });
+    }
+
+    public void deleteTraining(int position) {
+        Training training = trainings.get(position);
+
+        firebaseFirestore.collection("team").whereEqualTo("teamName", CoachHomeActivity.currentTeam.getTeamName()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                                String teamDoc = queryDocumentSnapshot.getId();
+                                firebaseFirestore.collection("team").document(teamDoc).collection("training").document(training.TrainingId).delete();
+                                trainings.remove(position);
+                                notifyItemRemoved(position);
+                            }
+                        }
+                    }
+                });
+    }
+
 }

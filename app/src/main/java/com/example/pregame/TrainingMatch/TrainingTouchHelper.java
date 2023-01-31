@@ -13,12 +13,12 @@ import com.example.pregame.R;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
-public class MatchTouchHelper extends ItemTouchHelper.SimpleCallback {
-    private MatchAdapter matchAdapter;
+public class TrainingTouchHelper extends ItemTouchHelper.SimpleCallback{
+    private TrainingAdapter trainingAdapter;
 
-    public MatchTouchHelper(MatchAdapter matchAdapter) {
+    public TrainingTouchHelper(TrainingAdapter trainingAdapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
-        this.matchAdapter = matchAdapter;
+        this.trainingAdapter = trainingAdapter;
     }
 
     @Override
@@ -31,26 +31,26 @@ public class MatchTouchHelper extends ItemTouchHelper.SimpleCallback {
         final int position = viewHolder.getAbsoluteAdapterPosition();
 
         if (direction == ItemTouchHelper.RIGHT) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(matchAdapter.getContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(trainingAdapter.getContext());
             builder.setMessage("Are you sure?")
-                    .setTitle("Delete Match")
+                    .setTitle("Delete Training")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            matchAdapter.deleteMatch(position);
+                            trainingAdapter.deleteTraining(position);
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            matchAdapter.notifyItemChanged(position);
+                            trainingAdapter.notifyItemChanged(position);
                         }
                     });
 
             AlertDialog dialog = builder.create();
             dialog.show();
         } else {
-            matchAdapter.editMatchDetails(position);
+//            trainingAdapter.editTrainingDetails(position);
         }
     }
 
