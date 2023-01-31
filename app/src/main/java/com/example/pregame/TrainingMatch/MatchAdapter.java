@@ -1,6 +1,8 @@
 package com.example.pregame.TrainingMatch;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -8,8 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -17,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pregame.CoachHomeActivity;
 import com.example.pregame.Model.Match;
-import com.example.pregame.PlayerHomeActivity;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,6 +38,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -257,6 +264,75 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
                 alert.cancel();
             }
         });
+
+        homeOrAwayTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editHomeOrAway(match);
+                alert.cancel();
+            }
+        });
+
+        dateTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                int DAY = calendar.get(Calendar.DATE);
+                int MONTH = calendar.get(Calendar.MONTH);
+                int YEAR = calendar.get(Calendar.YEAR);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        month += 1;
+                        String date = dayOfMonth + "/" + month + "/" + year;
+                        updateFirestore(match, "date", date);
+                    }
+                }, YEAR, MONTH, DAY);
+                datePickerDialog.show();
+            }
+        });
+
+        startTimeTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                        String startTime = String.format("%02d:%02d", hourOfDay, minute);
+                        updateFirestore(match, "startTime", startTime);
+                    }
+                }, hour, minute, false);
+                timePickerDialog.show();
+            }
+        });
+
+        meetTimeTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                meetTimeTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Calendar calendar = Calendar.getInstance();
+                        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                        int minute = calendar.get(Calendar.MINUTE);
+
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                                String meetTime = String.format("%02d:%02d", hourOfDay, minute);
+                                updateFirestore(match, "meetTime", meetTime);
+                            }
+                        }, hour, minute, false);
+                        timePickerDialog.show();
+                    }
+                });
+            }
+        });
     }
 
     public void editScore(Match match) {
@@ -293,11 +369,11 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
                     int compare = Integer.compare(teamScore, opponentScore);
 
                     if (compare == 1) {
-                        updateFirestoreString(match, "status", "Won");
+                        updateFirestore(match, "status", "Won");
                     } else if (compare == -1) {
-                        updateFirestoreString(match, "status", "Lose");
+                        updateFirestore(match, "status", "Lose");
                     } else {
-                        updateFirestoreString(match, "status", "Draw");
+                        updateFirestore(match, "status", "Draw");
                     }
 
                     updateFirestoreInt(match, "teamScore", teamScore);
@@ -316,6 +392,60 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
                 alert.cancel();
             }
         });
+    }
+
+    public void editHomeOrAway(Match match) {
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        View editHomeOrAwayV = layoutInflater.inflate(R.layout.edit_match_home_away, null);
+        AlertDialog.Builder editHomeOrAwayAD = new AlertDialog.Builder(getContext());
+
+        RadioGroup radioGroup = editHomeOrAwayV.findViewById(R.id.radio_group);
+        RadioButton homeButton = editHomeOrAwayV.findViewById(R.id.radio_home);
+        RadioButton awayButton = editHomeOrAwayV.findViewById(R.id.radio_away);
+        Button editButton = editHomeOrAwayV.findViewById(R.id.edit_button);
+        Button goBack = editHomeOrAwayV.findViewById(R.id.cancel_button);
+
+        editHomeOrAwayAD.setCancelable(false).setView(editHomeOrAwayV);
+        AlertDialog alert = editHomeOrAwayAD.create();
+        alert.show();
+
+        if (match.isHomeOrAway()) {
+            homeButton.setChecked(true);
+            awayButton.setChecked(false);
+        } else {
+            homeButton.setChecked(false);
+            awayButton.setChecked(true);
+        }
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int selectedButton = radioGroup.getCheckedRadioButtonId();
+                boolean homeOrAway = false;
+
+                if (selectedButton == -1) {
+                    Toast.makeText(getContext(), "Nothing selected", Toast.LENGTH_SHORT).show();
+                } else if (selectedButton == R.id.radio_home){
+                    homeOrAway = true;
+                } else if (selectedButton == R.id.radio_away){
+                    homeOrAway = false;
+                }
+
+                updateFirestoreBoolean(match, "homeOrAway", homeOrAway);
+                notifyDataSetChanged();
+                alert.cancel();
+            }
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.cancel();
+                notifyDataSetChanged();
+            }
+        });
+
+
     }
 
     public void editString(Match match, String data, int title, int hint, int icon, String dataType) {
@@ -346,7 +476,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
                 boolean validString = validateBlank(text, editTextLO);
 
                 if (validString) {
-                    updateFirestoreString(match, dataType, text);
+                    updateFirestore(match, dataType, text);
                     notifyDataSetChanged();
                     alert.cancel();
                 }
@@ -372,7 +502,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
         }
     }
 
-    public void updateFirestoreString(Match match, String dataType, String data) {
+    public void updateFirestore(Match match, String dataType, String data) {
         firebaseFirestore.collection("team").whereEqualTo("teamName", CoachHomeActivity.currentTeam.getTeamName()).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -402,6 +532,35 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
     }
 
     public void updateFirestoreInt(Match match, String dataType, int data) {
+        firebaseFirestore.collection("team").whereEqualTo("teamName", CoachHomeActivity.currentTeam.getTeamName()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                                String teamDoc = queryDocumentSnapshot.getId();
+
+                                firebaseFirestore.collection("team").document(teamDoc).collection("match").document(match.MatchId)
+                                        .update(dataType, data)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.e(TAG, "Successfully updated " + dataType + " for " + match.getMatchTitle());
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e(TAG, "Failed to update " + dataType + " for " + match.getMatchTitle() + "\n" + e.getMessage());
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                });
+    }
+
+    public void updateFirestoreBoolean(Match match, String dataType, boolean data) {
         firebaseFirestore.collection("team").whereEqualTo("teamName", CoachHomeActivity.currentTeam.getTeamName()).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

@@ -84,8 +84,12 @@
     <string name="edit_details">Edit Details</string>
     <string name="details">Details</string>
     <string name="edit_match_title">Edit Match Title</string>
+    <string name="edit_training_title">Edit Training Title</string>
     <string name="edit_match_opponent">Edit Match Opponent</string>
     <string name="edit_match_location">Edit Match Location</string>
+    <string name="edit_training_location">Edit Training Location</string>
+    <string name="edit_training_details">Edit Training Details</string>
+    <string name="edit_home_or_away">Edit Home or Away Status</string>
     <string name="edit_match_score">Edit Match Score</string>
 
     <!-- Stats -->

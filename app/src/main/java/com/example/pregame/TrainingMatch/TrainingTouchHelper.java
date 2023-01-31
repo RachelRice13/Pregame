@@ -50,7 +50,7 @@ public class TrainingTouchHelper extends ItemTouchHelper.SimpleCallback{
             AlertDialog dialog = builder.create();
             dialog.show();
         } else {
-//            trainingAdapter.editTrainingDetails(position);
+            trainingAdapter.editTrainingDetails(position);
         }
     }
 
