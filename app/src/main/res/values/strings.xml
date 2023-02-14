@@ -120,5 +120,24 @@
     <string name="message">Message</string>
     <string name="match_stats_title">Match Stats Title</string>
 
+    <!-- Injury Report -->
+    <string name="injury_report">Injury Report</string>
+    <string name="injury_description">Injury Description</string>
+    <string name="body_part">Body Part</string>
+    <string name="level_of_pain">Level of Pain</string>
+    <string name="seen_a_physio">Seen a Physio?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="length_of_injury">Length of Injury</string>
+    <string name="unknown">Unknown</string>
+    <string name="other_details">Other Details</string>
+    <string name="submit">Submit</string>
+
+    <string-array name="injury_length_options">
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+        <item>Year</item>
+    </string-array>
 
 </resources>

@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pregame.InjuryReport.ViewInjuryFragment;
 import com.example.pregame.Model.Coach;
 import com.example.pregame.Model.Player;
 import com.example.pregame.Model.Team;
@@ -31,7 +32,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -56,11 +56,12 @@ public class ProfileFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
-    private TextView fullNameTv, emailTv, phoneTv, dobTv, profileSettingsTv;
+    private TextView fullNameTv;
+    private TextView emailTv;
+    private TextView phoneTv;
+    private TextView dobTv;
     private ImageView profilePicIv;
     private ArrayList<Team> teams;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private TeamListAdapter adapter;
 
     public ProfileFragment() {}
@@ -74,7 +75,8 @@ public class ProfileFragment extends Fragment {
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
         currentUser = firebaseAuth.getCurrentUser();
-        profileSettingsTv = view.findViewById(R.id.profile_settings_tv);
+        TextView profileSettingsTv = view.findViewById(R.id.profile_settings_tv);
+        TextView injuryReportTv = view.findViewById(R.id.profile_injury_tv);
         profilePicIv = view.findViewById(R.id.profile_pic);
         getUserDetails();
 
@@ -91,6 +93,13 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, new EditProfileFragment()).commit();
+            }
+        });
+
+        injuryReportTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().beginTransaction().replace(R.id.container, new ViewInjuryFragment()).commit();
             }
         });
 
@@ -166,9 +175,9 @@ public class ProfileFragment extends Fragment {
         Button goBack = viewMyTeamsV.findViewById(R.id.cancel_button);
 
         teams = new ArrayList<>();
-        recyclerView = viewMyTeamsV.findViewById(R.id.my_teams_rv);
+        RecyclerView recyclerView = viewMyTeamsV.findViewById(R.id.my_teams_rv);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(viewMyTeamsV.getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(viewMyTeamsV.getContext());
         adapter = new TeamListAdapter(teams, getContext());
 
         recyclerView.setLayoutManager(layoutManager);
