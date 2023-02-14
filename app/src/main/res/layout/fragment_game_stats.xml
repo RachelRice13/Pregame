@@ -9,8 +9,36 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Game Stats"
-        android:textSize="30sp"/>
+        android:text="@string/match_stats"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:layout_alignTop="@id/start_new_match_button"
+        android:layout_alignBottom="@id/start_new_match_button"/>
+
+    <Button
+        android:id="@+id/start_new_match_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_new_match"
+        android:textAllCaps="false"
+        android:textSize="13sp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/match_stats_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/start_new_match_button"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="6dp"
+        android:scrollbars="vertical"/>
 
 </RelativeLayout>
