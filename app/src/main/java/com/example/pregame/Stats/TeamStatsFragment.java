@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.pregame.CoachHomeActivity;
+import com.example.pregame.Model.MatchStats;
 import com.example.pregame.Model.Team;
 import com.example.pregame.PlayerHomeActivity;
 import com.example.pregame.R;
@@ -26,18 +28,23 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.charts.PieChart;
+import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
 
 public class TeamStatsFragment extends Fragment {
     public static final String TAG = "TeamStats";
     private View view;
-    private TextView teamNameTv, winsLegendTv, loseLegendTv, drawsLegendTv, notPlayedLegendTv;
-    private LinearLayout generalStatsLL, trainingStatsLL, matchStatsLL;
+    private TextView teamNameTv, winsLegendTv, loseLegendTv, drawsLegendTv, notPlayedLegendTv, averagePointsScoredTv, averagePointsAgainstTv;
+    private LinearLayout generalStatsLL, trainingStatsLL;
+    private ScrollView matchStatsSV;
     private Button generalStatsBut, trainingStatsBut, matchStatsBut;
     private PieChart matchResultsPieChart;
+    private BarChart totalMatchStatsBarChart;
     private FirebaseFirestore firebaseFirestore;
-    private int totalPlayed, totalWins;
+    private int totalPlayed, totalWins, totalPointsScored, totalPointsAgainst, totalMatchesWithStats, totalAssist, totalOffReb, totalDefReb, totalBlocks, totalFouls, totalSteals, totalTurnovers;
+    private double averagePointsScore, averagePointsAgainst;
 
     public TeamStatsFragment() {}
 
@@ -51,13 +58,16 @@ public class TeamStatsFragment extends Fragment {
         generalStatsBut = view.findViewById(R.id.general_stats_button);
         trainingStatsLL = view.findViewById(R.id.training_stats_ll);
         trainingStatsBut = view.findViewById(R.id.training_stats_button);
-        matchStatsLL = view.findViewById(R.id.match_stats_ll);
+        matchStatsSV = view.findViewById(R.id.match_stats_sv);
         matchStatsBut = view.findViewById(R.id.match_stats_button);
         matchResultsPieChart = view.findViewById(R.id.match_results_pie_chart);
         winsLegendTv = view.findViewById(R.id.wins_legend_tv);
         loseLegendTv = view.findViewById(R.id.loses_legend_tv);
         drawsLegendTv = view.findViewById(R.id.draws_legend_tv);
         notPlayedLegendTv = view.findViewById(R.id.not_played_legend_tv);
+        averagePointsScoredTv = view.findViewById(R.id.average_points_scored_tv);
+        averagePointsAgainstTv = view.findViewById(R.id.average_points_against_tv);
+        totalMatchStatsBarChart = view.findViewById(R.id.total_match_stats_bar_chart);
 
         getTeamDetails();
         choose();
@@ -111,34 +121,6 @@ public class TeamStatsFragment extends Fragment {
                         });
     }
 
-    public void setMatchStats(Team team) {
-        firebaseFirestore.collection("team").whereEqualTo("teamName", team.getTeamName()).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
-                                String teamDoc = queryDocumentSnapshot.getId();
-
-                                // Get number of wins
-                                getCountWhere(teamDoc, "Won", "Wins", "#00FF00", winsLegendTv);
-
-                                // Get number of loses
-                                getCountWhere(teamDoc, "Lose", "Loses", "#FF0000", loseLegendTv);
-
-                                // Get number of draws
-                                getCountWhere(teamDoc, "Draw", "Draws", "#FFFF00", drawsLegendTv);
-
-                                // Get number of haven't played
-                                getCountWhere(teamDoc, "Haven't Played", "Haven't Played", "#0000FF", notPlayedLegendTv);
-
-                                matchResultsPieChart.startAnimation();
-                            }
-                        }
-                    }
-                });
-    }
-
     public void getCount(String teamDoc, String type, TextView textView) {
         firebaseFirestore.collection("team").document(teamDoc).collection(type).count()
                 .get(AggregateSource.SERVER)
@@ -155,7 +137,30 @@ public class TeamStatsFragment extends Fragment {
                 });
     }
 
-    public void getCountWhere(String teamDoc, String statusType, String status, String colour, TextView textView) {
+    public void setMatchStats(Team team) {
+        firebaseFirestore.collection("team").whereEqualTo("teamName", team.getTeamName()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                                String teamDoc = queryDocumentSnapshot.getId();
+
+                                setMatchResultsPieChart(teamDoc, "Won", "Wins", "#00FF00", winsLegendTv);
+                                setMatchResultsPieChart(teamDoc, "Lose", "Loses", "#FF0000", loseLegendTv);
+                                setMatchResultsPieChart(teamDoc, "Draw", "Draws", "#FFFF00", drawsLegendTv);
+                                setMatchResultsPieChart(teamDoc, "Haven't Played", "Haven't Played", "#0000FF", notPlayedLegendTv);
+                                matchResultsPieChart.startAnimation();
+
+                                calculateMatchPoints(teamDoc);
+                                setTotalMatchStatBarChart(teamDoc);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public void setMatchResultsPieChart(String teamDoc, String statusType, String status, String colour, TextView textView) {
         firebaseFirestore.collection("team").document(teamDoc).collection("match").whereEqualTo("status", statusType).count()
                 .get(AggregateSource.SERVER)
                 .addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
@@ -199,13 +204,77 @@ public class TeamStatsFragment extends Fragment {
                 });
     }
 
+    public void calculateMatchPoints(String teamDoc) {
+        firebaseFirestore.collection("team").document(teamDoc).collection("matchStats").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                               MatchStats matchStats = document.toObject(MatchStats.class);
+                               totalPointsScored += matchStats.getMyTeamScore();
+                               totalPointsAgainst += matchStats.getOpponentScore();
+                               totalMatchesWithStats += 1;
+                            }
+
+                            if (totalMatchesWithStats != 0) {
+                                averagePointsScore = totalPointsScored/totalMatchesWithStats;
+                                averagePointsAgainst = totalPointsAgainst/totalMatchesWithStats;
+                                averagePointsScoredTv.setText(String.valueOf(averagePointsScore));
+                                averagePointsAgainstTv.setText(String.valueOf(averagePointsAgainst));
+                            }
+                        } else {
+                            Log.e(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public void setTotalMatchStatBarChart(String teamDoc) {
+        firebaseFirestore.collection("team").document(teamDoc).collection("matchStats").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                MatchStats matchStats = document.toObject(MatchStats.class);
+
+                                totalPointsScored += matchStats.getMyTeamScore();
+                                totalPointsAgainst += matchStats.getOpponentScore();
+                                totalAssist += matchStats.getAssists();
+                                totalOffReb += matchStats.getOffensiveRebounds();
+                                totalDefReb += matchStats.getDefensiveRebounds();
+                                totalBlocks += matchStats.getBlocks();
+                                totalFouls += matchStats.getFouls();
+                                totalSteals += matchStats.getSteals();
+                                totalTurnovers += matchStats.getTurnovers();
+                            }
+//                            totalMatchStatsBarChart.addBar(new BarModel("P", totalPointsScored, Color.parseColor("#ff00ff")));
+//                            totalMatchStatsBarChart.addBar(new BarModel("P/A", totalPointsAgainst, Color.parseColor("#800080")));
+                            totalMatchStatsBarChart.addBar(new BarModel("Asst", totalAssist, Color.parseColor("#ff0000")));
+                            totalMatchStatsBarChart.addBar(new BarModel("O/R", totalOffReb, Color.parseColor("#ffa500")));
+                            totalMatchStatsBarChart.addBar(new BarModel("D/R", totalDefReb, Color.parseColor("#ffff00")));
+                            totalMatchStatsBarChart.addBar(new BarModel("Blk", totalBlocks, Color.parseColor("#00ff00")));
+                            totalMatchStatsBarChart.addBar(new BarModel("F", totalFouls, Color.parseColor("#008000")));
+                            totalMatchStatsBarChart.addBar(new BarModel("Stl", totalSteals, Color.parseColor("#00ffff")));
+                            totalMatchStatsBarChart.addBar(new BarModel("To", totalTurnovers, Color.parseColor("#0000ff")));
+
+                            totalMatchStatsBarChart.startAnimation();
+
+                        } else {
+                            Log.e(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
     public void choose() {
         generalStatsBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 generalStatsLL.setVisibility(View.VISIBLE);
                 trainingStatsLL.setVisibility(View.INVISIBLE);
-                matchStatsLL.setVisibility(View.INVISIBLE);
+                matchStatsSV.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -214,7 +283,7 @@ public class TeamStatsFragment extends Fragment {
             public void onClick(View view) {
                 generalStatsLL.setVisibility(View.INVISIBLE);
                 trainingStatsLL.setVisibility(View.VISIBLE);
-                matchStatsLL.setVisibility(View.INVISIBLE);
+                matchStatsSV.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -223,7 +292,7 @@ public class TeamStatsFragment extends Fragment {
             public void onClick(View view) {
                 generalStatsLL.setVisibility(View.INVISIBLE);
                 trainingStatsLL.setVisibility(View.INVISIBLE);
-                matchStatsLL.setVisibility(View.VISIBLE);
+                matchStatsSV.setVisibility(View.VISIBLE);
             }
         });
     }

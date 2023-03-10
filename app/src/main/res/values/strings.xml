@@ -119,6 +119,20 @@
     <string name="my_team">My Team</string>
     <string name="message">Message</string>
     <string name="match_stats_title">Match Stats Title</string>
+    <string name="average_points">Average Points</string>
+    <string name="points_scored">Points Scored</string>
+    <string name="points_against">Points Against</string>
+    <string name="total_match_stats">Total Match Stats</string>
+    <string name="match_stats_legend">Match Stats Legend</string>
+    <string name="points_shorthand">P - Points</string>
+    <string name="points_against_shorthand">P/A - Points Against</string>
+    <string name="assist_shorthand">Asst - Assist</string>
+    <string name="off_reb_shorthand">O/R - Offensive Rebound</string>
+    <string name="def_reb_shorthand">D/R - Defensive Rebound</string>
+    <string name="block_shorthand">Blk - Block</string>
+    <string name="foul_shorthand">F - Foul</string>
+    <string name="steal_shorthand">Stl - Steal</string>
+    <string name="turnover_shorthand">To - Turnover</string>
 
     <!-- Injury Report -->
     <string name="injury_report">Injury Report</string>

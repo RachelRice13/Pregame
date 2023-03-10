@@ -2,9 +2,9 @@ package com.example.pregame.Model;
 
 public class MatchStats extends MatchStatsId {
     private String myTeam, opponent, date;
-    private int myTeamScore, opponentScore, offensiveRebounds, defensiveRebounds, assists, bocks, turnovers, steals, fouls;
+    private int myTeamScore, opponentScore, offensiveRebounds, defensiveRebounds, assists, blocks, turnovers, steals, fouls;
 
-    public MatchStats(String myTeam, String opponent, String date, int myTeamScore, int opponentScore, int offensiveRebounds, int defensiveRebounds, int assists, int bocks, int turnovers, int steals, int fouls) {
+    public MatchStats(String myTeam, String opponent, String date, int myTeamScore, int opponentScore, int offensiveRebounds, int defensiveRebounds, int assists, int blocks, int turnovers, int steals, int fouls) {
         this.myTeam = myTeam;
         this.opponent = opponent;
         this.date = date;
@@ -13,7 +13,7 @@ public class MatchStats extends MatchStatsId {
         this.offensiveRebounds = offensiveRebounds;
         this.defensiveRebounds = defensiveRebounds;
         this.assists = assists;
-        this.bocks = bocks;
+        this.blocks = blocks;
         this.turnovers = turnovers;
         this.steals = steals;
         this.fouls = fouls;
@@ -27,7 +27,7 @@ public class MatchStats extends MatchStatsId {
         this.offensiveRebounds = 0;
         this.defensiveRebounds = 0;
         this.assists = 0;
-        this.bocks = 0;
+        this.blocks = 0;
         this.turnovers = 0;
         this.steals = 0;
         this.fouls = 0;
@@ -89,11 +89,11 @@ public class MatchStats extends MatchStatsId {
         this.assists = assists;
     }
 
-    public int getBocks() {
-        return bocks;
+    public int getBlocks() {
+        return blocks;
     }
-    public void setBocks(int bocks) {
-        this.bocks = bocks;
+    public void setBlocks(int blocks) {
+        this.blocks = blocks;
     }
 
     public int getTurnovers() {
