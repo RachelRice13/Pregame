@@ -154,4 +154,8 @@
         <item>Year</item>
     </string-array>
 
+    <!-- Messages -->
+    <string name="textview">TextView</string>
+    <string name="type_a_message">Type a Message</string>
+
 </resources>
