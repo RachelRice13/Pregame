@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fees.PaymentFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_details"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_margin="5dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/card_number"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/card_number"
+            android:paddingStart="45dp"
+            android:paddingEnd="45dp"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/grey"
+            app:boxStrokeWidth="1dp"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/card_number_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:maxLength="16"
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cardholder_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cardholder_s_name"
+            android:paddingStart="45dp"
+            android:paddingEnd="45dp"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/grey"
+            app:boxStrokeWidth="1dp"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cardholder_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName"
+                android:textColor="@color/black"
+                android:textColorHint="#757575" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/expiry_date"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:paddingStart="45dp"
+                    android:paddingEnd="45dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="45dp"
+                    android:paddingEnd="45dp">
+
+                    <EditText
+                        android:id="@+id/expiry_date_month_et"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/customer_border_white_background"
+                        android:gravity="center"
+                        android:hint="@string/mm"
+                        android:inputType="date"
+                        android:maxLength="2"
+                        android:textColorHint="#757575"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/backslash"
+                        android:textSize="26sp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <EditText
+                        android:id="@+id/expiry_date_year_et"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/customer_border_white_background"
+                        android:gravity="center"
+                        android:hint="@string/yy"
+                        android:importantForAutofill="no"
+                        android:inputType="date"
+                        android:maxLength="2"
+                        android:textColorHint="#757575"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/security_code"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/security_code_et"
+                        android:layout_width="60dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/customer_border_white_background"
+                        android:hint="@string/blank_string"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:textSize="12sp"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/credit_card_cvv"
+                        android:contentDescription="@string/credit_card_cvv_image" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/payment_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:text="@string/payment"/>
+
+            <Button
+                android:id="@+id/cancel_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:text="@string/cancel"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

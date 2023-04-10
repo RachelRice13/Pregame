@@ -118,9 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void getSelectedRB() {
         int selectedButton = radioGroup.getCheckedRadioButtonId();
 
-        if (selectedButton == -1) {
-            Toast.makeText(RegisterActivity.this, "Nothing selected", Toast.LENGTH_SHORT).show();
-        } else if (selectedButton == R.id.radio_coach){
+         if (selectedButton == R.id.radio_coach){
             userType = "Coach";
         } else if (selectedButton == R.id.radio_player){
             userType = "Player";

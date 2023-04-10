@@ -158,4 +158,46 @@
     <string name="textview">TextView</string>
     <string name="type_a_message">Type a Message</string>
 
+    <!-- Fees -->
+    <string name="player_name">Player Name</string>
+    <string name="fees_for_the_2023_24_season"> fees for the 2023/24 Season</string>
+    <string name="please_choose_your_membership_plan_click_the_add_to_cart_button_to_select_a_plan">Please choose your membership plan. Click the \'Add to Cart\' button to select a plan.</string>
+    <string name="membership_plans">Membership Plans</string>
+    <string name="plan_type">Plan Type</string>
+    <string name="description">Description</string>
+    <string name="cost">Cost €</string>
+    <string name="blank_string" />
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="full_season_senior_fees">Full Season Senior Fees</string>
+    <string name="_300_00">300.00</string>
+    <string name="half_season_senior_fees">Half Season Senior Fees</string>
+    <string name="_150_00">150.00</string>
+    <string name="full_season_junior_fees">Full Season Junior Fees</string>
+    <string name="_200_00">200.00</string>
+    <string name="half_season_junior_fees">Half Season Junior Fees</string>
+    <string name="_100_00">100.00</string>
+    <string name="full_season_academy_fees">Full Season Academy Fees</string>
+    <string name="half_season_academy_fees">Half Season Academy Fees</string>
+    <string name="_75_00">75.00</string>
+    <string name="view_cart">View Cart</string>
+    <string name="discount_code">Discount Code</string>
+    <string name="apply">Apply</string>
+    <string name="subtotal">Subtotal: </string>
+    <string name="discount_amount">Discount Amount</string>
+    <string name="total_price">Total Price: </string>
+    <string name="price">Price</string>
+    <string name="membership_type">Membership Type</string>
+    <string name="items_in_cart">Items in Cart</string>
+    <string name="secure_payment">Secure Payment</string>
+    <string name="security_code">Security Code</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="mm">MM</string>
+    <string name="backslash">/</string>
+    <string name="yy">YY</string>
+    <string name="cardholder_s_name">Cardholder\'s Name</string>
+    <string name="card_number">Card Number</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="payment">Payment</string>
+    <string name="credit_card_cvv_image">Credit Card CVV Image</string>
+
 </resources>

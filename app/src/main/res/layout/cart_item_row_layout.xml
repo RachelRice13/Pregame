@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/membership_type_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/membership_type"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/membership_price_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/price"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/delete_membership_iv"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_delete"
+                    app:tint="@color/grey"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

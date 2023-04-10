@@ -1,16 +1,507 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="60dp"
     tools:context=".Fees.FeesFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/player_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/player_name"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fees_for_the_2023_24_season"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
     <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/please_choose_your_membership_plan_click_the_add_to_cart_button_to_select_a_plan"
+        android:textSize="14sp"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/table_border"
+            android:text="@string/membership_plans"
+            android:textColor="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/black"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingBottom="1dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/plan_type"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="1dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/cost"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_marginStart="1dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:text="@string/blank_string"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/black"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingBottom="1dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/full_season_senior_fees" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="1dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/_300_00"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_marginStart="1dp"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/full_season_senior"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/add_to_cart"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/black"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingBottom="1dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/half_season_senior_fees" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="1dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/_150_00"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_marginStart="1dp"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/half_season_senior"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/add_to_cart"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/black"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingBottom="1dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/full_season_junior_fees" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="1dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/_200_00"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_marginStart="1dp"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/full_season_junior"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/add_to_cart"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/black"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingBottom="1dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/half_season_junior_fees" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="1dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/_100_00"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_marginStart="1dp"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/half_season_junior"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/add_to_cart"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/black"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingBottom="1dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/full_season_academy_fees" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="1dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/_150_00"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_marginStart="1dp"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/full_season_academy"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/add_to_cart"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/black"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingBottom="1dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/half_season_academy_fees" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="1dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/_75_00"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_marginStart="1dp"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/half_season_academy"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/add_to_cart"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/view_cart_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Fees"
-        android:textSize="30sp"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="@string/view_cart"
+        android:textAllCaps="false"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="16sp"/>
 
-</RelativeLayout>
+</LinearLayout>
