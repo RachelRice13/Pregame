@@ -14,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.pregame.CoachHomeActivity;
+import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.Folder;
 import com.example.pregame.Model.Team;
-import com.example.pregame.PlayerHomeActivity;
+import com.example.pregame.HomePage.PlayerHomeActivity;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

@@ -16,11 +16,11 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.pregame.CoachHomeActivity;
+import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.Match;
 import com.example.pregame.Model.Team;
 import com.example.pregame.Model.Training;
-import com.example.pregame.PlayerHomeActivity;
+import com.example.pregame.HomePage.PlayerHomeActivity;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

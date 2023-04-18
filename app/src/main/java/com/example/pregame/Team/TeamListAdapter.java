@@ -11,9 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pregame.CoachHomeActivity;
+import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.Team;
-import com.example.pregame.PlayerHomeActivity;
+import com.example.pregame.HomePage.PlayerHomeActivity;
 import com.example.pregame.R;
 import com.google.android.material.card.MaterialCardView;
 

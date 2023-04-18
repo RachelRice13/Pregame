@@ -13,18 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.pregame.CoachHomeActivity;
+import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.Player;
 import com.example.pregame.Model.Team;
-import com.example.pregame.PlayerHomeActivity;
+import com.example.pregame.HomePage.PlayerHomeActivity;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 

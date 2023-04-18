@@ -12,11 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.pregame.CoachHomeActivity;
+import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.Coach;
 import com.example.pregame.Model.Player;
 import com.example.pregame.Model.Team;
-import com.example.pregame.PlayerHomeActivity;
+import com.example.pregame.HomePage.PlayerHomeActivity;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

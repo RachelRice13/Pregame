@@ -24,12 +24,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pregame.CoachHomeActivity;
+import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.Coach;
 import com.example.pregame.Model.Folder;
 import com.example.pregame.Model.Player;
 import com.example.pregame.Model.Team;
-import com.example.pregame.PlayerHomeActivity;
+import com.example.pregame.HomePage.PlayerHomeActivity;
 import com.example.pregame.R;
 import com.example.pregame.RegisterLogin.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;

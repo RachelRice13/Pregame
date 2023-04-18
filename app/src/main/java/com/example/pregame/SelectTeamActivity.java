@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.pregame.HomePage.CoachHomeActivity;
+import com.example.pregame.HomePage.PlayerHomeActivity;
 import com.example.pregame.Model.Team;
 import com.example.pregame.Team.TeamListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;

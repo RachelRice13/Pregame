@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 
 import com.example.pregame.Model.Match;
 import com.example.pregame.Model.Training;
-import com.example.pregame.PlayerHomeActivity;
 import com.example.pregame.R;
 import com.example.pregame.TrainingMatch.MatchAdapter;
 import com.example.pregame.TrainingMatch.TrainingAdapter;

@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.example.pregame.CoachHomeActivity;
 import com.example.pregame.Model.Match;
 import com.example.pregame.Model.Training;
 import com.example.pregame.R;
