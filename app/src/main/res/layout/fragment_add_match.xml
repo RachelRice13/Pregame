@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".TrainingMatch.AddMatchFragment"
+    android:orientation="vertical"
+    android:layout_marginTop="70dp">
 
     <TextView
-        android:id="@+id/add_match_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="50dp"
         android:text="@string/add_match"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="25sp"/>
+        android:textSize="30sp"
+        android:gravity="center"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/match_title"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add_match_title"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
@@ -42,64 +43,26 @@
             android:inputType="text"
             android:textColor="@color/black"
             android:textColorHint="#757575" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:id="@+id/date_opponent_layout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/match_date"
+        android:layout_width="168dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/match_title"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <TextView
-            android:id="@+id/match_date"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_weight="1"
-            android:background="@drawable/custom_border_grey"
-            android:drawablePadding="8dp"
-            android:gravity="center_vertical"
-            android:text="@string/date"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:drawableStartCompat="@drawable/ic_calendar"
-            app:errorEnabled="true" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/opponent_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="3"
-            android:hint="@string/opponent_name"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/grey"
-            app:boxStrokeWidth="1dp"
-            app:errorEnabled="true"
-            app:hintTextColor="@color/black">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/opponent_name_et"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:textColorHint="#757575" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
+        android:background="@drawable/custom_border_grey"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/date"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:drawableStartCompat="@drawable/ic_calendar"
+        app:errorEnabled="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="10dp" />
 
     <LinearLayout
-        android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/date_opponent_layout"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="5dp"
@@ -137,39 +100,11 @@
             app:errorEnabled="true" />
     </LinearLayout>
 
-    <RadioGroup
-        android:id="@+id/radio_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/time"
-        android:padding="5dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-
-        <RadioButton
-            android:id="@+id/radio_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/home"
-            android:textSize="24sp"
-            android:layout_weight="1"/>
-
-        <RadioButton
-            android:id="@+id/radio_away"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/away"
-            android:textSize="24sp"
-            android:layout_weight="1"/>
-    </RadioGroup>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/location"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/radio_group"
         android:hint="@string/location"
         app:startIconDrawable="@drawable/ic_location"
         app:startIconTint="@color/black"
@@ -189,23 +124,21 @@
             android:inputType="text"
             android:textColor="@color/black"
             android:textColorHint="#757575" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
         android:orientation="horizontal"
         android:gravity="center_horizontal">
 
         <Button
-        android:id="@+id/create_match_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/create" android:layout_margin="10dp"
-        android:textSize="20sp"/>
+            android:id="@+id/create_match_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create" android:layout_margin="10dp"
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/cancel_button"
@@ -214,7 +147,5 @@
             android:text="@string/cancel"
             android:textSize="20sp"
             android:layout_margin="10dp"/>
-
     </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

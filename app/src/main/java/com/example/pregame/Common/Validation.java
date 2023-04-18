@@ -71,4 +71,11 @@ public class Validation {
         }
         return true;
     }
+
+    public static boolean validateString(String string) {
+        if (string.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
 }
