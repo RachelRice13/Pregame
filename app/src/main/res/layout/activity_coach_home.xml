@@ -26,8 +26,16 @@
                     android:layout_height="?attr/actionBarSize"
                     app:title="@string/app_name"
                     app:navigationIcon="@drawable/ic_menu"
-                    android:background="@color/white" />
+                    android:background="@color/white">
 
+                    <ImageView
+                        android:id="@+id/toolbar_end_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="end"
+                        android:src="@drawable/ic_menu"
+                        android:layout_margin="10dp"/>
+                </com.google.android.material.appbar.MaterialToolbar>
             </com.google.android.material.appbar.AppBarLayout>
 
             <FrameLayout

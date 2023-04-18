@@ -24,7 +24,8 @@
     <string name="nav_home">Home</string>
     <string name="nav_profile">Profile</string>
     <string name="nav_fees">Fees</string>
-    <string name="nav_upload">Upload</string>
+    <string name="nav_upload_image">Pictures &amp; Videos</string>
+    <string name="nav_upload_docs">Documents</string>
     <string name="nav_team_stats">Team Stats</string>
     <string name="nav_message">Messages</string>
     <string name="nav_record_shooting">Shooting</string>
@@ -199,5 +200,21 @@
     <string name="payment_details">Payment Details</string>
     <string name="payment">Payment</string>
     <string name="credit_card_cvv_image">Credit Card CVV Image</string>
+
+    <!-- Upload -->
+    <string name="upload_picture">Upload Picture</string>
+    <string name="upload_file">Upload File</string>
+    <string name="upload_document">Upload Document</string>
+    <string name="document_name">Document Name</string>
+    <string name="choose">Choose</string>
+    <string name="username">Username</string>
+    <string name="folder_title">Folder Title</string>
+    <string name="number_of_pictures">Number of Pictures</string>
+    <string name="number_of_videos">Number of Videos</string>
+    <string name="create_folder">Create Folder</string>
+    <string name="num_of_photos">Number of Photos Selected is: </string>
+    <string name="num_of_videos">Number of Videos Selected is: </string>
+    <string name="videos">(Videos)</string>
+    <string name="images">(Images)</string>
 
 </resources>

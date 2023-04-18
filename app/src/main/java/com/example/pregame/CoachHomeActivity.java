@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.pregame.CoachesBoard.CoachesBoardFragment;
 import com.example.pregame.HomePage.CoachHomeFragment;
@@ -21,7 +22,8 @@ import com.example.pregame.Stats.GameStatsFragment;
 import com.example.pregame.Stats.TeamStatsFragment;
 import com.example.pregame.Team.TeamFragment;
 import com.example.pregame.TrainingMatch.TrainingMatchFragment;
-import com.example.pregame.Upload.UploadFragment;
+import com.example.pregame.Upload.UploadDocsFragment;
+import com.example.pregame.Upload.UploadPictureFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -38,7 +40,8 @@ public class CoachHomeActivity extends AppCompatActivity {
     // Fragments
     private CoachHomeFragment coachHomeFragment = new CoachHomeFragment();
     private ProfileFragment profileFragment = new ProfileFragment();
-    private UploadFragment uploadFragment = new UploadFragment();
+    private UploadPictureFragment uploadPictureFragment = new UploadPictureFragment();
+    private UploadDocsFragment uploadDocsFragment = new UploadDocsFragment();
     private TrainingMatchFragment trainingMatchFragment = new TrainingMatchFragment();
     private TeamFragment teamFragment = new TeamFragment();
 
@@ -92,6 +95,8 @@ public class CoachHomeActivity extends AppCompatActivity {
 
         // Drawer Navigation
         MaterialToolbar toolbar = findViewById(R.id.coach_top_app_bar);
+        ImageView toolbarIconEnd = findViewById(R.id.toolbar_end_icon);
+        toolbarIconEnd.setVisibility(View.GONE);
         drawerLayout = findViewById(R.id.coach_drawer_layout);
         NavigationView navigationView = findViewById(R.id.coach_navigation_view);
         drawerLayout.bringToFront();
@@ -110,27 +115,38 @@ public class CoachHomeActivity extends AppCompatActivity {
                     case R.id.nav_cd_home:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, coachHomeFragment).commit();
                         drawerLayout.close();
+                        toolbarIconEnd.setVisibility(View.GONE);
                         bottomNavigationView.setVisibility(View.VISIBLE);
                         bottomNavigationView.getMenu().findItem(R.id.nav_cb_home).setChecked(true);
                         return true;
                     case R.id.nav_cd_profile:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commit();
                         drawerLayout.close();
+                        toolbarIconEnd.setVisibility(View.GONE);
                         bottomNavigationView.setVisibility(View.INVISIBLE);
                         return true;
-                    case R.id.nav_cd_upload:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, uploadFragment).commit();
+                    case R.id.nav_cd_upload_image:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, uploadPictureFragment).commit();
                         drawerLayout.close();
+                        toolbarIconEnd.setVisibility(View.GONE);
                         bottomNavigationView.setVisibility(View.INVISIBLE);
                         return true;
                     case R.id.nav_cd_trainings_matches:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, trainingMatchFragment).commit();
                         drawerLayout.close();
+                        toolbarIconEnd.setVisibility(View.GONE);
+                        bottomNavigationView.setVisibility(View.INVISIBLE);
+                        return true;
+                    case R.id.nav_cd_upload_docs:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, uploadDocsFragment).commit();
+                        drawerLayout.close();
+                        toolbarIconEnd.setVisibility(View.GONE);
                         bottomNavigationView.setVisibility(View.INVISIBLE);
                         return true;
                     case R.id.nav_cd_team_list:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, teamFragment).commit();
                         drawerLayout.close();
+                        toolbarIconEnd.setVisibility(View.GONE);
                         bottomNavigationView.setVisibility(View.INVISIBLE);
                         return true;
                     case R.id.nav_cd_logout:

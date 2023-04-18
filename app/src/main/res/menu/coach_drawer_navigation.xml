@@ -14,9 +14,14 @@
         android:title="@string/nav_profile"
         />
     <item
-        android:id="@+id/nav_cd_upload"
-        android:icon="@drawable/ic_upload"
-        android:title="@string/nav_upload"
+        android:id="@+id/nav_cd_upload_image"
+        android:icon="@drawable/ic_image"
+        android:title="@string/nav_upload_image"
+        />
+    <item
+        android:id="@+id/nav_cd_upload_docs"
+        android:icon="@drawable/ic_folder"
+        android:title="@string/nav_upload_docs"
         />
     <item
         android:id="@+id/nav_cd_trainings_matches"
