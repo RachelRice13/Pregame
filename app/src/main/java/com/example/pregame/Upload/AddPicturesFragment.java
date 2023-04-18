@@ -25,11 +25,10 @@ import android.widget.TextView;
 
 import com.example.pregame.Common.Validation;
 import com.example.pregame.HomePage.CoachHomeActivity;
-import com.example.pregame.Model.Coach;
 import com.example.pregame.Model.Folder;
-import com.example.pregame.Model.Player;
 import com.example.pregame.Model.Team;
 import com.example.pregame.HomePage.PlayerHomeActivity;
+import com.example.pregame.Model.User;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -129,13 +128,8 @@ public class AddPicturesFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (userType.equals("player")) {
-                            Player player = documentSnapshot.toObject(Player.class);
-                            username = player.getFirstName() + " " + player.getSurname();
-                        } else {
-                            Coach coach = documentSnapshot.toObject(Coach.class);
-                            username = coach.getFirstName() + " " + coach.getSurname();
-                        }
+                        User player = documentSnapshot.toObject(User.class);
+                        username = player.getFirstName() + " " + player.getSurname();
                     }
                 });
     }

@@ -13,9 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pregame.Model.Coach;
-import com.example.pregame.Model.Player;
 import com.example.pregame.HomePage.PlayerHomeActivity;
+import com.example.pregame.Model.User;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -93,13 +92,8 @@ public class TeamMembersAdapter extends RecyclerView.Adapter<TeamMembersAdapter.
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (currentUserType.equals("player")) {
-                            Player player = documentSnapshot.toObject(Player.class);
-                            currentUserName = player.getFirstName() + " " + player.getSurname();
-                        } else {
-                            Coach coach = documentSnapshot.toObject(Coach.class);
-                            currentUserName = coach.getFirstName() + " " + coach.getSurname();
-                        }
+                        User user = documentSnapshot.toObject(User.class);
+                        currentUserName = user.getFirstName() + " " + user.getSurname();
 
                         ChatFragment chatFragment = new ChatFragment();
                         Bundle bundle = new Bundle();

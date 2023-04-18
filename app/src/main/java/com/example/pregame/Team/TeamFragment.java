@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.pregame.HomePage.CoachHomeActivity;
-import com.example.pregame.Model.Player;
 import com.example.pregame.Model.Team;
 import com.example.pregame.HomePage.PlayerHomeActivity;
+import com.example.pregame.Model.User;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class TeamFragment extends Fragment {
     public static final String TAG = "TeamInfo";
     private View view;
-    private ArrayList<Player> players;
+    private ArrayList<User> players;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private PlayerListAdapter adapter;
@@ -66,7 +66,7 @@ public class TeamFragment extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            Player player = documentSnapshot.toObject(Player.class);
+                            User player = documentSnapshot.toObject(User.class);
                             players.add(player);
                             adapter.notifyDataSetChanged();
                         }

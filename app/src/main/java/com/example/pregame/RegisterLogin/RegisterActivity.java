@@ -17,8 +17,7 @@ import android.widget.Toast;
 import com.example.pregame.Common.CommonActivity;
 import com.example.pregame.Common.Validation;
 import com.example.pregame.LandingPage;
-import com.example.pregame.Model.Coach;
-import com.example.pregame.Model.Player;
+import com.example.pregame.Model.User;
 import com.example.pregame.R;
 import com.example.pregame.SelectTeamActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,36 +48,13 @@ public class RegisterActivity extends CommonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        radioGroup = findViewById(R.id.radio_group);
-        firstNameLO = findViewById(R.id.reg_first_name);
-        surnameLO = findViewById(R.id.reg_surname);
-        emailLO = findViewById(R.id.reg_email);
-        phoneLO = findViewById(R.id.reg_phone_number);
-        passwordLO = findViewById(R.id.reg_password);
-
+        pageSetup();
         setDatePicker();
-
-        Button register = findViewById(R.id.register_user_button);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                register();
-            }
-        });
-
         goToPage(R.id.landing_page_button, RegisterActivity.this, LandingPage.class);
         hideActionBar();
     }
 
-    public void register() {
-        firstNameET = findViewById(R.id.reg_first_name_et);
-        surnameET = findViewById(R.id.reg_surname_et);
-        phoneET = findViewById(R.id.reg_phone_number_et);
-        emailET = findViewById(R.id.reg_email_et);
-        passwordET = findViewById(R.id.reg_password_et);
-
+    private void register() {
         String firstName = firstNameET.getText().toString();
         String surname = surnameET.getText().toString();
         String phone = phoneET.getText().toString();
@@ -95,15 +71,39 @@ public class RegisterActivity extends CommonActivity {
 
         if (validFirstName && validSurname && validPhone && validEmail && validPassword) {
             if (userType.equals("Player")) {
-                addPlayerToDB(firstName, surname, phone, email, password);
+                addToDB(firstName, surname, phone, email, password, "player");
             } else {
-                addCoachToDB(firstName, surname, phone, email, password);
+                addToDB(firstName, surname, phone, email, password, "coach");
             }
         }
 
     }
 
-    public void getSelectedRB() {
+    private void pageSetup() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firstNameET = findViewById(R.id.reg_first_name_et);
+        surnameET = findViewById(R.id.reg_surname_et);
+        phoneET = findViewById(R.id.reg_phone_number_et);
+        emailET = findViewById(R.id.reg_email_et);
+        passwordET = findViewById(R.id.reg_password_et);
+        radioGroup = findViewById(R.id.radio_group);
+        firstNameLO = findViewById(R.id.reg_first_name);
+        surnameLO = findViewById(R.id.reg_surname);
+        emailLO = findViewById(R.id.reg_email);
+        phoneLO = findViewById(R.id.reg_phone_number);
+        passwordLO = findViewById(R.id.reg_password);
+
+        Button register = findViewById(R.id.register_user_button);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                register();
+            }
+        });
+    }
+
+    private void getSelectedRB() {
         int selectedButton = radioGroup.getCheckedRadioButtonId();
 
          if (selectedButton == R.id.radio_coach){
@@ -113,7 +113,7 @@ public class RegisterActivity extends CommonActivity {
         }
     }
 
-    public void setDatePicker() {
+    private void setDatePicker() {
         dobTV = findViewById(R.id.reg_dob_tv);
         dobTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,30 +136,28 @@ public class RegisterActivity extends CommonActivity {
         });
     }
 
-    public void addPlayerToDB(String firstName, String surname, String phone, String email, String password) {
+    private void addToDB(String firstName, String surname, String phone, String email, String password, String type) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Add to Firestore
-                            Player player = new Player(firstName, surname, dob, phone, email, password, new ArrayList<DocumentReference>());
-                            String playerId = FirebaseAuth.getInstance().getUid();;
-                            addPlayerToFireStore(player, playerId);
+                            User user = new User(firstName, surname, dob, phone, email, password, new ArrayList<DocumentReference>());
+                            String id = FirebaseAuth.getInstance().getUid();
+                            addToFireStore(user, id, type);
                         } else {
                             Log.e(TAG, task.getException().getMessage());
                             if (task.getException().getMessage().equals("The email address is already in use by another account.")) {
                                 emailLO.setError("Email Taken");
                             }
-
                         }
                     }
                 });
     }
 
-    public void addPlayerToFireStore(Player player, String playerId) {
-        firebaseFirestore.collection("player").document(playerId)
-                .set(player)
+    private void addToFireStore(User user, String id, String type) {
+        firebaseFirestore.collection(type).document(id)
+                .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -171,49 +169,7 @@ public class RegisterActivity extends CommonActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegisterActivity.this, "Failed to Register Player", Toast.LENGTH_SHORT).show();
-                        Log.e(TAG, e.toString());
-                    }
-                });
-    }
-
-
-    public void addCoachToDB(String firstName, String surname, String phone, String email, String password) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Add to Firestore
-                            Coach coach = new Coach(firstName, surname, dob, phone, email, password, new ArrayList<DocumentReference>());
-                            String coachId = FirebaseAuth.getInstance().getUid();;
-                            addCoachToFireStore(coach, coachId);
-                        } else {
-                            Log.e(TAG, task.getException().getMessage());
-                            if (task.getException().getMessage().equals("The email address is already in use by another account.")) {
-                                emailLO.setError("Email Taken");
-                            }
-
-                        }
-                    }
-                });
-    }
-
-    public void addCoachToFireStore(Coach coach, String coachId) {
-        firebaseFirestore.collection("coach").document(coachId)
-                .set(coach)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(TAG, "createUserWithEmail: successful");
-                        Intent selectTeamIntent = new Intent(RegisterActivity.this, SelectTeamActivity.class);
-                        startActivity(selectTeamIntent);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegisterActivity.this, "Failed to Register Coach", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Failed to Register User", Toast.LENGTH_SHORT).show();
                         Log.e(TAG, e.toString());
                     }
                 });

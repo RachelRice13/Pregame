@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pregame.Model.Player;
+import com.example.pregame.Model.User;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,13 +31,13 @@ import java.util.List;
 
 public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.ExampleViewHolder>{
     public static final String PLAYER = "Player";
-    private List<Player> players;
+    private List<User> players;
     private Context context;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
 
-    public PlayerListAdapter(List<Player> players, Context context) {
+    public PlayerListAdapter(List<User> players, Context context) {
         this.players = players;
         this.context = context;
     }
@@ -61,7 +61,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Ex
         @Override
         public void onClick(View view) {
             int position = this.getLayoutPosition();
-            Player player = players.get(position);
+            User player = players.get(position);
 
             Intent intent = new Intent(view.getContext(), TeamFragment.class);
             intent.putExtra(PLAYER, (Serializable) player);
@@ -79,7 +79,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Ex
 
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
-        Player player = players.get(position);
+        User player = players.get(position);
         holder.fullNameTv.setText(player.getFirstName() + " " + player.getSurname());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {

@@ -22,9 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pregame.InjuryReport.ViewInjuryFragment;
-import com.example.pregame.Model.Coach;
-import com.example.pregame.Model.Player;
 import com.example.pregame.Model.Team;
+import com.example.pregame.Model.User;
 import com.example.pregame.R;
 import com.example.pregame.Team.TeamListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,8 +46,8 @@ import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
     public static String userType = "";
-    public static Player globalPlayer = new Player();
-    public static Coach globalCoach = new Coach();
+    public static User globalPlayer = new User();
+    public static User globalCoach = new User();
     public static final String TAG = "Profile";
     private View view;
     private FirebaseAuth firebaseAuth;
@@ -135,7 +134,7 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
-                            Player player = documentSnapshot.toObject(Player.class);
+                            User player = documentSnapshot.toObject(User.class);
                             userType = "Player";
                             globalPlayer = player;
 
@@ -150,7 +149,7 @@ public class ProfileFragment extends Fragment {
                                         @Override
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                                             if (documentSnapshot.exists()) {
-                                                Coach coach = documentSnapshot.toObject(Coach.class);
+                                                User coach = documentSnapshot.toObject(User.class);
                                                 userType = "Coach";
                                                 globalCoach = coach;
 
@@ -214,7 +213,7 @@ public class ProfileFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Coach currentCoach = documentSnapshot.toObject(Coach.class);
+                        User currentCoach = documentSnapshot.toObject(User.class);
 
                         // Search through the Coach's array of teams
                         for (int i = 0; i < currentCoach.getTeams().size(); i++) {
@@ -246,7 +245,7 @@ public class ProfileFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Player currentPlayer = documentSnapshot.toObject(Player.class);
+                        User currentPlayer = documentSnapshot.toObject(User.class);
 
                         // Search through the Coach's array of teams
                         for (int i = 0; i < currentPlayer.getTeams().size(); i++) {

@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pregame.Model.CartItem;
-import com.example.pregame.Model.Player;
+import com.example.pregame.Model.User;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,7 +31,7 @@ public class FeesFragment extends Fragment {
     private View view;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-    private Player currentPlayer;
+    private User currentPlayer;
     private String currentPlayerId;
 
     public FeesFragment() {}
@@ -66,7 +66,7 @@ public class FeesFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        currentPlayer = documentSnapshot.toObject(Player.class);
+                        currentPlayer = documentSnapshot.toObject(User.class);
                         playerNameTv.setText(currentPlayer.getFirstName() + " " + currentPlayer.getSurname() + "'s");
                     }
                 });

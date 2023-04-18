@@ -13,10 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pregame.HomePage.CoachHomeActivity;
-import com.example.pregame.Model.Coach;
-import com.example.pregame.Model.Player;
 import com.example.pregame.Model.Team;
 import com.example.pregame.HomePage.PlayerHomeActivity;
+import com.example.pregame.Model.User;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -66,15 +65,9 @@ public class MessageFragment extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if (teamMemberType.equals("Player")) {
-                                Player player = documentSnapshot.toObject(Player.class);
-                                String playerName = player.getFirstName() + " " + player.getSurname();
-                                teamMembersList.add(playerName);
-                            } else {
-                                Coach coach = documentSnapshot.toObject(Coach.class);
-                                String coachName = coach.getFirstName() + " " + coach.getSurname();
-                                teamMembersList.add(coachName);
-                            }
+                            User user = documentSnapshot.toObject(User.class);
+                            String username = user.getFirstName() + " " + user.getSurname();
+                            teamMembersList.add(username);
                             adapter.notifyDataSetChanged();
                         }
                     })

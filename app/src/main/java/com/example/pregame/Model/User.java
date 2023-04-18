@@ -2,13 +2,16 @@ package com.example.pregame.Model;
 
 import com.google.firebase.firestore.DocumentReference;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player {
+public class User implements Serializable {
     private String firstName, surname, dob, phoneNumber, email, password;
     private ArrayList<DocumentReference> teams;
 
-    public Player(String firstName, String surname, String dob, String phoneNumber, String email, String password, ArrayList<DocumentReference> teams) {
+    public User() {}
+
+    public User(String firstName, String surname, String dob, String phoneNumber, String email, String password, ArrayList<DocumentReference> teams) {
         this.firstName = firstName;
         this.surname = surname;
         this.dob = dob;
@@ -16,15 +19,6 @@ public class Player {
         this.email = email;
         this.password = password;
         this.teams = teams;
-    }
-    public Player() {
-        this.firstName = "";
-        this.surname = "";
-        this.dob = "";
-        this.phoneNumber = "";
-        this.email = "";
-        this.password = "";
-        this.teams = null;
     }
 
     public String getFirstName() {
@@ -75,5 +69,4 @@ public class Player {
     public void setTeams(ArrayList<DocumentReference> teams) {
         this.teams = teams;
     }
-
 }

@@ -25,8 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pregame.Model.Coach;
-import com.example.pregame.Model.Player;
+import com.example.pregame.Model.User;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -134,7 +133,7 @@ public class EditProfileFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
-                            Player player = documentSnapshot.toObject(Player.class);
+                            User player = documentSnapshot.toObject(User.class);
 
                             fullNameTv.setText(player.getFirstName() + " " + player.getSurname());
                             emailTv.setText(player.getEmail());
@@ -147,7 +146,7 @@ public class EditProfileFragment extends Fragment {
                                         @Override
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                                             if (documentSnapshot.exists()) {
-                                                Coach coach = documentSnapshot.toObject(Coach.class);
+                                                User coach = documentSnapshot.toObject(User.class);
 
                                                 fullNameTv.setText(coach.getFirstName() + " " + coach.getSurname());
                                                 emailTv.setText(coach.getEmail());
