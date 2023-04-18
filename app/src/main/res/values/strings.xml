@@ -2,6 +2,7 @@
     <string name="app_name">Pregame</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
+    <string name="burger_menu_image">Burger Menu Image</string>
 
     <!-- Landing Page -->
     <string name="register_button">Register</string>

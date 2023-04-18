@@ -5,23 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlayerHomeActivity">
+    tools:context=".HomePage.PlayerHomeActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/player_drawer_layout">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/player_top_app_bar"
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:title="@string/app_name"
@@ -34,8 +32,8 @@
                         android:layout_height="25dp"
                         android:layout_gravity="end"
                         android:src="@drawable/ic_menu"
-                        android:layout_margin="10dp"/>
-
+                        android:layout_margin="10dp"
+                        android:contentDescription="@string/burger_menu_image"/>
                 </com.google.android.material.appbar.MaterialToolbar>
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -43,20 +41,19 @@
                 android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/player_bottom_navigation" />
+                android:layout_above="@+id/bottom_navigation" />
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/player_bottom_navigation"
+                android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 app:menu="@menu/player_bottom_navigation"
                 app:labelVisibilityMode="labeled" />
-
         </RelativeLayout>
 
         <com.google.android.material.navigation.NavigationView
-            android:id="@+id/player_navigation_view"
+            android:id="@+id/navigation_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
@@ -64,7 +61,5 @@
             app:headerLayout="@layout/nav_header"
             app:menu="@menu/player_drawer_navigation"
             android:visibility="visible"/>
-
     </androidx.drawerlayout.widget.DrawerLayout>
-
 </RelativeLayout>

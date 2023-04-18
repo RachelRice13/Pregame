@@ -34,14 +34,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".CoachHomeActivity"
+            android:name=".HomePage.CoachHomeActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".PlayerHomeActivity"
+            android:name=".HomePage.PlayerHomeActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
