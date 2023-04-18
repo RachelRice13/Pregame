@@ -1,12 +1,12 @@
 package com.example.pregame;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-public class SplashActivity extends AppCompatActivity {
+import com.example.pregame.Common.CommonActivity;
+
+public class SplashActivity extends CommonActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +23,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 3000);
 
-        // Hides the action bar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        hideActionBar();
     }
 }

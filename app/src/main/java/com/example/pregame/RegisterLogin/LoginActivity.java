@@ -1,7 +1,6 @@
 package com.example.pregame.RegisterLogin;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.pregame.Common.CommonActivity;
 import com.example.pregame.Common.Validation;
 import com.example.pregame.LandingPage;
 import com.example.pregame.R;
@@ -19,12 +19,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends CommonActivity {
     private static final String TAG = "LoginActivity";
     private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore firebaseFirestore;
     private EditText emailET, passwordET;
     private TextInputLayout emailLO, passwordLO;
 
@@ -34,10 +32,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
         emailLO = findViewById(R.id.login_email);
         passwordLO = findViewById(R.id.login_password);
-
 
         Button login = findViewById(R.id.login_user_button);
         login.setOnClickListener(new View.OnClickListener() {
@@ -47,19 +43,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button goToLP = findViewById(R.id.landing_page_button);
-        goToLP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent landingPageIntent = new Intent(LoginActivity.this, LandingPage.class);
-                startActivity(landingPageIntent);
-            }
-        });
-
-        // Hides the action bar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        goToPage(R.id.landing_page_button, LoginActivity.this, LandingPage.class);
+        hideActionBar();
     }
 
     public void login() {

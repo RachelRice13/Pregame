@@ -1,7 +1,6 @@
 package com.example.pregame.RegisterLogin;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -15,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pregame.Common.CommonActivity;
 import com.example.pregame.Common.Validation;
 import com.example.pregame.LandingPage;
 import com.example.pregame.Model.Coach;
@@ -34,7 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends CommonActivity {
     private static final String TAG = "RegisterActivity";
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
@@ -68,19 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        Button goToLP = findViewById(R.id.landing_page_button);
-        goToLP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent landingPageIntent = new Intent(RegisterActivity.this, LandingPage.class);
-                startActivity(landingPageIntent);
-            }
-        });
-
-        // Hides the action bar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        goToPage(R.id.landing_page_button, RegisterActivity.this, LandingPage.class);
+        hideActionBar();
     }
 
     public void register() {

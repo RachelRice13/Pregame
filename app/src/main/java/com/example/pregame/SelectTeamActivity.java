@@ -2,7 +2,6 @@ package com.example.pregame;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.pregame.Common.CommonActivity;
 import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.HomePage.PlayerHomeActivity;
 import com.example.pregame.Model.Team;
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 
-public class SelectTeamActivity extends AppCompatActivity {
+public class SelectTeamActivity extends CommonActivity {
     private static final String TAG = "SelectTeam";
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
@@ -76,11 +76,7 @@ public class SelectTeamActivity extends AppCompatActivity {
             }
         });
 
-        // Hides the action bar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-
+        hideActionBar();
     }
 
     public void getUserDetails() {
