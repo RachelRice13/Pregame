@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pregame.Common.Validation;
 import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.Training;
 import com.example.pregame.R;
@@ -317,7 +318,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Exampl
             public void onClick(View view) {
                 String text = editText.getText().toString();
 
-                boolean validString = validateBlank(text, editTextLO);
+                boolean validString = Validation.validateBlank(text, editTextLO);
 
                 if (validString) {
                     updateFirestoreString(training, dataType, text);
@@ -334,16 +335,6 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Exampl
                 alert.cancel();
             }
         });
-    }
-
-    public boolean validateBlank(String text, TextInputLayout layout) {
-        if (text.isEmpty()) {
-            layout.setError("This is Required");
-            return false;
-        } else {
-            layout.setError(null);
-            return true;
-        }
     }
 
     public void updateFirestoreString(Training training, String dataType, String data) {

@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.pregame.Common.Validation;
 import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.MatchStats;
 import com.example.pregame.Model.Team;
@@ -133,8 +133,8 @@ public class GameStatsFragment extends Fragment {
             public void onClick(View view) {
                 String opponent = opponentNameEt.getText().toString();
 
-                boolean validOpponent = validateBlank(opponent, opponentLo);
-                boolean validDate = validateDate();
+                boolean validOpponent = Validation.validateBlank(opponent, opponentLo);
+                boolean validDate = Validation.validateDate(date);
 
                 if (validOpponent && validDate) {
                     CreateMatchStatsFragment createMatchStatsFragment = new CreateMatchStatsFragment();
@@ -179,22 +179,4 @@ public class GameStatsFragment extends Fragment {
         });
     }
 
-    public boolean validateBlank(String text, TextInputLayout layout) {
-        if (text.isEmpty()) {
-            layout.setError("This is Required");
-            return false;
-        } else {
-            layout.setError(null);
-            return true;
-        }
-    }
-
-    public boolean validateDate() {
-        if (date == null) {
-            Log.e("DATE", "Date is required");
-            return false;
-        } else {
-            return true;
-        }
-    }
 }

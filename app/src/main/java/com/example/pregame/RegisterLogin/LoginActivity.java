@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.pregame.Common.Validation;
 import com.example.pregame.LandingPage;
 import com.example.pregame.R;
 import com.example.pregame.SelectTeamActivity;
@@ -68,8 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailET.getText().toString();
         String password = passwordET.getText().toString();
 
-        boolean validEmail = validateBlank(email, emailLO);
-        boolean validPassword = validateBlank(password, passwordLO);
+        boolean validEmail = Validation.validateBlank(email, emailLO);
+        boolean validPassword = Validation.validateBlank(password, passwordLO);
 
         if (validEmail && validPassword) {
             firebaseAuth.signInWithEmailAndPassword(email, password)
@@ -92,16 +93,6 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                     });
-        }
-    }
-
-    public boolean validateBlank(String text, TextInputLayout layout) {
-        if (text.isEmpty()) {
-            layout.setError("This is Required");
-            return false;
-        } else {
-            layout.setError(null);
-            return true;
         }
     }
 }

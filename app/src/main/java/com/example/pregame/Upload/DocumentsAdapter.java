@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pregame.Common.Validation;
 import com.example.pregame.Model.Media;
 import com.example.pregame.R;
-import com.example.pregame.RegisterLogin.RegisterActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
@@ -148,7 +148,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.Exam
             @Override
             public void onClick(View view) {
                 String documentName = documentNameEt.getText().toString();
-                boolean validDocumentName = RegisterActivity.validateBlank(documentName, documentNameLO);
+                boolean validDocumentName = Validation.validateBlank(documentName, documentNameLO);
 
                 if (validDocumentName) {
                     firebaseFirestore.collection("team").document(teamDoc).collection("documents").document(document.MediaId)

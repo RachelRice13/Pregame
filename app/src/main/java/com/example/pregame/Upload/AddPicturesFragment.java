@@ -22,8 +22,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.pregame.Common.Validation;
 import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.Coach;
 import com.example.pregame.Model.Folder;
@@ -31,7 +31,6 @@ import com.example.pregame.Model.Player;
 import com.example.pregame.Model.Team;
 import com.example.pregame.HomePage.PlayerHomeActivity;
 import com.example.pregame.R;
-import com.example.pregame.RegisterLogin.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -214,8 +213,8 @@ public class AddPicturesFragment extends Fragment {
         TextInputLayout folderTitleLO = view.findViewById(R.id.folder_title);
         folderTitle = folderTitleEt.getText().toString();
 
-        boolean validFolderTitle = RegisterActivity.validateBlank(folderTitle, folderTitleLO);
-        boolean validNumberOfPhotosVideos = validateNumberOfPhotosVideos();
+        boolean validFolderTitle = Validation.validateBlank(folderTitle, folderTitleLO);
+        boolean validNumberOfPhotosVideos = Validation.validateNumberOfPhotosVideos(imagesUris, videosUris, getContext());
 
         if (validFolderTitle && validNumberOfPhotosVideos) {
             for (Uri uri : imagesUris) {
@@ -229,14 +228,6 @@ public class AddPicturesFragment extends Fragment {
             Folder folder = new Folder(username, date, folderTitle, imagesPaths, videosPaths);
             addToFireStore(folder);
         }
-    }
-
-    private boolean validateNumberOfPhotosVideos() {
-        if (imagesUris.size() == 0 && videosUris.size() == 0) {
-            Toast.makeText(getContext(), "You must select some photos or videos", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
     }
 
     private String getVideosType(Uri uri) {

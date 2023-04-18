@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pregame.Common.Validation;
 import com.example.pregame.LandingPage;
 import com.example.pregame.Model.Coach;
 import com.example.pregame.Model.Player;
@@ -32,8 +33,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
@@ -97,11 +96,11 @@ public class RegisterActivity extends AppCompatActivity {
         String email = emailET.getText().toString();
         String password = passwordET.getText().toString();
 
-        boolean validFirstName = validateBlank(firstName, firstNameLO);
-        boolean validSurname = validateBlank(surname, surnameLO);
-        boolean validPhone = validatePhone(phone);
-        boolean validEmail = validateBlank(email, emailLO);
-        boolean validPassword = validatePassword(password);
+        boolean validFirstName = Validation.validateBlank(firstName, firstNameLO);
+        boolean validSurname = Validation.validateBlank(surname, surnameLO);
+        boolean validPhone = Validation.validatePhone(phone, phoneLO);
+        boolean validEmail = Validation.validateBlank(email, emailLO);
+        boolean validPassword = Validation.validatePassword(password, passwordLO);
 
         getSelectedRB();
 
@@ -122,48 +121,6 @@ public class RegisterActivity extends AppCompatActivity {
             userType = "Coach";
         } else if (selectedButton == R.id.radio_player){
             userType = "Player";
-        }
-    }
-
-    public static boolean validateBlank(String text, TextInputLayout layout) {
-        if (text.isEmpty()) {
-            layout.setError("This is Required");
-            return false;
-        } else {
-            layout.setError(null);
-            return true;
-        }
-    }
-
-    public boolean validatePhone(String phone) {
-        if (phone.isEmpty()) {
-            phoneLO.setError("This is Required");
-            return false;
-        } else {
-            if (phone.length() == 10) {
-                phoneLO.setError(null);
-                return true;
-            } else {
-                phoneLO.setError("This is not a valid number");
-                return false;
-            }
-        }
-    }
-
-    public boolean validatePassword(String password) {
-        Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
-        Matcher matcher = pattern.matcher(password);
-        if (password.isEmpty()) {
-            passwordLO.setError("This is Required");
-            return false;
-        } else {
-            if (!matcher.matches()) {
-                passwordLO.setError("Password must be at least 8 characters and contain both uppercase and lowercase characters/numbers/special characters");
-                return false;
-            } else {
-                passwordLO.setError(null);
-                return true;
-            }
         }
     }
 

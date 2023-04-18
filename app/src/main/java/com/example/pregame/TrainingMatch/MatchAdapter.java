@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pregame.Common.Validation;
 import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.Match;
 import com.example.pregame.R;
@@ -360,8 +361,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
                 String teamScoreString = editTeamScoreEt.getText().toString();
                 String opponentScoreString = editOpponentScoreEt.getText().toString();
 
-                boolean validTeamScore = validateBlank(teamScoreString, editTeamScoreLO);
-                boolean validOpponentScore = validateBlank(opponentScoreString, editOpponentScoreLO);
+                boolean validTeamScore = Validation.validateBlank(teamScoreString, editTeamScoreLO);
+                boolean validOpponentScore = Validation.validateBlank(opponentScoreString, editOpponentScoreLO);
 
                 if (validTeamScore && validOpponentScore) {
                     int teamScore = Integer.parseInt(teamScoreString);
@@ -473,7 +474,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
             public void onClick(View view) {
                 String text = editText.getText().toString();
 
-                boolean validString = validateBlank(text, editTextLO);
+                boolean validString = Validation.validateBlank(text, editTextLO);
 
                 if (validString) {
                     updateFirestore(match, dataType, text);
@@ -490,16 +491,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ExampleViewH
                 alert.cancel();
             }
         });
-    }
-
-    public boolean validateBlank(String text, TextInputLayout layout) {
-        if (text.isEmpty()) {
-            layout.setError("This is Required");
-            return false;
-        } else {
-            layout.setError(null);
-            return true;
-        }
     }
 
     public void updateFirestore(Match match, String dataType, String data) {
