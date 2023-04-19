@@ -1,5 +1,6 @@
 package com.example.pregame.TrainingMatch;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -20,102 +21,103 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.pregame.Common.Validation;
-import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.Attendance;
 import com.example.pregame.Model.MatchTraining;
-import com.example.pregame.Model.Team;
 import com.example.pregame.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AddTrainingFragment extends Fragment {
-    public static final String TAG = "AddTrainingFragment";
+public class UpdateTrainingFragment extends Fragment {
+    private static final String TAG = "UpdateTrainingFragment";
     private View view;
     private FragmentTransaction transaction;
     private FirebaseFirestore firebaseFirestore;
+    private MatchTraining matchTraining;
     private EditText titleEt, locationEt;
     private TextInputLayout titleLo, locationLo;
-    private TextView dateTv, startTimeTv;
-    private String date = "", startTime = "";
-    private final Team currentTeam = CoachHomeActivity.currentTeam;
-    private ArrayList<Attendance> attendances = new ArrayList<>();
+    private TextView dateTv, startTimeTv, completedTv, cancelledTv;
+    private String date = "", startTime = "", status, teamDoc;
 
-    public AddTrainingFragment() {}
+    public UpdateTrainingFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_add_training, container, false);
+        view = inflater.inflate(R.layout.fragment_update_training, container, false);
 
         setup();
         setDatePicker();
         setStartTimePicker();
-        addToList(currentTeam.getCoaches(), "coach");
-        addToList(currentTeam.getPlayers(), "player");
+        getDetails();
 
         return view;
     }
 
-    private void addTraining() {
+    private void getDetails() {
+        status = matchTraining.getStatus();
+        date = matchTraining.getDate();
+        startTime = matchTraining.getStartTime();
+        titleEt.setText(matchTraining.getTitle());
+        startTimeTv.setText(startTime);
+        dateTv.setText(date);
+        locationEt.setText(matchTraining.getLocation());
+
+        getBackgroundColour("Completed", completedTv, R.color.green, R.color.black);
+        getBackgroundColour("Cancelled", cancelledTv, R.color.red, R.color.white);
+    }
+
+    private void getBackgroundColour(String status, TextView textView, int backgroundColour, int textColour) {
+        if (matchTraining.getStatus().equals(status)) {
+            textView.setBackgroundResource(backgroundColour);
+            textView.setTextColor(getResources().getColor(textColour));
+        }
+    }
+
+    private void setBackground(TextView textView, int backgroundColour, int textColour) {
+        textView.setBackgroundResource(backgroundColour);
+        textView.setTextColor(getResources().getColor(textColour));
+    }
+
+    private void updateMatch() {
         String title = titleEt.getText().toString();
         String location = locationEt.getText().toString();
 
         boolean validTitle = Validation.validateBlank(title, titleLo);
-        boolean validLocation = Validation.validateBlank(location, locationLo);
         boolean validDate = Validation.validateString(date);
-        boolean validStartTime = Validation.validateString(startTime);
+        boolean validTime = Validation.validateString(startTime);
+        boolean validLocation = Validation.validateBlank(location, locationLo);
+        boolean validStatus = Validation.validateString(status);
 
-        if (validTitle && validDate && validStartTime && validLocation) {
-            MatchTraining match = new MatchTraining(title, date, startTime, location, "Hasn't Happened", "Training", attendances);
-            addToFireStore(match);
+        if (validTitle && validDate && validTime && validLocation && validStatus) {
+            String type = matchTraining.getType();
+            ArrayList<Attendance> attendance = matchTraining.getAttendance();
+
+            MatchTraining newMatchTraining = new MatchTraining(title, date, startTime, location, status, type, attendance);
+            updateFireStore(newMatchTraining);
         }
     }
 
-    private void addToFireStore(MatchTraining training) {
-        firebaseFirestore.collection("team").whereEqualTo("teamName", currentTeam.getTeamName()).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    private void updateFireStore(MatchTraining newMatchTraining) {
+        firebaseFirestore.collection("team").document(teamDoc).collection("training_match").document(matchTraining.MatchTrainingId).set(newMatchTraining)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
-                                String teamDoc = queryDocumentSnapshot.getId();
-
-                                firebaseFirestore.collection("team").document(teamDoc).collection("training_match")
-                                        .add(training)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                Log.d(TAG, "Successfully added match to DB");
-                                                transaction.replace(R.id.container, new TrainingMatchFragment()).commit();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.e(TAG, e.toString());
-                                            }
-                                        });
-                            }
-                        }
+                    public void onSuccess(Void unused) {
+                        Snackbar.make(view, "Updated Match " + newMatchTraining.getTitle(), Snackbar.LENGTH_LONG).show();
+                        transaction.replace(R.id.container, new TrainingMatchFragment()).commit();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @SuppressLint("LongLogTag")
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Failed to update match.", e);
                     }
                 });
-    }
-
-    private void addToList(ArrayList<DocumentReference> docRefArrayList, String teamMemberType) {
-        for (int i = 0; i < docRefArrayList.size(); i++) {
-            DocumentReference reference = docRefArrayList.get(i);
-            Attendance attendance = new Attendance("Hasn't Responded", "", teamMemberType, reference);
-            attendances.add(attendance);
-        }
     }
 
     private void setDatePicker() {
@@ -165,6 +167,9 @@ public class AddTrainingFragment extends Fragment {
         toolbarIcon.setVisibility(View.INVISIBLE);
         transaction = getFragmentManager().beginTransaction();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        Bundle bundle = getArguments();
+        matchTraining = (MatchTraining) bundle.getSerializable("matchTraining");
+        teamDoc = bundle.getString("teamDoc");
 
         titleEt = view.findViewById(R.id.training_title_et);
         titleLo = view.findViewById(R.id.training_title);
@@ -172,12 +177,14 @@ public class AddTrainingFragment extends Fragment {
         locationLo = view.findViewById(R.id.location);
         dateTv = view.findViewById(R.id.training_date);
         startTimeTv = view.findViewById(R.id.start_time);
+        completedTv = view.findViewById(R.id.status_completed_tv);
+        cancelledTv = view.findViewById(R.id.status_cancelled_tv);
 
-        Button createMatch = view.findViewById(R.id.create_training_button);
-        createMatch.setOnClickListener(new View.OnClickListener() {
+        Button updateMatch = view.findViewById(R.id.update_training_button);
+        updateMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addTraining();
+                updateMatch();
             }
         });
 
@@ -186,6 +193,21 @@ public class AddTrainingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 transaction.replace(R.id.container, new TrainingMatchFragment()).commit();
+            }
+        });
+
+        setStatusButton (completedTv, R.color.green, R.color.black, "Completed", cancelledTv);
+        setStatusButton (cancelledTv, R.color.red, R.color.white, "Cancelled", completedTv);
+
+    }
+
+    private void setStatusButton (TextView selectedTv, int selectedBc, int selectTc, String statusString, TextView first) {
+        selectedTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setBackground(selectedTv, selectedBc, selectTc);
+                status = statusString;
+                setBackground(first, R.drawable.grey_border, R.color.black);
             }
         });
     }

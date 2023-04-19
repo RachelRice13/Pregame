@@ -56,9 +56,6 @@ public class AddMatchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_match, container, false);
 
-        transaction = getFragmentManager().beginTransaction();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-
         setup();
         setDatePicker();
         setStartTimePicker();
@@ -166,6 +163,8 @@ public class AddMatchFragment extends Fragment {
     private void setup() {
         ImageView toolbarIcon = getActivity().findViewById(R.id.toolbar_end_icon);
         toolbarIcon.setVisibility(View.INVISIBLE);
+        transaction = getFragmentManager().beginTransaction();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         titleEt = view.findViewById(R.id.match_title_et);
         titleLo = view.findViewById(R.id.match_title);

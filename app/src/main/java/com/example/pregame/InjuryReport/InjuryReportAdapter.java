@@ -1,7 +1,6 @@
 package com.example.pregame.InjuryReport;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pregame.Model.Injury;
-import com.example.pregame.Model.Match;
 import com.example.pregame.R;
-import com.example.pregame.TrainingMatch.MatchAdapter;
-import com.example.pregame.TrainingMatch.TrainingMatchFragment;
-import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.Serializable;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class InjuryReportAdapter extends RecyclerView.Adapter<InjuryReportAdapter.ExampleViewHolder> {
     public static final String TAG = "InjuryAdapter";

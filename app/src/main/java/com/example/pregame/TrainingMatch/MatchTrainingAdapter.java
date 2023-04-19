@@ -123,4 +123,21 @@ public class MatchTrainingAdapter extends RecyclerView.Adapter<MatchTrainingAdap
         Snackbar.make(view, "Deleted event", Snackbar.LENGTH_LONG).show();
     }
 
+    public void updateEvent(int position) {
+        MatchTraining matchTraining = matchTrainings.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("matchTraining", matchTraining);
+        bundle.putString("teamDoc", teamDoc);
+
+        if (matchTraining.getType().equals("Match")) {
+            UpdateMatchFragment updateMatchFragment = new UpdateMatchFragment();
+            updateMatchFragment.setArguments(bundle);
+            fragmentManager.beginTransaction().replace(R.id.container, updateMatchFragment).commit();
+        } else {
+            UpdateTrainingFragment updateTrainingFragment = new UpdateTrainingFragment();
+            updateTrainingFragment.setArguments(bundle);
+            fragmentManager.beginTransaction().replace(R.id.container, updateTrainingFragment).commit();
+        }
+
+    }
 }

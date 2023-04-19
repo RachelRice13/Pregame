@@ -10,11 +10,12 @@ public class MatchTraining extends MatchTrainingId implements Serializable {
 
     public MatchTraining() {}
 
-    public MatchTraining(String title, String date, String startTime, String location, String type, ArrayList<Attendance> attendance) {
+    public MatchTraining(String title, String date, String startTime, String location, String status, String type, ArrayList<Attendance> attendance) {
         this.title = title;
         this.date = date;
         this.startTime = startTime;
         this.location = location;
+        this.status = status;
         this.type = type;
         this.attendance = attendance;
     }

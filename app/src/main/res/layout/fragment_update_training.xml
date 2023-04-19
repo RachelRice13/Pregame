@@ -1,18 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".TrainingMatch.AddTrainingFragment"
+    tools:context=".TrainingMatch.UpdateTrainingFragment"
     android:layout_marginTop="70dp">
 
     <TextView
-        android:id="@+id/add_training_title"
+        android:id="@+id/update_training_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_training"
+        android:text="@string/update_training"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="30sp"
@@ -23,9 +22,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add_training_title"
+        android:layout_below="@id/update_training_title"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:hint="@string/training_title"
         android:padding="5dp"
@@ -47,7 +46,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
-        android:id="@+id/dateTime_ll"
+        android:id="@+id/dateTimeLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/training_title"
@@ -93,7 +92,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dateTime_ll"
+        android:layout_below="@id/dateTimeLl"
         android:hint="@string/location"
         app:startIconDrawable="@drawable/ic_location"
         app:startIconTint="@color/black"
@@ -115,6 +114,49 @@
             android:textColorHint="#757575" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/status_tv"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/status_completed_tv"
+            android:layout_alignBottom="@id/status_completed_tv"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="@string/status" />
+
+        <TextView
+            android:id="@+id/status_completed_tv"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/status_tv"
+            android:text="@string/completed"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/grey_border" />
+
+        <TextView
+            android:id="@+id/status_cancelled_tv"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/status_completed_tv"
+            android:text="@string/cancelled"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/grey_border" />
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -124,11 +166,13 @@
         android:gravity="center_horizontal">
 
         <Button
-            android:id="@+id/create_training_button"
+            android:id="@+id/update_training_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create" android:layout_margin="10dp"
-            android:textSize="20sp"/>
+            android:text="@string/update"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            style="?android:attr/buttonBarButtonStyle"/>
 
         <Button
             android:id="@+id/cancel_button"
@@ -136,6 +180,7 @@
             android:layout_height="wrap_content"
             android:text="@string/cancel"
             android:textSize="20sp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            style="?android:attr/buttonBarButtonStyle"/>
     </LinearLayout>
 </RelativeLayout>

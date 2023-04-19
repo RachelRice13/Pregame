@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".TrainingMatch.AddMatchFragment"
-    android:orientation="vertical"
     android:layout_marginTop="70dp">
 
     <TextView
+        android:id="@+id/add_match_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_match"
@@ -23,6 +23,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/add_match_title"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
@@ -46,8 +47,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
+        android:id="@+id/dateTimeLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/match_title"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="5dp"
@@ -90,6 +93,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/dateTimeLl"
         android:hint="@string/location"
         app:startIconDrawable="@drawable/ic_location"
         app:startIconTint="@color/black"
@@ -114,7 +118,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal"
         android:gravity="center_horizontal">
 
@@ -133,4 +138,4 @@
             android:textSize="20sp"
             android:layout_margin="10dp"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

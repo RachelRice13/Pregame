@@ -103,6 +103,14 @@
     <string name="responses">Responses</string>
     <string name="pending">Pending</string>
     <string name="are_you_go_to_training">Are you go to training?</string>
+    <string name="update_match">Update Match</string>
+    <string name="won">Won</string>
+    <string name="lost">Lost</string>
+    <string name="update">Update</string>
+    <string name="update_training">Update Training</string>
+    <string name="completed">Completed</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="draw">Draw</string>
 
 
     <!-- Stats -->

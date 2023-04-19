@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -106,6 +107,8 @@ public class ViewMatchTrainingFragment extends Fragment {
     }
 
     private void setup() {
+        ImageView toolbarIcon = getActivity().findViewById(R.id.toolbar_end_icon);
+        toolbarIcon.setVisibility(View.INVISIBLE);
         teamNameTv = view.findViewById(R.id.team_name_tv);
         eventType = view.findViewById(R.id.event_type_tv);
         titleTv = view.findViewById(R.id.event_title_tv);
