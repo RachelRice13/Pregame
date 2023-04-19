@@ -100,8 +100,7 @@ public class TrainingMatchFragment extends Fragment {
         } else {
             team = CoachHomeActivity.currentTeam;
         }
-        String teamName = team.getTeamName();
-        teamNameTv.setText(teamName);
+        teamNameTv.setText(team.getTeamName());
 
         firebaseFirestore.collection("team").whereEqualTo("teamName", team.getTeamName()).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -122,7 +121,7 @@ public class TrainingMatchFragment extends Fragment {
         recyclerView = view.findViewById(R.id.training_match_rv);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-        matchTrainingAdapter = new MatchTrainingAdapter(matchTrainings, getContext(), teamDoc);
+        matchTrainingAdapter = new MatchTrainingAdapter(matchTrainings, getContext(), teamDoc, getFragmentManager(), "TrainingMatch");
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MatchTrainingTouchHelper(matchTrainingAdapter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(layoutManager);

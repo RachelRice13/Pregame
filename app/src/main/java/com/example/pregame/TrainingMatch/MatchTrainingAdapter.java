@@ -3,6 +3,7 @@ package com.example.pregame.TrainingMatch;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pregame.Model.MatchTraining;
@@ -29,13 +31,16 @@ public class MatchTrainingAdapter extends RecyclerView.Adapter<MatchTrainingAdap
     public static final String TAG = "MatchTrainingAdapter";
     private List<MatchTraining> matchTrainings;
     private Context context;
+    private FragmentManager fragmentManager;
     private FirebaseFirestore firebaseFirestore;
-    private String teamDoc;
+    private String teamDoc, type;
 
-    public MatchTrainingAdapter(List<MatchTraining> matchTrainings, Context context, String teamDoc) {
+    public MatchTrainingAdapter(List<MatchTraining> matchTrainings, Context context, String teamDoc, FragmentManager fragmentManager, String type) {
         this.matchTrainings = matchTrainings;
         this.context = context;
         this.teamDoc = teamDoc;
+        this.fragmentManager = fragmentManager;
+        this.type = type;
     }
 
     public class ExampleViewHolder extends RecyclerView.ViewHolder  {
@@ -81,11 +86,24 @@ public class MatchTrainingAdapter extends RecyclerView.Adapter<MatchTrainingAdap
         holder.date.setText(new SimpleDateFormat("d", Locale.ENGLISH).format(date));
         holder.dayOfTheWeek.setText(new SimpleDateFormat("EEE", Locale.ENGLISH).format(date));
 
-        if (matchTraining.getType().equals("match")) {
+        if (matchTraining.getType().equals("Match")) {
             holder.colourIv.setBackgroundColor(Color.parseColor("#005A9C"));
         } else {
             holder.colourIv.setBackgroundColor(Color.parseColor("#FF5733"));
         }
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewMatchTrainingFragment viewMatchTrainingFragment = new ViewMatchTrainingFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("matchTraining", matchTraining);
+                bundle.putString("teamDoc", teamDoc);
+                bundle.putString("type", type);
+                viewMatchTrainingFragment.setArguments(bundle);
+                fragmentManager.beginTransaction().replace(R.id.container, viewMatchTrainingFragment).commit();
+            }
+        });
     }
 
     @Override

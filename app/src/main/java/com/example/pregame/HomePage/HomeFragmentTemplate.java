@@ -30,7 +30,7 @@ public class HomeFragmentTemplate extends Fragment {
     private ArrayList<MatchTraining> matchTrainings;
     private MatchTrainingAdapter matchTrainingAdapter;
 
-    public void getTeamDoc(View view, String teamName) {
+    public void getTeamDoc(View view, String teamName, String type) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
         firebaseFirestore.collection("team").whereEqualTo("teamName", teamName).get()
@@ -40,19 +40,19 @@ public class HomeFragmentTemplate extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
                                 String teamDoc = queryDocumentSnapshot.getId();
-                                buildRecyclerView(view, teamDoc);
+                                buildRecyclerView(view, teamDoc, type);
                             }
                         }
                     }
                 });
     }
 
-    public void buildRecyclerView(View view, String teamDoc) {
+    public void buildRecyclerView(View view, String teamDoc, String type) {
         matchTrainings = new ArrayList<>();
         RecyclerView recyclerView = view.findViewById(R.id.training_match_rv);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-        matchTrainingAdapter = new MatchTrainingAdapter(matchTrainings, getContext(), teamDoc);
+        matchTrainingAdapter = new MatchTrainingAdapter(matchTrainings, getContext(), teamDoc, getFragmentManager(), type);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(matchTrainingAdapter);
         populateList(teamDoc);

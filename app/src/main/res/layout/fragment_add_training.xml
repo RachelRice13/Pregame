@@ -45,21 +45,6 @@
             android:textColorHint="#757575" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/training_date"
-        android:layout_width="168dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_border_grey"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:text="@string/date"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:drawableStartCompat="@drawable/ic_calendar"
-        app:errorEnabled="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginBottom="10dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,7 +56,7 @@
 
         <TextView
             android:id="@+id/start_time"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
@@ -85,18 +70,18 @@
             app:errorEnabled="true" />
 
         <TextView
-            android:id="@+id/meet_time"
-            android:layout_width="wrap_content"
+            android:id="@+id/training_date"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:background="@drawable/custom_border_grey"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:text="@string/meet_time"
+            android:text="@string/date"
             android:textColor="@color/black"
             android:textSize="15sp"
-            app:drawableStartCompat="@drawable/ic_time"
+            app:drawableStartCompat="@drawable/ic_calendar"
             app:errorEnabled="true" />
     </LinearLayout>
 

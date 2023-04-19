@@ -15,7 +15,7 @@ public class PlayerHomeFragment extends HomeFragmentTemplate {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_player_home, container, false);
-        getTeamDoc(view, PlayerHomeActivity.currentTeam.getTeamName());
+        getTeamDoc(view, PlayerHomeActivity.currentTeam.getTeamName(), "PlayerHome");
         return view;
     }
 }

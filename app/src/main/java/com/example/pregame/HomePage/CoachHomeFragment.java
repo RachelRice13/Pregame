@@ -15,7 +15,7 @@ public class CoachHomeFragment extends HomeFragmentTemplate {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_coach_home, container, false);
-        getTeamDoc(view, CoachHomeActivity.currentTeam.getTeamName());
+        getTeamDoc(view, CoachHomeActivity.currentTeam.getTeamName(), "CoachHome");
         return view;
     }
 }

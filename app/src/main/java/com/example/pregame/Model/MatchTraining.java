@@ -1,29 +1,28 @@
 package com.example.pregame.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MatchTraining extends MatchTrainingId{
-    String title, date, startTime, meetTime, location, status, type;
+public class MatchTraining extends MatchTrainingId implements Serializable {
+    String title, date, startTime, location, status, type;
     int teamScore, opponentScore;
     ArrayList<Attendance> attendance;
 
     public MatchTraining() {}
 
-    public MatchTraining(String title, String date, String startTime, String meetTime, String location, String type, ArrayList<Attendance> attendance) {
+    public MatchTraining(String title, String date, String startTime, String location, String type, ArrayList<Attendance> attendance) {
         this.title = title;
         this.date = date;
         this.startTime = startTime;
-        this.meetTime = meetTime;
         this.location = location;
         this.type = type;
         this.attendance = attendance;
     }
 
-    public MatchTraining(String title, String date, String startTime, String meetTime, String location, String status, String type, int teamScore, int opponentScore, ArrayList<Attendance> attendance) {
+    public MatchTraining(String title, String date, String startTime, String location, String status, String type, int teamScore, int opponentScore, ArrayList<Attendance> attendance) {
         this.title = title;
         this.date = date;
         this.startTime = startTime;
-        this.meetTime = meetTime;
         this.location = location;
         this.status = status;
         this.type = type;
@@ -51,13 +50,6 @@ public class MatchTraining extends MatchTrainingId{
     }
     public void setStartTime(String startTime) {
         this.startTime = startTime;
-    }
-
-    public String getMeetTime() {
-        return meetTime;
-    }
-    public void setMeetTime(String meetTime) {
-        this.meetTime = meetTime;
     }
 
     public String getLocation() {

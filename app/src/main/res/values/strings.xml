@@ -94,6 +94,17 @@
     <string name="edit_home_or_away">Edit Home or Away Status</string>
     <string name="edit_match_score">Edit Match Score</string>
 
+    <string name="datetime">DateTime</string>
+    <string name="event_type">Event Type</string>
+    <string name="home_team">Home Team</string>
+    <string name="away_team">Away Team</string>
+    <string name="dash">-</string>
+    <string name="match_score">Match Score</string>
+    <string name="responses">Responses</string>
+    <string name="pending">Pending</string>
+    <string name="are_you_go_to_training">Are you go to training?</string>
+
+
     <!-- Stats -->
     <string name="general_stats">General</string>
     <string name="number">0</string>

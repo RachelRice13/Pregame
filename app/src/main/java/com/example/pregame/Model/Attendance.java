@@ -1,22 +1,18 @@
 package com.example.pregame.Model;
 
+import com.google.firebase.firestore.DocumentReference;
+
 public class Attendance {
-    String fullName, response, date, type;
+    String response, date, type;
+    DocumentReference user;
 
     public Attendance() {}
 
-    public Attendance(String fullName, String response, String date, String type) {
-        this.fullName = fullName;
+    public Attendance(String response, String date, String type, DocumentReference user) {
         this.response = response;
         this.date = date;
         this.type = type;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+        this.user = user;
     }
 
     public String getResponse() {
@@ -38,5 +34,12 @@ public class Attendance {
     }
     public void setType(String type) {
         this.type = type;
+    }
+
+    public DocumentReference getUser() {
+        return user;
+    }
+    public void setUser(DocumentReference user) {
+        this.user = user;
     }
 }

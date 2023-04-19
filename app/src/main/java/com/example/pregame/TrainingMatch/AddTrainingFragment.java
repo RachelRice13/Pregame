@@ -24,7 +24,6 @@ import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.Model.Attendance;
 import com.example.pregame.Model.MatchTraining;
 import com.example.pregame.Model.Team;
-import com.example.pregame.Model.User;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,7 +31,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -47,8 +45,8 @@ public class AddTrainingFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private EditText titleEt, locationEt;
     private TextInputLayout titleLo, locationLo;
-    private TextView dateTv, startTimeTv, meetTimeTv;
-    private String date = "", meetTime = "", startTime = "";
+    private TextView dateTv, startTimeTv;
+    private String date = "", startTime = "";
     private final Team currentTeam = CoachHomeActivity.currentTeam;
     private ArrayList<Attendance> attendances = new ArrayList<>();
 
@@ -63,7 +61,6 @@ public class AddTrainingFragment extends Fragment {
 
         setup();
         setDatePicker();
-        setMeetTimePicker();
         setStartTimePicker();
         addToList(currentTeam.getCoaches(), "coach");
         addToList(currentTeam.getPlayers(), "player");
@@ -79,10 +76,9 @@ public class AddTrainingFragment extends Fragment {
         boolean validLocation = Validation.validateBlank(location, locationLo);
         boolean validDate = Validation.validateString(date);
         boolean validStartTime = Validation.validateString(startTime);
-        boolean validMeetTime = Validation.validateString(meetTime);
 
-        if (validTitle && validDate && validStartTime && validMeetTime && validLocation) {
-            MatchTraining match = new MatchTraining(title, date, startTime, meetTime, location, "training", attendances);
+        if (validTitle && validDate && validStartTime && validLocation) {
+            MatchTraining match = new MatchTraining(title, date, startTime, location, "Training", attendances);
             addToFireStore(match);
         }
     }
@@ -120,22 +116,8 @@ public class AddTrainingFragment extends Fragment {
     private void addToList(ArrayList<DocumentReference> docRefArrayList, String teamMemberType) {
         for (int i = 0; i < docRefArrayList.size(); i++) {
             DocumentReference reference = docRefArrayList.get(i);
-            reference.get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            User user = documentSnapshot.toObject(User.class);
-                            String username = user.getFirstName() + " " + user.getSurname();
-                            Attendance attendance = new Attendance(username, "Hasn't Responded", "", teamMemberType);
-                            attendances.add(attendance);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.e(TAG, e.toString());
-                        }
-                    });
+            Attendance attendance = new Attendance("Hasn't Responded", "", teamMemberType, reference);
+            attendances.add(attendance);
         }
     }
 
@@ -157,26 +139,6 @@ public class AddTrainingFragment extends Fragment {
                     }
                 }, YEAR, MONTH, DAY);
                 datePickerDialog.show();
-            }
-        });
-    }
-
-    private void setMeetTimePicker() {
-        meetTimeTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar calendar = Calendar.getInstance();
-                int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                int minute = calendar.get(Calendar.MINUTE);
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                        meetTime = hourOfDay + ":" + minute;
-                        meetTimeTv.setText(meetTime);
-                    }
-                }, hour, minute, false);
-                timePickerDialog.show();
             }
         });
     }
@@ -211,7 +173,6 @@ public class AddTrainingFragment extends Fragment {
         locationLo = view.findViewById(R.id.location);
         dateTv = view.findViewById(R.id.training_date);
         startTimeTv = view.findViewById(R.id.start_time);
-        meetTimeTv = view.findViewById(R.id.meet_time);
 
         Button createMatch = view.findViewById(R.id.create_training_button);
         createMatch.setOnClickListener(new View.OnClickListener() {
