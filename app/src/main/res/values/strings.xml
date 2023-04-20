@@ -242,4 +242,14 @@
     <string name="videos">(Videos)</string>
     <string name="images">(Images)</string>
 
+    <!-- Coaches Board   -->
+    <string name="offensive_player_image">Offensive Player Image</string>
+    <string name="defensive_player_image">Defensive Player Image</string>
+    <string name="player_movement_arrow_image">Player Movement Arrow Image</string>
+    <string name="player_pass_arrow_image">Player Pass Arrow Image</string>
+    <string name="player_screen_image">Player Screen Image</string>
+    <string name="add_page_to_play_image">Add page to Play Image</string>
+    <string name="minus_play_from_play_image">Minus play from play Image</string>
+    <string name="play_menu_image">Play menu image</string>
+
 </resources>
