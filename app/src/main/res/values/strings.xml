@@ -112,7 +112,6 @@
     <string name="cancelled">Cancelled</string>
     <string name="draw">Draw</string>
 
-
     <!-- Stats -->
     <string name="general_stats">General</string>
     <string name="number">0</string>
@@ -154,6 +153,9 @@
     <string name="foul_shorthand">F - Foul</string>
     <string name="steal_shorthand">Stl - Steal</string>
     <string name="turnover_shorthand">To - Turnover</string>
+    <string name="remaining">Remaining</string>
+    <string name="training_breakdown">Training Breakdown</string>
+    <string name="match_breakdown">Match Breakdown</string>
 
     <!-- Injury Report -->
     <string name="injury_report">Injury Report</string>
