@@ -15,6 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.pregame.HomePage.CoachHomeActivity;
+import com.example.pregame.Model.Attendance;
 import com.example.pregame.Model.MatchStats;
 import com.example.pregame.Model.MatchTraining;
 import com.example.pregame.Model.Team;
@@ -31,6 +32,8 @@ import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
 
+import java.text.DecimalFormat;
+
 public class TeamStatsFragment extends Fragment {
     public static final String TAG = "TeamStats";
     private View view;
@@ -39,7 +42,7 @@ public class TeamStatsFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private int numOfTrainings, numOfMatches, trainingsRemaining, trainingsCompleted, trainingsCancelled, matchWon, matchLost, matchDraw, matchCancelled, matchRemaining, matchesPlayed;
     private int totalPointsScored, totalPointsAgainst, totalMatchesWithStats, totalAssist, totalOffReb, totalDefReb, totalBlocks, totalFouls, totalSteals, totalTurnovers;
-    private double averagePointsScore, averagePointsAgainst;
+    private double averagePointsScore, averagePointsAgainst, totalYesCount, totalNoCount, totalHasNotRespondedCount, totalResponsesCount;
     private String teamDoc;
 
     public TeamStatsFragment() {}
@@ -89,10 +92,11 @@ public class TeamStatsFragment extends Fragment {
         numOfPlayersTv.setText(String.valueOf(numOfPlayers));
         numOfCoachesTv.setText(String.valueOf(numOfCoaches));
 
-        getMatchTrainingCount(teamDoc, numOfTrainingsTv, numOfMatchesTv);
+        getMatchTrainingCount(numOfTrainingsTv, numOfMatchesTv);
+        getAttendanceData();
     }
 
-    private void getMatchTrainingCount(String teamDoc, TextView numOfTrainingsTv, TextView numOfMatchesTv) {
+    private void getMatchTrainingCount(TextView numOfTrainingsTv, TextView numOfMatchesTv) {
         firebaseFirestore.collection("team").document(teamDoc).collection("training_match").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -190,6 +194,52 @@ public class TeamStatsFragment extends Fragment {
 
         String legendText = count + " " + status;
         textView.setText(legendText);
+    }
+
+    private void getAttendanceData() {
+        firebaseFirestore.collection("team").document(teamDoc).collection("training_match").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                MatchTraining matchTraining = document.toObject(MatchTraining.class);
+                                int yesCount = 0, noCount = 0, hasNotRespondedCount = 0;
+                                int total = matchTraining.getAttendance().size();
+
+                                for (Attendance attendance : matchTraining.getAttendance()) {
+                                    if (attendance.getResponse().equals("Yes"))
+                                        yesCount += 1;
+                                    else if (attendance.getResponse().equals("No"))
+                                        noCount += 1;
+                                    else
+                                        hasNotRespondedCount += 1;
+                                }
+                                totalYesCount += yesCount;
+                                totalNoCount += noCount;
+                                totalHasNotRespondedCount += hasNotRespondedCount;
+                                totalResponsesCount += total;
+                            }
+                            calculateResponsePercentages();
+                        } else {
+                            Log.e(TAG, "Count Failed: " + task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void calculateResponsePercentages() {
+        TextView yesPercentTv = view.findViewById(R.id.yes_percent_tv);
+        TextView noPercentTv = view.findViewById(R.id.no_percent_tv);
+        TextView noResponseTv = view.findViewById(R.id.has_not_responded_percent_tv);
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        double yesPercentage = Double.parseDouble(decimalFormat.format((totalYesCount/totalResponsesCount) * 100));
+        double noPercentage = Double.parseDouble(decimalFormat.format((totalNoCount/totalResponsesCount) * 100));
+        double hasNotRespondedPercentage = Double.parseDouble(decimalFormat.format((totalHasNotRespondedCount/totalResponsesCount) * 100));
+
+        yesPercentTv.setText(String.valueOf(yesPercentage));
+        noPercentTv.setText(String.valueOf(noPercentage));
+        noResponseTv.setText(String.valueOf(hasNotRespondedPercentage));
     }
 
     private void setMatchStats(Team team) {

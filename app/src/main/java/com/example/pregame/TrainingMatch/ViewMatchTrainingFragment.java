@@ -123,8 +123,10 @@ public class ViewMatchTrainingFragment extends Fragment {
             if (attendance.getUser().getId().equals(currentUserId)) {
                 if (attendance.getResponse().equals("Yes"))
                     yesIv.setColorFilter(getResources().getColor(R.color.green));
-                else
+                else if (attendance.getResponse().equals("No"))
                     noIv.setColorFilter(getResources().getColor(R.color.red));
+                else
+                    noIv.setColorFilter(getResources().getColor(R.color.black));
             }
         }
     }
