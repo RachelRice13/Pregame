@@ -5,23 +5,30 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.pregame.R;
+
+import java.util.ArrayList;
 
 @SuppressLint("ClickableViewAccessibility")
 public class CoachesBoardFragment extends Fragment {
     public static final String TAG = "CoachesBoardFragment";
     private View view;
     private ViewGroup mainLayout;
-    private ImageView basketballIv, offensivePlayerIv, defensivePlayerIv, movementIv, passingIv, screenIv, addPageIv, deletePageIv, menuIv;
+    private ImageView basketballIv, offensivePlayerIv, defensivePlayerIv, movementIv, passingIv, screenIv, removeItemIv, addItemIv, addPageIv, deletePageIv, menuIv;
     private String selectedItem = "";
-    private int xDelta, yDelta;
+    private final ArrayList<TextView> itemsOnScreen = new ArrayList<>();
+    private final ArrayList<TextView> removedItems = new ArrayList<>();
+    private int xDelta, yDelta, basketballCount = 0, offensivePlayerCount = 0, defensivePlayerCount = 0;
 
     public CoachesBoardFragment() { }
 
@@ -67,30 +74,96 @@ public class CoachesBoardFragment extends Fragment {
     }
 
     private void createItem(int xCord, int yCord) {
-        ImageView imageView = new ImageView(getContext());
-        setItemBackground(imageView);
+        TextView textView = new TextView(getContext());
+        setItemBackground(textView);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(90, 90);
         params.setMargins(xCord, yCord, 0, 0);
-        imageView.setLayoutParams(params);
-        mainLayout.addView(imageView);
-        imageView.setOnTouchListener(onTouchListener());
+        textView.setLayoutParams(params);
+        mainLayout.addView(textView);
+        itemsOnScreen.add(textView);
+        textView.setOnTouchListener(onTouchListener());
     }
 
-    private void setItemBackground(ImageView imageView) {
+    private void setItemBackground(TextView textView) {
         switch (selectedItem) {
             case "Basketball":
-                imageView.setBackgroundResource(R.drawable.basketball);
+                basketballCount += 1;
+                textView.setBackgroundResource(R.drawable.basketball);
+                textView.setTag("BC" + basketballCount);
                 break;
             case "Offence":
-                imageView.setBackgroundResource(R.drawable.offensive_player);
+                offensivePlayerCount += 1;
+                setTextViewAttributes(textView, R.drawable.offensive_player, offensivePlayerCount, "OP");
                 break;
             case "Defence":
-                imageView.setBackgroundResource(R.drawable.defensive_player);
+                defensivePlayerCount += 1;
+                setTextViewAttributes(textView, R.drawable.defensive_player, defensivePlayerCount, "DP");
                 break;
             default:
-                imageView.setBackgroundResource(R.drawable.ic_add);
                 break;
         }
+    }
+
+    private void setTextViewAttributes(TextView textView, int id, int count, String tag) {
+        textView.setBackgroundResource(id);
+        textView.setText(String.valueOf(count));
+        textView.setGravity(Gravity.CENTER);
+        textView.setTextColor(getResources().getColor(R.color.white));
+        textView.setTextSize(18);
+        textView.setTag(tag + count);
+    }
+
+    private void removeItemFromScreen() {
+        if (!itemsOnScreen.isEmpty()) {
+            int lastPosition = itemsOnScreen.size() - 1;
+            TextView lastTv = itemsOnScreen.get(lastPosition);
+            mainLayout.removeView(lastTv);
+            itemsOnScreen.remove(lastPosition);
+            removedItems.add(lastTv);
+            decreaseCount(lastTv);
+        } else {
+            Log.e(TAG, "There's nothing to remove from the screen");
+        }
+    }
+
+    private void addItemBackToScreen() {
+        if (!removedItems.isEmpty()) {
+            int lastPosition = removedItems.size() - 1;
+            TextView addBackTv = removedItems.get(lastPosition);
+            mainLayout.addView(addBackTv);
+            itemsOnScreen.add(addBackTv);
+            removedItems.remove(lastPosition);
+            increaseCount(addBackTv);
+            addBackTv.setOnTouchListener(onTouchListener());
+        } else {
+            Log.e(TAG, "There's nothing to add back to the screen");
+        }
+    }
+
+    private void decreaseCount(TextView textView) {
+        String textViewTag = (String) textView.getTag();
+
+        if (textViewTag.contains("BC"))
+            basketballCount -= 1;
+        else if (textViewTag.contains("OP"))
+            offensivePlayerCount -= 1;
+        else if (textViewTag.contains("DP"))
+            defensivePlayerCount -= 1;
+        else
+            Log.e(TAG, "Can't decrease that count");
+    }
+
+    private void increaseCount(TextView textView) {
+        String textViewTag = (String) textView.getTag();
+
+        if (textViewTag.contains("BC"))
+            basketballCount += 1;
+        else if (textViewTag.contains("OP"))
+            offensivePlayerCount += 1;
+        else if (textViewTag.contains("DP"))
+            defensivePlayerCount += 1;
+        else
+            Log.e(TAG, "Can't increase that count");
     }
 
     private void setup() {
@@ -100,14 +173,33 @@ public class CoachesBoardFragment extends Fragment {
         movementIv = view.findViewById(R.id.hsv_player_movement_iv);
         passingIv = view.findViewById(R.id.hsv_player_pass_iv);
         screenIv = view.findViewById(R.id.hsv_player_screen_iv);
+        removeItemIv = view.findViewById(R.id.hsv_remove_item_iv);
+        addItemIv = view.findViewById(R.id.hsv_add_item_iv);
         addPageIv = view.findViewById(R.id.hsv_play_plus_iv);
         deletePageIv = view.findViewById(R.id.hsv_play_minus_iv);
         menuIv = view.findViewById(R.id.hsv_play_menu_iv);
         mainLayout = view.findViewById(R.id.basketball_court);
 
+        removeItemIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeItemFromScreen();
+            }
+        });
+
+        addItemIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addItemBackToScreen();
+            }
+        });
+
         selectItem(basketballIv, "Basketball");
         selectItem(offensivePlayerIv, "Offence");
         selectItem(defensivePlayerIv, "Defence");
+        selectItem(movementIv, "Movement");
+        selectItem(passingIv, "Pass");
+        selectItem(screenIv, "Screen");
 
         mainLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -115,8 +207,16 @@ public class CoachesBoardFragment extends Fragment {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
                     int xCord = (int) motionEvent.getX();
                     int yCord = (int) motionEvent.getY();
-                    if (!selectedItem.isEmpty())
+
+                    if (selectedItem.equals("Basketball") && basketballCount == 0)
                         createItem(xCord, yCord);
+                    else if (selectedItem.equals("Offence") && offensivePlayerCount < 5)
+                        createItem(xCord, yCord);
+                    else if (selectedItem.equals("Defence") && defensivePlayerCount < 5)
+                        createItem(xCord, yCord);
+                    else
+                        Log.e(TAG, "Can't add item " + selectedItem + " to the screen.");
+
                 }
                 return true;
             }
@@ -141,6 +241,8 @@ public class CoachesBoardFragment extends Fragment {
         movementIv.setBackgroundResource(R.drawable.transparent_border);
         passingIv.setBackgroundResource(R.drawable.transparent_border);
         screenIv.setBackgroundResource(R.drawable.transparent_border);
+        removeItemIv.setBackgroundResource(R.drawable.transparent_border);
+        addItemIv.setBackgroundResource(R.drawable.transparent_border);
         addPageIv.setBackgroundResource(R.drawable.transparent_border);
         deletePageIv.setBackgroundResource(R.drawable.transparent_border);
         menuIv.setBackgroundResource(R.drawable.transparent_border);

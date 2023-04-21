@@ -252,5 +252,7 @@
     <string name="add_page_to_play_image">Add page to Play Image</string>
     <string name="minus_play_from_play_image">Minus play from play Image</string>
     <string name="play_menu_image">Play menu image</string>
+    <string name="remove_item_from_screen_image">Remove item from screen image</string>
+    <string name="add_item_to_screen_image">Add item to screen image</string>
 
 </resources>
