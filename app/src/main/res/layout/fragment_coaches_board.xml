@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".CoachesBoard.CoachesBoardFragment"
     android:orientation="vertical"
-    android:layout_marginTop="70dp"
-    android:background="@drawable/basketball_court_full">
+    android:layout_marginTop="70dp">
 
     <HorizontalScrollView
         android:id="@+id/scroll_view"
@@ -116,17 +115,25 @@
                 android:id="@+id/hsv_play_menu_iv"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:src="@drawable/ic_menu"
+                android:src="@drawable/ic_vertical_menu"
                 android:background="@drawable/transparent_border"
                 android:contentDescription="@string/play_menu_image"
                 android:layout_margin="5dp"/>
         </LinearLayout>
     </HorizontalScrollView>
 
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/circle_background"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="2dp"/>
+
     <RelativeLayout
         android:id="@+id/basketball_court"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/scroll_view" />
-
+        android:layout_below="@+id/scroll_view"
+        android:background="@drawable/basketball_court_full"
+        android:layout_marginStart="25dp" />
 </RelativeLayout>

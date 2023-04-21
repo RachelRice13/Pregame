@@ -254,5 +254,8 @@
     <string name="play_menu_image">Play menu image</string>
     <string name="remove_item_from_screen_image">Remove item from screen image</string>
     <string name="add_item_to_screen_image">Add item to screen image</string>
+    <string name="clear_screen">Clear Screen</string>
+    <string name="full_court">Full Court</string>
+    <string name="half_court">Half Court</string>
 
 </resources>

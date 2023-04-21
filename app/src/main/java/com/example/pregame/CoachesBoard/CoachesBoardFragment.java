@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,7 +27,7 @@ public class CoachesBoardFragment extends Fragment {
     private View view;
     private ViewGroup mainLayout;
     private ImageView basketballIv, offensivePlayerIv, defensivePlayerIv, movementIv, passingIv, screenIv, removeItemIv, addItemIv, addPageIv, deletePageIv, menuIv;
-    private String selectedItem = "";
+    private String selectedItem = "", courtType = "Full Court ";
     private final ArrayList<TextView> itemsOnScreen = new ArrayList<>();
     private final ArrayList<TextView> removedItems = new ArrayList<>();
     private int xDelta, yDelta, basketballCount = 0, offensivePlayerCount = 0, defensivePlayerCount = 0;
@@ -194,6 +196,13 @@ public class CoachesBoardFragment extends Fragment {
             }
         });
 
+        menuIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupMenu(menuIv);
+            }
+        });
+
         selectItem(basketballIv, "Basketball");
         selectItem(offensivePlayerIv, "Offence");
         selectItem(defensivePlayerIv, "Defence");
@@ -221,6 +230,35 @@ public class CoachesBoardFragment extends Fragment {
                 return true;
             }
         });
+    }
+
+    private void popupMenu(ImageView imageView) {
+        PopupMenu menu = new PopupMenu(getContext(), imageView);
+        menu.getMenuInflater().inflate(R.menu.coaches_board_menu, menu.getMenu());
+
+        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.nav_clear_screen) {
+                    basketballCount = 0; defensivePlayerCount = 0; offensivePlayerCount = 0;
+                    itemsOnScreen.removeAll(itemsOnScreen); removedItems.removeAll(removedItems);
+                    mainLayout.removeAllViews();
+                    return true;
+                }
+                if (menuItem.getItemId() == R.id.nav_full_court) {
+                    mainLayout.setBackgroundResource(R.drawable.basketball_court_full);
+                    courtType = "Full Court";
+                    return true;
+                }
+                if (menuItem.getItemId() == R.id.nav_half_court) {
+                    mainLayout.setBackgroundResource(R.drawable.basketball_court_half);
+                    courtType = "Half Court";
+                    return true;
+                }
+                return false;
+            }
+        });
+        menu.show();
     }
 
     private void selectItem(ImageView imageView, String itemName) {

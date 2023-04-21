@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item
+        android:id="@+id/nav_clear_screen"
+        android:icon="@drawable/ic_delete"
+        android:title="@string/clear_screen"
+        />
+    <item
+        android:id="@+id/nav_full_court"
+        android:icon="@drawable/full_court"
+        android:title="@string/full_court"
+        />
+    <item
+        android:id="@+id/nav_half_court"
+        android:icon="@drawable/half_court"
+        android:title="@string/half_court"
+        />
+</menu>
