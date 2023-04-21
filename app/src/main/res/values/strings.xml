@@ -35,6 +35,7 @@
     <string name="nav_team_list">Team List</string>
     <string name="nav_tactics_board">Tactics</string>
     <string name="nav_game_stats">Game Stats</string>
+    <string name="schedule">Schedule</string>
     <string name="nav_logout">Logout</string>
 
     <!-- Profile -->

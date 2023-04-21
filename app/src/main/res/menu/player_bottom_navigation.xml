@@ -9,23 +9,13 @@
         android:title="@string/nav_team_stats"
         />
     <item
+        android:id="@+id/nav_pb_home"
+        android:icon="@drawable/ic_calendar_events"
+        android:title="@string/schedule"
+        />
+    <item
         android:id="@+id/nav_pb_messages"
         android:icon="@drawable/ic_message"
         android:title="@string/nav_message"
-        />
-    <item
-        android:id="@+id/nav_pb_home"
-        android:icon="@drawable/ic_home"
-        android:title="@string/nav_home"
-        />
-    <item
-        android:id="@+id/nav_pb_record_shooting"
-        android:icon="@drawable/ic_basketball"
-        android:title="@string/nav_record_shooting"
-        />
-    <item
-        android:id="@+id/nav_pb_injury_report"
-        android:icon="@drawable/ic_injury"
-        android:title="@string/nav_injury_report"
         />
 </menu>

@@ -10,7 +10,6 @@ import com.example.pregame.Message.MessageFragment;
 import com.example.pregame.Model.Team;
 import com.example.pregame.Profile.ProfileFragment;
 import com.example.pregame.R;
-import com.example.pregame.RecordShooting.RecordShootingFragment;
 import com.example.pregame.Stats.TeamStatsFragment;
 import com.example.pregame.Upload.UploadDocsFragment;
 import com.example.pregame.Upload.UploadPictureFragment;
@@ -39,11 +38,9 @@ public class PlayerHomeActivity extends HomeActivityTemplate {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                replaceBottomNavFragment(item, R.id.nav_pb_home, new PlayerHomeFragment());
-                replaceBottomNavFragment(item, R.id.nav_pb_team_stats, new TeamStatsFragment());
-                replaceBottomNavFragment(item, R.id.nav_pb_messages, new MessageFragment());
-                replaceBottomNavFragment(item, R.id.nav_pb_record_shooting, new RecordShootingFragment());
-                replaceBottomNavFragment(item, R.id.nav_pb_injury_report, new InjuryReportFragment());
+                replaceBottomNavFragment(item, R.id.nav_pb_home, new PlayerHomeFragment(), bottomNavigationView);
+                replaceBottomNavFragment(item, R.id.nav_pb_team_stats, new TeamStatsFragment(), bottomNavigationView);
+                replaceBottomNavFragment(item, R.id.nav_pb_messages, new MessageFragment(), bottomNavigationView);
                 return false;
             }
         });
@@ -56,6 +53,7 @@ public class PlayerHomeActivity extends HomeActivityTemplate {
                 replaceFragment(item, R.id.nav_pd_fees, new FeesFragment(), bottomNavigationView);
                 replaceFragment(item, R.id.nav_pd_upload_image, new UploadPictureFragment(), bottomNavigationView);
                 replaceFragment(item, R.id.nav_pd_upload_docs, new UploadDocsFragment(), bottomNavigationView);
+                replaceFragment(item, R.id.nav_pd_injury_report, new InjuryReportFragment(), bottomNavigationView);
                 if (item.getItemId() == R.id.nav_pd_logout) {
                     logout(PlayerHomeActivity.this);
                     return true;

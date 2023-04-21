@@ -40,11 +40,11 @@ public class CoachHomeActivity extends HomeActivityTemplate {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                replaceBottomNavFragment(item, R.id.nav_cb_home, new CoachHomeFragment());
-                replaceBottomNavFragment(item, R.id.nav_cb_team_stats, new TeamStatsFragment());
-                replaceBottomNavFragment(item, R.id.nav_cb_messages, new MessageFragment());
-                replaceBottomNavFragment(item, R.id.nav_cb_tactics_board, new CoachesBoardFragment());
-                replaceBottomNavFragment(item, R.id.nav_cb_game_stats, new GameStatsFragment());
+                replaceBottomNavFragment(item, R.id.nav_cb_home, new CoachHomeFragment(), bottomNavigationView);
+                replaceBottomNavFragment(item, R.id.nav_cb_team_stats, new TeamStatsFragment(), bottomNavigationView);
+                replaceBottomNavFragment(item, R.id.nav_cb_messages, new MessageFragment(), bottomNavigationView);
+                replaceBottomNavFragment(item, R.id.nav_cb_tactics_board, new CoachesBoardFragment(), bottomNavigationView);
+                replaceBottomNavFragment(item, R.id.nav_cb_game_stats, new GameStatsFragment(), bottomNavigationView);
                 return false;
             }
         });

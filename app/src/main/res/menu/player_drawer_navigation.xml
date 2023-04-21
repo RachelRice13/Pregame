@@ -29,6 +29,11 @@
         android:title="@string/nav_upload_docs"
         />
     <item
+        android:id="@+id/nav_pd_injury_report"
+        android:icon="@drawable/ic_injury"
+        android:title="@string/nav_injury_report"
+        />
+    <item
         android:id="@+id/nav_pd_logout"
         android:icon="@drawable/ic_logout"
         android:title="@string/nav_logout"

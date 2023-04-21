@@ -32,9 +32,10 @@ public abstract class HomeActivityTemplate extends AppCompatActivity {
         }
     }
 
-    public boolean replaceBottomNavFragment(MenuItem item, int id, Fragment fragment) {
+    public boolean replaceBottomNavFragment(MenuItem item, int id, Fragment fragment, BottomNavigationView bottomNavigationView) {
         if (item.getItemId() == id) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+            bottomNavigationView.getMenu().findItem(id).setChecked(true);
             return true;
         }
         return false;
