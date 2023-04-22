@@ -173,12 +173,19 @@
     <string name="unknown">Unknown</string>
     <string name="other_details">Other Details</string>
     <string name="submit">Submit</string>
+    <string name="front">Front</string>
+    <string name="back">Back</string>
+    <string name="right">Right</string>
+    <string name="left">Left</string>
+    <string name="level_pain_slider">Level pain slider</string>
+    <string name="injury_length_spinner">Injury length spinner</string>
 
     <string-array name="injury_length_options">
-        <item>Day</item>
-        <item>Week</item>
-        <item>Month</item>
-        <item>Year</item>
+        <item>Select Time Frame</item>
+        <item>Day(s)</item>
+        <item>Week(s)</item>
+        <item>Month(s)</item>
+        <item>Year(s)</item>
     </string-array>
 
     <!-- Messages -->

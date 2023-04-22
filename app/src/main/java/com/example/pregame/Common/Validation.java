@@ -78,4 +78,19 @@ public class Validation {
         }
         return true;
     }
+
+    public static boolean validateLengthOfInjury(String lengthOfInjury) {
+        Pattern pattern = Pattern.compile("^\\d+\\s[a-zA-Z0-9]+$");
+        Matcher matcher = pattern.matcher(lengthOfInjury);
+        if (!matcher.matches()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean validateSeenPhysio(String seenPhysio) {
+        if (seenPhysio.equals("Nothing Selected"))
+            return false;
+        return true;
+    }
 }

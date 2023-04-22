@@ -1,14 +1,10 @@
 package com.example.pregame.Model;
 
-import java.util.Date;
-
 public class Injury extends InjuryId{
-    private String bodyPart, descriptionOfInjury, lengthOfInjury, otherDetails;
-    private Date dateOfInjury;
-    private int levelOfPain;
-    private boolean seenPhysio;
+    private String bodyPart, descriptionOfInjury, lengthOfInjury, otherDetails, dateOfInjury, seenPhysio;
+    private float levelOfPain;
 
-    public Injury(String bodyPart, String descriptionOfInjury, String lengthOfInjury, String otherDetails, Date dateOfInjury, int levelOfPain, boolean seenPhysio) {
+    public Injury(String bodyPart, String descriptionOfInjury, String lengthOfInjury, String otherDetails, String dateOfInjury, float levelOfPain, String seenPhysio) {
         this.bodyPart = bodyPart;
         this.descriptionOfInjury = descriptionOfInjury;
         this.lengthOfInjury = lengthOfInjury;
@@ -22,9 +18,9 @@ public class Injury extends InjuryId{
         this.descriptionOfInjury = "";
         this.lengthOfInjury = "";
         this.otherDetails = "";
-        this.dateOfInjury = new Date();
+        this.dateOfInjury = "";
         this.levelOfPain = 0;
-        this.seenPhysio = false;
+        this.seenPhysio = "";
     }
 
     public String getBodyPart() {
@@ -55,24 +51,24 @@ public class Injury extends InjuryId{
         this.otherDetails = otherDetails;
     }
 
-    public Date getDateOfInjury() {
+    public String getDateOfInjury() {
         return dateOfInjury;
     }
-    public void setDateOfInjury(Date dateOfInjury) {
+    public void setDateOfInjury(String dateOfInjury) {
         this.dateOfInjury = dateOfInjury;
     }
 
-    public int getLevelOfPain() {
+    public float getLevelOfPain() {
         return levelOfPain;
     }
-    public void setLevelOfPain(int levelOfPain) {
+    public void setLevelOfPain(float levelOfPain) {
         this.levelOfPain = levelOfPain;
     }
 
-    public boolean isSeenPhysio() {
+    public String isSeenPhysio() {
         return seenPhysio;
     }
-    public void setSeenPhysio(boolean seenPhysio) {
+    public void setSeenPhysio(String seenPhysio) {
         this.seenPhysio = seenPhysio;
     }
 }

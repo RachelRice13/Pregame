@@ -58,7 +58,7 @@ public abstract class HomeActivityTemplate extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
             drawerLayout.close();
             toolbarIconEnd.setVisibility(View.GONE);
-            bottomNavigationView.setVisibility(View.INVISIBLE);
+            bottomNavigationView.setVisibility(View.GONE);
             return true;
         }
         return false;

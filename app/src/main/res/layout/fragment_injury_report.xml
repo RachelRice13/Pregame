@@ -5,14 +5,81 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".InjuryReport.InjuryReportFragment">
+    tools:context=".InjuryReport.InjuryReportFragment"
+    android:id="@+id/main_layout">
 
-    <ImageButton
-        android:id="@+id/human_body"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
+        android:layout_alignParentTop="true">
+
+        <Button
+            android:id="@+id/front_body_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="@string/front"
+            android:textSize="10sp"
+            android:backgroundTint="@color/light_grey"
+            android:layout_marginStart="5dp"
+            tools:ignore="SmallSp" />
+
+        <Button
+            android:id="@+id/back_body_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="@string/back"
+            android:textSize="10sp"
+            android:backgroundTint="@color/grey"
+            android:layout_marginStart="5dp"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/human_body"
+        android:layout_width="wrap_content"
+        android:layout_height="450dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/buttons"
         android:background="@drawable/human_body_front" />
 
+    <LinearLayout
+        android:id="@+id/left_right"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/right_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_border"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:text="@string/right"
+            android:textSize="14sp"
+            android:layout_marginEnd="5dp" />
+
+        <TextView
+            android:id="@+id/left_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_border"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:text="@string/left"
+            android:textSize="14sp"
+            android:layout_marginStart="5dp" />
+    </LinearLayout>
 </RelativeLayout>
