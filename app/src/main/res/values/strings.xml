@@ -179,6 +179,7 @@
     <string name="left">Left</string>
     <string name="level_pain_slider">Level pain slider</string>
     <string name="injury_length_spinner">Injury length spinner</string>
+    <string name="list_of_injuries">List of Injuries</string>
 
     <string-array name="injury_length_options">
         <item>Select Time Frame</item>
