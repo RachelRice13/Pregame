@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MatchTraining extends MatchTrainingId implements Serializable {
-    String title, date, startTime, location, status, type;
+    String title, date, startTime, location, status, type, id, opponent;
     int teamScore, opponentScore;
     ArrayList<Attendance> attendance;
 
@@ -20,13 +20,15 @@ public class MatchTraining extends MatchTrainingId implements Serializable {
         this.attendance = attendance;
     }
 
-    public MatchTraining(String title, String date, String startTime, String location, String status, String type, int teamScore, int opponentScore, ArrayList<Attendance> attendance) {
+    public MatchTraining(String title, String date, String startTime, String location, String status, String type, String id, String opponent, int teamScore, int opponentScore, ArrayList<Attendance> attendance) {
         this.title = title;
         this.date = date;
         this.startTime = startTime;
         this.location = location;
         this.status = status;
         this.type = type;
+        this.id = id;
+        this.opponent = opponent;
         this.teamScore = teamScore;
         this.opponentScore = opponentScore;
         this.attendance = attendance;
@@ -72,6 +74,20 @@ public class MatchTraining extends MatchTrainingId implements Serializable {
     }
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getOpponent() {
+        return opponent;
+    }
+    public void setOpponent(String opponent) {
+        this.opponent = opponent;
     }
 
     public int getTeamScore() {

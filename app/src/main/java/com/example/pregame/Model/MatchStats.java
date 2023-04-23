@@ -1,36 +1,24 @@
 package com.example.pregame.Model;
 
-public class MatchStats extends MatchStatsId {
-    private String myTeam, opponent, date;
-    private int myTeamScore, opponentScore, offensiveRebounds, defensiveRebounds, assists, blocks, turnovers, steals, fouls;
+import java.util.ArrayList;
 
-    public MatchStats(String myTeam, String opponent, String date, int myTeamScore, int opponentScore, int offensiveRebounds, int defensiveRebounds, int assists, int blocks, int turnovers, int steals, int fouls) {
+public class MatchStats extends Stats {
+    private String myTeam, opponent, date, id, title;
+    private int myTeamScore, opponentScore;
+    private ArrayList<IndividualStats> players;
+
+    public MatchStats() {}
+
+    public MatchStats(String myTeam, String opponent, String date, String id, String title, int myTeamScore, int opponentScore, ArrayList<IndividualStats> players, int shotsTakenTwo, int shotsMissedTwo, int shotsMadeTwo, int shotsTakenThree, int shotsMissedThree, int shotsMadeThree, int shotsTakenFt, int shotsMissedFt, int shotsMadeFt, int offensiveRebounds, int defensiveRebounds, int assists, int blocks, int turnovers, int steals, int fouls) {
+        super(shotsTakenTwo, shotsMissedTwo, shotsMadeTwo, shotsTakenThree, shotsMissedThree, shotsMadeThree, shotsTakenFt, shotsMissedFt, shotsMadeFt, offensiveRebounds, defensiveRebounds, assists, blocks, turnovers, steals, fouls);
         this.myTeam = myTeam;
         this.opponent = opponent;
         this.date = date;
+        this.id = id;
+        this.title = title;
         this.myTeamScore = myTeamScore;
         this.opponentScore = opponentScore;
-        this.offensiveRebounds = offensiveRebounds;
-        this.defensiveRebounds = defensiveRebounds;
-        this.assists = assists;
-        this.blocks = blocks;
-        this.turnovers = turnovers;
-        this.steals = steals;
-        this.fouls = fouls;
-    }
-    public MatchStats() {
-        this.myTeam = "";
-        this.opponent = "";
-        this.date = "";
-        this.myTeamScore = 0;
-        this.opponentScore = 0;
-        this.offensiveRebounds = 0;
-        this.defensiveRebounds = 0;
-        this.assists = 0;
-        this.blocks = 0;
-        this.turnovers = 0;
-        this.steals = 0;
-        this.fouls = 0;
+        this.players = players;
     }
 
     public String getMyTeam() {
@@ -54,6 +42,20 @@ public class MatchStats extends MatchStatsId {
         this.date = date;
     }
 
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public int getMyTeamScore() {
         return myTeamScore;
     }
@@ -68,53 +70,10 @@ public class MatchStats extends MatchStatsId {
         this.opponentScore = opponentScore;
     }
 
-    public int getOffensiveRebounds() {
-        return offensiveRebounds;
+    public ArrayList<IndividualStats> getPlayers() {
+        return players;
     }
-    public void setOffensiveRebounds(int offensiveRebounds) {
-        this.offensiveRebounds = offensiveRebounds;
+    public void setPlayers(ArrayList<IndividualStats> players) {
+        this.players = players;
     }
-
-    public int getDefensiveRebounds() {
-        return defensiveRebounds;
-    }
-    public void setDefensiveRebounds(int defensiveRebounds) {
-        this.defensiveRebounds = defensiveRebounds;
-    }
-
-    public int getAssists() {
-        return assists;
-    }
-    public void setAssists(int assists) {
-        this.assists = assists;
-    }
-
-    public int getBlocks() {
-        return blocks;
-    }
-    public void setBlocks(int blocks) {
-        this.blocks = blocks;
-    }
-
-    public int getTurnovers() {
-        return turnovers;
-    }
-    public void setTurnovers(int turnovers) {
-        this.turnovers = turnovers;
-    }
-
-    public int getSteals() {
-        return steals;
-    }
-    public void setSteals(int steals) {
-        this.steals = steals;
-    }
-
-    public int getFouls() {
-        return fouls;
-    }
-    public void setFouls(int fouls) {
-        this.fouls = fouls;
-    }
-
 }

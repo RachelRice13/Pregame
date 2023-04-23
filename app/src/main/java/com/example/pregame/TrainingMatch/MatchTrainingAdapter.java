@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pregame.Model.MatchTraining;
 import com.example.pregame.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -118,9 +123,27 @@ public class MatchTrainingAdapter extends RecyclerView.Adapter<MatchTrainingAdap
     public void deleteEvent(int position) {
         MatchTraining matchTraining = matchTrainings.get(position);
         firebaseFirestore.collection("team").document(teamDoc).collection("training_match").document(matchTraining.MatchTrainingId).delete();
+        deleteMatchStats(matchTraining.getId());
         matchTrainings.remove(position);
         notifyItemRemoved(position);
         Snackbar.make(view, "Deleted event", Snackbar.LENGTH_LONG).show();
+    }
+
+    private void deleteMatchStats(String id) {
+        firebaseFirestore.collection("team").document(teamDoc).collection("match_stats").whereEqualTo("id", id).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                String id = documentSnapshot.getId();
+                                firebaseFirestore.collection("team").document(teamDoc).collection("match_stats").document(id).delete();
+                            }
+                        } else {
+                            Log.e(TAG, "No match with that id");
+                        }
+                    }
+                });
     }
 
     public void updateEvent(int position) {

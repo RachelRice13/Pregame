@@ -106,8 +106,10 @@ public class UpdateMatchFragment extends Fragment {
             int opponentScore = Integer.parseInt(opponentScoreS);
             String type = matchTraining.getType();
             ArrayList<Attendance> attendance = matchTraining.getAttendance();
+            String id = matchTraining.getId();
+            String opponent = matchTraining.getOpponent();
 
-            MatchTraining newMatchTraining = new MatchTraining(title, date, startTime, location, status, type, homeScore, opponentScore, attendance);
+            MatchTraining newMatchTraining = new MatchTraining(title, date, startTime, location, status, type, id, opponent, homeScore, opponentScore, attendance);
             updateFireStore(newMatchTraining);
         }
     }
