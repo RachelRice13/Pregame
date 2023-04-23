@@ -1,8 +1,9 @@
 package com.example.pregame.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MatchStats extends Stats {
+public class MatchStats extends Stats implements Serializable {
     private String myTeam, opponent, date, id, title;
     private int myTeamScore, opponentScore;
     private ArrayList<IndividualStats> players;

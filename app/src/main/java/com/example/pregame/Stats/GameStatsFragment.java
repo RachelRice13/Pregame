@@ -71,7 +71,7 @@ public class GameStatsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.match_stats_rv);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-        gameStatsAdapter = new GameStatsAdapter(matchStats, getContext(), getFragmentManager());
+        gameStatsAdapter = new GameStatsAdapter(matchStats, getContext(), getFragmentManager(), teamDoc);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(gameStatsAdapter);
         populateMatchStats();

@@ -2,12 +2,12 @@ package com.example.pregame.Stats;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -29,11 +29,13 @@ public class GameStatsAdapter extends RecyclerView.Adapter<GameStatsAdapter.Exam
     private List<MatchStats> matchStats;
     private Context context;
     private FragmentManager fragmentManager;
+    private String teamDoc;
 
-    public GameStatsAdapter(ArrayList<MatchStats> matchStats, Context context, FragmentManager fragmentManager) {
+    public GameStatsAdapter(ArrayList<MatchStats> matchStats, Context context, FragmentManager fragmentManager, String teamDoc) {
         this.matchStats = matchStats;
         this.context = context;
         this.fragmentManager = fragmentManager;
+        this.teamDoc = teamDoc;
     }
 
     public class ExampleViewHolder extends RecyclerView.ViewHolder  {
@@ -82,7 +84,12 @@ public class GameStatsAdapter extends RecyclerView.Adapter<GameStatsAdapter.Exam
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Clicked!!", Toast.LENGTH_SHORT).show();
+                SelectPlayersFragment selectPlayersFragment = new SelectPlayersFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("matchStats", matchStat);
+                bundle.putString("teamDoc", teamDoc);
+                selectPlayersFragment.setArguments(bundle);
+                fragmentManager.beginTransaction().replace(R.id.container, selectPlayersFragment).commit();
             }
         });
     }

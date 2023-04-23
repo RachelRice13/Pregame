@@ -52,7 +52,6 @@ public class AddMatchFragment extends Fragment {
     private String date = "", startTime = "";
     private final Team currentTeam = CoachHomeActivity.currentTeam;
     private ArrayList<Attendance> attendances = new ArrayList<>();
-    private ArrayList<IndividualStats> players = new ArrayList<>();
 
     public AddMatchFragment() {}
 
@@ -74,6 +73,7 @@ public class AddMatchFragment extends Fragment {
         String location = locationEt.getText().toString();
         String opponent = opponentEt.getText().toString();
         String randomId = UUID.randomUUID().toString();
+        ArrayList<IndividualStats> players = new ArrayList<>();
 
         boolean validTitle = Validation.validateBlank(title, titleLo);
         boolean validLocation = Validation.validateBlank(location, locationLo);
@@ -129,10 +129,6 @@ public class AddMatchFragment extends Fragment {
             DocumentReference reference = docRefArrayList.get(i);
             Attendance attendance = new Attendance("Hasn't Responded", "", teamMemberType, reference);
             attendances.add(attendance);
-            if (teamMemberType.equals("player")) {
-                IndividualStats player = new IndividualStats(reference, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-                players.add(player);
-            }
         }
     }
 
