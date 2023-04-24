@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class MatchStats extends Stats implements Serializable {
     private String myTeam, opponent, date, id, title;
-    private int myTeamScore, opponentScore;
+    private int myTeamScore, opponentScore, opponentShotsTakenTwo, opponentShotsMissedTwo, opponentShotsMadeTwo, opponentShotsTakenThree, opponentShotsMissedThree, opponentShotsMadeThree, opponentShotsTakenFt, opponentShotsMissedFt, opponentShotsMadeFt;
     private ArrayList<IndividualStats> players;
 
     public MatchStats() {}
 
-    public MatchStats(String myTeam, String opponent, String date, String id, String title, int myTeamScore, int opponentScore, ArrayList<IndividualStats> players, int shotsTakenTwo, int shotsMissedTwo, int shotsMadeTwo, int shotsTakenThree, int shotsMissedThree, int shotsMadeThree, int shotsTakenFt, int shotsMissedFt, int shotsMadeFt, int offensiveRebounds, int defensiveRebounds, int assists, int blocks, int turnovers, int steals, int fouls) {
+    public MatchStats(String myTeam, String opponent, String date, String id, String title, int myTeamScore, int opponentScore, int opponentShotsTakenTwo, int opponentShotsMissedTwo, int opponentShotsMadeTwo, int opponentShotsTakenThree, int opponentShotsMissedThree, int opponentShotsMadeThree, int opponentShotsTakenFt, int opponentShotsMissedFt, int opponentShotsMadeFt, ArrayList<IndividualStats> players, int shotsTakenTwo, int shotsMissedTwo, int shotsMadeTwo, int shotsTakenThree, int shotsMissedThree, int shotsMadeThree, int shotsTakenFt, int shotsMissedFt, int shotsMadeFt, int offensiveRebounds, int defensiveRebounds, int assists, int blocks, int turnovers, int steals, int fouls) {
         super(shotsTakenTwo, shotsMissedTwo, shotsMadeTwo, shotsTakenThree, shotsMissedThree, shotsMadeThree, shotsTakenFt, shotsMissedFt, shotsMadeFt, offensiveRebounds, defensiveRebounds, assists, blocks, turnovers, steals, fouls);
         this.myTeam = myTeam;
         this.opponent = opponent;
@@ -19,6 +19,15 @@ public class MatchStats extends Stats implements Serializable {
         this.title = title;
         this.myTeamScore = myTeamScore;
         this.opponentScore = opponentScore;
+        this.opponentShotsTakenTwo = opponentShotsTakenTwo;
+        this.opponentShotsMissedTwo = opponentShotsMissedTwo;
+        this.opponentShotsMadeTwo = opponentShotsMadeTwo;
+        this.opponentShotsTakenThree = opponentShotsTakenThree;
+        this.opponentShotsMissedThree = opponentShotsMissedThree;
+        this.opponentShotsMadeThree = opponentShotsMadeThree;
+        this.opponentShotsTakenFt = opponentShotsTakenFt;
+        this.opponentShotsMissedFt = opponentShotsMissedFt;
+        this.opponentShotsMadeFt = opponentShotsMadeFt;
         this.players = players;
     }
 
@@ -69,6 +78,69 @@ public class MatchStats extends Stats implements Serializable {
     }
     public void setOpponentScore(int opponentScore) {
         this.opponentScore = opponentScore;
+    }
+
+    public int getOpponentShotsTakenTwo() {
+        return opponentShotsTakenTwo;
+    }
+    public void setOpponentShotsTakenTwo(int opponentShotsTakenTwo) {
+        this.opponentShotsTakenTwo = opponentShotsTakenTwo;
+    }
+
+    public int getOpponentShotsMissedTwo() {
+        return opponentShotsMissedTwo;
+    }
+    public void setOpponentShotsMissedTwo(int opponentShotsMissedTwo) {
+        this.opponentShotsMissedTwo = opponentShotsMissedTwo;
+    }
+
+    public int getOpponentShotsMadeTwo() {
+        return opponentShotsMadeTwo;
+    }
+    public void setOpponentShotsMadeTwo(int opponentShotsMadeTwo) {
+        this.opponentShotsMadeTwo = opponentShotsMadeTwo;
+    }
+
+    public int getOpponentShotsTakenThree() {
+        return opponentShotsTakenThree;
+    }
+    public void setOpponentShotsTakenThree(int opponentShotsTakenThree) {
+        this.opponentShotsTakenThree = opponentShotsTakenThree;
+    }
+
+    public int getOpponentShotsMissedThree() {
+        return opponentShotsMissedThree;
+    }
+    public void setOpponentShotsMissedThree(int opponentShotsMissedThree) {
+        this.opponentShotsMissedThree = opponentShotsMissedThree;
+    }
+
+    public int getOpponentShotsMadeThree() {
+        return opponentShotsMadeThree;
+    }
+    public void setOpponentShotsMadeThree(int opponentShotsMadeThree) {
+        this.opponentShotsMadeThree = opponentShotsMadeThree;
+    }
+
+    public int getOpponentShotsTakenFt() {
+        return opponentShotsTakenFt;
+    }
+    public void setOpponentShotsTakenFt(int opponentShotsTakenFt) {
+        this.opponentShotsTakenFt = opponentShotsTakenFt;
+    }
+
+    public int getOpponentShotsMissedFt() {
+        return opponentShotsMissedFt;
+    }
+    public void setOpponentShotsMissedFt(int opponentShotsMissedFt) {
+        this.opponentShotsMissedFt = opponentShotsMissedFt;
+    }
+
+    public int getOpponentShotsMadeFt() {
+        return opponentShotsMadeFt;
+    }
+    public void setOpponentShotsMadeFt(int opponentShotsMadeFt) {
+        this.opponentShotsMadeFt = opponentShotsMadeFt;
     }
 
     public ArrayList<IndividualStats> getPlayers() {

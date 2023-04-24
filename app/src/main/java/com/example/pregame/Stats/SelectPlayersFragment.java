@@ -198,7 +198,7 @@ public class SelectPlayersFragment extends Fragment {
     }
 
     private void startMatch() {
-        if (selectedPlayers.size() >= 3) {
+        if (selectedPlayers.size() >= 0) {
             ArrayList<IndividualStats> players = new ArrayList<>();
             for (DocumentReference reference : selectedPlayers) {
                 IndividualStats individualStats = new IndividualStats(reference, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -221,6 +221,8 @@ public class SelectPlayersFragment extends Fragment {
                         Log.e(TAG, "Updated match stats player array");
                         CreateMatchStatsFragment createMatchStatsFragment = new CreateMatchStatsFragment();
                         Bundle bundle = new Bundle();
+                        bundle.putString("teamDoc", teamDoc);
+                        bundle.putString("matchStatId", matchStats.StatsId);
                         bundle.putSerializable("matchStats", matchStats);
                         createMatchStatsFragment.setArguments(bundle);
                         transaction.replace(R.id.container, createMatchStatsFragment).commit();

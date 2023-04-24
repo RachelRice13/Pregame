@@ -83,7 +83,7 @@ public class AddMatchFragment extends Fragment {
 
         if (validTitle && validDate && validStartTime && validOpponent && validLocation) {
             MatchTraining match = new MatchTraining(title, date, startTime, location, "Haven't Played", "Match", randomId, opponent, 0, 0, attendances);
-            MatchStats matchStats = new MatchStats(currentTeam.getTeamName(), opponent, date, randomId, title, 0, 0, players, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            MatchStats matchStats = new MatchStats(currentTeam.getTeamName(), opponent, date, randomId, title, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, players, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             getTeamDocInfo(match, matchStats);
         }
     }
