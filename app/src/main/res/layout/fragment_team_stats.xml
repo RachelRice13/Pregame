@@ -5,42 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Stats.TeamStatsFragment">
+    tools:context=".Stats.TeamStatsFragment"
+    android:layout_marginTop="70dp">
 
     <TextView
         android:id="@+id/team_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
         android:text="@string/team_name"
-        android:textSize="30sp"/>
+        android:textSize="25sp"
+        android:textColor="@color/black"/>
 
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_below="@id/team_name">
 
         <Button
             android:id="@+id/general_stats_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/general"
-            android:textColor="@color/white"
             android:layout_weight="1"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:textColor="@color/black"
+            app:background="@drawable/black_border"
+            android:backgroundTint="@color/white"/>
 
         <Button
             android:id="@+id/match_stats_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/match"
-            android:textColor="@color/white"
             android:layout_weight="1"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:textColor="@color/black"
+            app:background="@drawable/black_border"
+            android:backgroundTint="@color/white"/>
     </LinearLayout>
 
     <ScrollView
@@ -589,262 +595,4 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
-
-    <ScrollView
-        android:id="@+id/match_stats_sv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttons"
-        android:visibility="gone" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/average_points_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/average_points"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center_horizontal"/>
-
-                <LinearLayout
-                    android:id="@+id/average_points"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/average_points_scored_cv"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            app:cardCornerRadius="100dp">
-
-                            <TextView
-                                android:id="@+id/average_points_scored_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/number"
-                                android:textSize="30sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/black"
-                                android:layout_gravity="center"/>
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-                            android:id="@+id/average_points_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/average_points_scored_cv"
-                            android:gravity="center_horizontal"
-                            android:text="@string/points_scored"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:layout_weight="1">
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/average_points_against_cv"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            app:cardCornerRadius="100dp">
-
-                            <TextView
-                                android:id="@+id/average_points_against_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/number"
-                                android:textSize="30sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/black"
-                                android:layout_gravity="center"/>
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-                            android:id="@+id/average_against_points_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/average_points_against_cv"
-                            android:gravity="center_horizontal"
-                            android:text="@string/points_against"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"/>
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/total_match_stats"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:gravity="center_horizontal"/>
-
-                <org.eazegraph.lib.charts.BarChart
-                    android:id="@+id/total_match_stats_bar_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:padding="15dp"
-                    app:egFixedBarWidth="true"
-                    app:egBarWidth="25dp"/>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/match_stats_legend"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"
-                            android:gravity="center_horizontal"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/points_shorthand"
-                                android:layout_margin="5dp"
-                                android:textColor="@color/black"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/points_against_shorthand"
-                                android:layout_margin="5dp"
-                                android:textColor="@color/black"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/assist_shorthand"
-                                android:layout_margin="5dp"
-                                android:textColor="@color/black"
-                                android:layout_weight="1"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/off_reb_shorthand"
-                                android:layout_margin="5dp"
-                                android:textColor="@color/black"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/def_reb_shorthand"
-                                android:layout_margin="5dp"
-                                android:textColor="@color/black"
-                                android:layout_weight="1"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/block_shorthand"
-                                android:layout_margin="5dp"
-                                android:textColor="@color/black"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/foul_shorthand"
-                                android:layout_margin="5dp"
-                                android:textColor="@color/black"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/steal_shorthand"
-                                android:layout_margin="5dp"
-                                android:textColor="@color/black"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/turnover_shorthand"
-                                android:layout_margin="5dp"
-                                android:textColor="@color/black"
-                                android:layout_weight="1"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </ScrollView>
-
 </RelativeLayout>

@@ -2,9 +2,10 @@ package com.example.pregame.Model;
 
 import com.google.firebase.firestore.DocumentReference;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Team {
+public class Team implements Serializable {
     private String teamName, teamCode;
     private ArrayList<DocumentReference> players;
     private ArrayList<DocumentReference> coaches;
