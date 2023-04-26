@@ -3,8 +3,10 @@ package com.example.pregame.Common;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
@@ -19,6 +21,15 @@ public class Validation {
             return false;
         } else {
             layout.setError(null);
+            return true;
+        }
+    }
+
+    public static boolean validImage(Uri uri, View view) {
+        if (uri == null) {
+            Snackbar.make(view, "Choose a profile picture", Snackbar.LENGTH_SHORT).show();
+            return false;
+        } else {
             return true;
         }
     }
@@ -73,24 +84,16 @@ public class Validation {
     }
 
     public static boolean validateString(String string) {
-        if (string.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !string.isEmpty();
     }
 
     public static boolean validateLengthOfInjury(String lengthOfInjury) {
         Pattern pattern = Pattern.compile("^\\d+\\s[a-zA-Z0-9]+$");
         Matcher matcher = pattern.matcher(lengthOfInjury);
-        if (!matcher.matches()) {
-            return false;
-        }
-        return true;
+        return matcher.matches();
     }
 
     public static boolean validateSeenPhysio(String seenPhysio) {
-        if (seenPhysio.equals("Nothing Selected"))
-            return false;
-        return true;
+        return !seenPhysio.equals("Nothing Selected");
     }
 }

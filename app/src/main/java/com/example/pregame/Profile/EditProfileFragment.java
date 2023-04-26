@@ -40,6 +40,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class EditProfileFragment extends Fragment {
     public static final String TAG = "EditProfile";
@@ -109,14 +110,12 @@ public class EditProfileFragment extends Fragment {
         phoneTv = view.findViewById(R.id.edit_profile_phone_tv);
         passwordTv = view.findViewById(R.id.edit_profile_password_tv);
 
-        // Setting Profile Picture
         storageReference.child("users/" + currentUser.getUid() + "/profile_pic")
-                .getBytes(1024*1024)
-                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onSuccess(byte[] bytes) {
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        profilePicIv.setImageBitmap(bitmap);
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri.toString()).fit().centerCrop().into(profilePicIv);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -126,8 +125,6 @@ public class EditProfileFragment extends Fragment {
                     }
                 });
 
-
-        // Check to see if user exist in the Player collection
         firebaseFirestore.collection("player").document(currentUser.getUid()).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -140,7 +137,6 @@ public class EditProfileFragment extends Fragment {
                             phoneTv.setText(player.getPhoneNumber());
                             passwordTv.setText(player.getPassword());
                         } else {
-                            // Check to see if user exist in the Coach collection
                             firebaseFirestore.collection("coach").document(currentUser.getUid()).get()
                                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override

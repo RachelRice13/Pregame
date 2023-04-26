@@ -25,7 +25,6 @@ public class ViewFolderDetailsFragment extends Fragment {
     private View view;
     private Folder folder;
     private ArrayList<String> mediaPaths;
-    private ViewFolderDetailsAdapter viewFolderDetailsAdapter;
 
     public ViewFolderDetailsFragment() {}
 
@@ -52,12 +51,15 @@ public class ViewFolderDetailsFragment extends Fragment {
         folderUserTv = view.findViewById(R.id.folder_user_upload_tv);
         numOfPhotosTv = view.findViewById(R.id.folder_num_of_photos_tv);
         numOfVideosTv = view.findViewById(R.id.folder_num_of_videos_tv);
+        String folderUser = " | By " + folder.getUser();
+        String numOfPhotos = folder.getPhotos().size() + " Photos";
+        String numOfVideos = folder.getVideos().size() + " Videos";
 
         folderTitleTv.setText(folder.getTitle());
         folderDateTv.setText(folder.getDate());
-        folderUserTv.setText(" | By " + folder.getUser());
-        numOfPhotosTv.setText(folder.getPhotos().size() + " Photos");
-        numOfVideosTv.setText(folder.getVideos().size() + " Videos");
+        folderUserTv.setText(folderUser);
+        numOfPhotosTv.setText(numOfPhotos);
+        numOfVideosTv.setText(numOfVideos);
 
         mediaPaths.addAll(folder.getPhotos());
         mediaPaths.addAll(folder.getVideos());
@@ -69,8 +71,10 @@ public class ViewFolderDetailsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.pictures_rv);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-        viewFolderDetailsAdapter = new ViewFolderDetailsAdapter(mediaPaths, getContext());
         recyclerView.setLayoutManager(layoutManager);
+        ViewFolderDetailsAdapter viewFolderDetailsAdapter = new ViewFolderDetailsAdapter(mediaPaths, getContext());
+        LinearLayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(horizontalLayout);
         recyclerView.setAdapter(viewFolderDetailsAdapter);
     }
 

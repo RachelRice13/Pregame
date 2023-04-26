@@ -2,6 +2,7 @@ package com.example.pregame.Profile;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -116,14 +118,12 @@ public class ProfileFragment extends Fragment {
         phoneTv = view.findViewById(R.id.profile_phone_tv);
         dobTv = view.findViewById(R.id.profile_dob_tv);
 
-        // Setting Profile Picture
         storageReference.child("users/" + currentUser.getUid() + "/profile_pic")
-                .getBytes(1024*1024)
-                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onSuccess(byte[] bytes) {
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        profilePicIv.setImageBitmap(bitmap);
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri.toString()).fit().centerCrop().into(profilePicIv);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -133,7 +133,6 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
-        // Check to see if user exist in the Player collection
         firebaseFirestore.collection("player").document(currentUser.getUid()).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -148,7 +147,6 @@ public class ProfileFragment extends Fragment {
                             phoneTv.setText(player.getPhoneNumber());
                             dobTv.setText(player.getDob());
                         } else {
-                            // Check to see if user exist in the Coach collection
                             firebaseFirestore.collection("coach").document(currentUser.getUid()).get()
                                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override

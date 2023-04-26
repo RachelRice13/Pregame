@@ -6,18 +6,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
-    private String firstName, surname, dob, phoneNumber, email, password;
+    private String firstName, surname, dob, phoneNumber, email, password, profilePicPath;
     private ArrayList<DocumentReference> teams;
 
     public User() {}
 
-    public User(String firstName, String surname, String dob, String phoneNumber, String email, String password, ArrayList<DocumentReference> teams) {
+    public User(String firstName, String surname, String dob, String phoneNumber, String email, String password, String profilePicPath, ArrayList<DocumentReference> teams) {
         this.firstName = firstName;
         this.surname = surname;
         this.dob = dob;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
+        this.profilePicPath = profilePicPath;
         this.teams = teams;
     }
 
@@ -61,6 +62,13 @@ public class User implements Serializable {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfilePicPath() {
+        return profilePicPath;
+    }
+    public void setProfilePicPath(String profilePicPath) {
+        this.profilePicPath = profilePicPath;
     }
 
     public ArrayList<DocumentReference> getTeams() {

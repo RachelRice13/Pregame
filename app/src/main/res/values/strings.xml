@@ -342,6 +342,8 @@
     <string name="num_of_videos">Number of Videos Selected is: </string>
     <string name="videos">(Videos)</string>
     <string name="images">(Images)</string>
+    <string name="add_video_image">Add video image</string>
+    <string name="add_image">Add Image</string>
 
     <!-- Coaches Board   -->
     <string name="offensive_player_image">Offensive Player Image</string>

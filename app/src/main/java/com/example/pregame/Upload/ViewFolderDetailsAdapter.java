@@ -1,8 +1,7 @@
 package com.example.pregame.Upload;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ViewFolderDetailsAdapter extends RecyclerView.Adapter<ViewFolderDetailsAdapter.ExampleViewHolder> {
     public static final String TAG = "FoldersAdapter";
-    private View view;
-    private List<String> mediaPaths;
-    private Context context;
+    private final List<String> mediaPaths;
+    private final Context context;
     private StorageReference storageReference;
 
     public ViewFolderDetailsAdapter(List<String> mediaPaths, Context context) {
@@ -36,7 +34,6 @@ public class ViewFolderDetailsAdapter extends RecyclerView.Adapter<ViewFolderDet
     }
 
     public class ExampleViewHolder extends RecyclerView.ViewHolder  {
-        MaterialCardView cardView;
         ImageView folderMediaIv;
         VideoView videoView;
 
@@ -45,7 +42,6 @@ public class ViewFolderDetailsAdapter extends RecyclerView.Adapter<ViewFolderDet
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             storageReference = firebaseStorage.getReference();
-            cardView = itemView.findViewById(R.id.folder_media_cv);
             folderMediaIv = itemView.findViewById(R.id.picture_iv);
             videoView = itemView.findViewById(R.id.video_vv);
         }
@@ -54,7 +50,7 @@ public class ViewFolderDetailsAdapter extends RecyclerView.Adapter<ViewFolderDet
     @NonNull
     @Override
     public ViewFolderDetailsAdapter.ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(context).inflate(R.layout.row_layout_folder_media, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.row_layout_folder_media, parent, false);
         return new ExampleViewHolder(view);
     }
 
@@ -67,23 +63,35 @@ public class ViewFolderDetailsAdapter extends RecyclerView.Adapter<ViewFolderDet
             holder.folderMediaIv.setVisibility(View.GONE);
             holder.videoView.setVisibility(View.VISIBLE);
 
-            holder.videoView.setVideoPath(mediaPath);
-            MediaController mediaController = new MediaController(context);
-            mediaController.setAnchorView(holder.videoView);
-            mediaController.setMediaPlayer(holder.videoView);
-            holder.videoView.setMediaController(mediaController);
-            holder.videoView.start();
+            StorageReference videoRef = storageReference.child(mediaPath);
+            videoRef.getDownloadUrl()
+                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                holder.videoView.setVideoURI(uri);
+                                MediaController mediaController = new MediaController(context);
+                                mediaController.setAnchorView(holder.videoView);
+                                mediaController.setMediaPlayer(holder.videoView);
+                                holder.videoView.setMediaController(mediaController);
+                                holder.videoView.start();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
         } else {
             holder.videoView.setVisibility(View.GONE);
             holder.folderMediaIv.setVisibility(View.VISIBLE);
 
             StorageReference imageRef = storageReference.child(mediaPath);
-            imageRef.getBytes(1024*1024)
-                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            imageRef.getDownloadUrl()
+                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
-                        public void onSuccess(byte[] bytes) {
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            holder.folderMediaIv.setImageBitmap(bitmap);
+                        public void onSuccess(Uri uri) {
+                            Picasso.get().load(uri.toString()).fit().centerCrop().into(holder.folderMediaIv);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

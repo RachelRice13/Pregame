@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pregame.Model.User;
 import com.example.pregame.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
@@ -25,6 +27,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.List;
@@ -98,12 +101,17 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Ex
                                 String documentId = documentSnapshot.getId();
 
                                 storageReference.child("users").child(documentId).child("profile_pic")
-                                        .getBytes(1024*1024)
-                                        .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                        .getDownloadUrl()
+                                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                             @Override
-                                            public void onSuccess(byte[] bytes) {
-                                                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                                holder.profilePic.setImageBitmap(bitmap);
+                                            public void onSuccess(Uri uri) {
+                                                Picasso.get().load(uri.toString()).fit().centerCrop().into(holder.profilePic);
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                holder.profilePic.setImageResource(R.drawable.ic_profile);
                                             }
                                         });
                             }
