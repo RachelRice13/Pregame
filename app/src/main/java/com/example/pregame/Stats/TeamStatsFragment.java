@@ -249,14 +249,6 @@ public class TeamStatsFragment extends Fragment {
 
         getTeamDetails();
 
-        Button generalStatsBut = view.findViewById(R.id.general_stats_button);
-        generalStatsBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                transaction.replace(R.id.container, new TeamStatsFragment()).commit();
-            }
-        });
-
         Button matchStats = view.findViewById(R.id.match_stats_button);
         matchStats.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,6 +259,19 @@ public class TeamStatsFragment extends Fragment {
                 bundle.putSerializable("myTeam", team);
                 matchStatsFragment.setArguments(bundle);
                 transaction.replace(R.id.container, matchStatsFragment).commit();
+            }
+        });
+
+        Button individualStats = view.findViewById(R.id.individual_match_stats_button);
+        individualStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IndividualStatsFragment individualStatsFragment = new IndividualStatsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("teamDoc", teamDoc);
+                bundle.putSerializable("myTeam", team);
+                individualStatsFragment.setArguments(bundle);
+                transaction.replace(R.id.container, individualStatsFragment).commit();
             }
         });
     }

@@ -253,14 +253,32 @@ public class MatchStatsFragment extends Fragment {
         teamType = "My Team"; shotType = "Free Throw";
         Bundle bundle = getArguments();
         teamDoc = bundle.getString("teamDoc");
-        Team currentTeam = (Team) bundle.getSerializable("myTeam");
+        Team team = (Team) bundle.getSerializable("myTeam");
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         TextView teamNameTv = view.findViewById(R.id.team_name);
-        teamNameTv.setText(currentTeam.getTeamName());
+        teamNameTv.setText(team.getTeamName());
 
-        setupButton(R.id.general_stats_button, new TeamStatsFragment());
-        setupButton(R.id.match_stats_button, new MatchStatsFragment());
+        Button generalStats = view.findViewById(R.id.general_stats_button);
+        generalStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transaction.replace(R.id.container, new TeamStatsFragment()).commit();
+            }
+        });
+
+        Button individualStats = view.findViewById(R.id.individual_match_stats_button);
+        individualStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IndividualStatsFragment individualStatsFragment = new IndividualStatsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("teamDoc", teamDoc);
+                bundle.putSerializable("myTeam", team);
+                individualStatsFragment.setArguments(bundle);
+                transaction.replace(R.id.container, individualStatsFragment).commit();
+            }
+        });
 
         displayLegend(R.id.display_legend_iv, R.layout.dialogue_bar_chart_legend);
         displayLegend(R.id.points_breakdown_legend_iv, R.layout.dialogue_points_breakdown_legend);
@@ -332,13 +350,4 @@ public class MatchStatsFragment extends Fragment {
         });
     }
 
-    private void setupButton(int id, Fragment fragment) {
-        Button button = view.findViewById(id);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                transaction.replace(R.id.container, fragment).commit();
-            }
-        });
-    }
 }
