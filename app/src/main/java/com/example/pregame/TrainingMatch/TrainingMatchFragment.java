@@ -66,7 +66,7 @@ public class TrainingMatchFragment extends Fragment {
     private void setToolbarIcon() {
         ImageView toolbarIcon = getActivity().findViewById(R.id.toolbar_end_icon);
         toolbarIcon.setVisibility(View.VISIBLE);
-        toolbarIcon.setImageResource(R.drawable.ic_menu);
+        toolbarIcon.setImageResource(R.drawable.ic_vertical_menu);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         toolbarIcon.setOnClickListener(new View.OnClickListener() {
