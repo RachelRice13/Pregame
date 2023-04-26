@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pregame.HomePage.CoachHomeActivity;
 import com.example.pregame.InjuryReport.ViewInjuryFragment;
 import com.example.pregame.Model.Team;
 import com.example.pregame.Model.User;
@@ -94,6 +95,10 @@ public class ProfileFragment extends Fragment {
                 transaction.replace(R.id.container, new EditProfileFragment()).commit();
             }
         });
+
+        if (CoachHomeActivity.userType.equals("Coach")) {
+            injuryReportTv.setVisibility(View.GONE);
+        }
 
         injuryReportTv.setOnClickListener(new View.OnClickListener() {
             @Override
