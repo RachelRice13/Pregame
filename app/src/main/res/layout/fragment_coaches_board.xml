@@ -67,15 +67,6 @@
                 android:layout_margin="5dp"/>
 
             <ImageView
-                android:id="@+id/hsv_player_screen_iv"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/screen_line"
-                android:background="@drawable/transparent_border"
-                android:contentDescription="@string/player_screen_image"
-                android:layout_margin="5dp"/>
-
-            <ImageView
                 android:id="@+id/hsv_remove_item_iv"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
@@ -94,24 +85,6 @@
                 android:layout_margin="5dp"/>
 
             <ImageView
-                android:id="@+id/hsv_play_plus_iv"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/ic_add"
-                android:background="@drawable/transparent_border"
-                android:contentDescription="@string/add_page_to_play_image"
-                android:layout_margin="5dp"/>
-
-            <ImageView
-                android:id="@+id/hsv_play_minus_iv"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:src="@drawable/ic_horizontal_line"
-                android:background="@drawable/transparent_border"
-                android:contentDescription="@string/minus_play_from_play_image"
-                android:layout_margin="5dp"/>
-
-            <ImageView
                 android:id="@+id/hsv_play_menu_iv"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
@@ -122,18 +95,11 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <TextView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="@drawable/circle_background"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="2dp"/>
-
     <RelativeLayout
         android:id="@+id/basketball_court"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/scroll_view"
-        android:background="@drawable/basketball_court_full"
-        android:layout_marginStart="25dp" />
+        android:background="@drawable/basketball_court_full" />
+
 </RelativeLayout>

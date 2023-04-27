@@ -26,8 +26,11 @@ public class CoachesBoardFragment extends Fragment {
     public static final String TAG = "CoachesBoardFragment";
     private View view;
     private ViewGroup mainLayout;
-    private ImageView basketballIv, offensivePlayerIv, defensivePlayerIv, movementIv, passingIv, screenIv, removeItemIv, addItemIv, addPageIv, deletePageIv, menuIv;
-    private String selectedItem = "", courtType = "Full Court ";
+    private boolean drawLineB = true, drawDashedLineB = false;
+    private DrawLine drawLine;
+    private DrawDashedLine drawDashedLine;
+    private ImageView basketballIv, offensivePlayerIv, defensivePlayerIv, movementIv, passingIv, removeItemIv, addItemIv, menuIv;
+    private String selectedItem = "";
     private final ArrayList<TextView> itemsOnScreen = new ArrayList<>();
     private final ArrayList<TextView> removedItems = new ArrayList<>();
     private int xDelta, yDelta, basketballCount = 0, offensivePlayerCount = 0, defensivePlayerCount = 0;
@@ -174,13 +177,14 @@ public class CoachesBoardFragment extends Fragment {
         defensivePlayerIv = view.findViewById(R.id.hsv_defensive_player_iv);
         movementIv = view.findViewById(R.id.hsv_player_movement_iv);
         passingIv = view.findViewById(R.id.hsv_player_pass_iv);
-        screenIv = view.findViewById(R.id.hsv_player_screen_iv);
         removeItemIv = view.findViewById(R.id.hsv_remove_item_iv);
         addItemIv = view.findViewById(R.id.hsv_add_item_iv);
-        addPageIv = view.findViewById(R.id.hsv_play_plus_iv);
-        deletePageIv = view.findViewById(R.id.hsv_play_minus_iv);
         menuIv = view.findViewById(R.id.hsv_play_menu_iv);
         mainLayout = view.findViewById(R.id.basketball_court);
+        drawLine = new DrawLine(getContext(), null, drawLineB);
+        drawDashedLine = new DrawDashedLine(getContext(), null, drawDashedLineB);
+        mainLayout.addView(drawLine);
+        mainLayout.addView(drawDashedLine);
 
         removeItemIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,25 +212,30 @@ public class CoachesBoardFragment extends Fragment {
         selectItem(defensivePlayerIv, "Defence");
         selectItem(movementIv, "Movement");
         selectItem(passingIv, "Pass");
-        selectItem(screenIv, "Screen");
 
         mainLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                     int xCord = (int) motionEvent.getX();
                     int yCord = (int) motionEvent.getY();
 
-                    if (selectedItem.equals("Basketball") && basketballCount == 0)
+                    if (selectedItem.equals("Basketball") && basketballCount == 0) {
                         createItem(xCord, yCord);
-                    else if (selectedItem.equals("Offence") && offensivePlayerCount < 5)
+                    } else if (selectedItem.equals("Offence") && offensivePlayerCount < 5) {
                         createItem(xCord, yCord);
-                    else if (selectedItem.equals("Defence") && defensivePlayerCount < 5)
+                    } else if (selectedItem.equals("Defence") && defensivePlayerCount < 5) {
                         createItem(xCord, yCord);
-                    else
+                    } else if (selectedItem.equals("Movement")) {
+                        drawDashedLine.setDraw(false);
+                        drawLine.setDraw(true);
+                    } else if (selectedItem.equals("Pass")) {
+                        drawLine.setDraw(false);
+                        drawDashedLine.setDraw(true);
+                    } else
                         Log.e(TAG, "Can't add item " + selectedItem + " to the screen.");
-
                 }
+
                 return true;
             }
         });
@@ -247,12 +256,10 @@ public class CoachesBoardFragment extends Fragment {
                 }
                 if (menuItem.getItemId() == R.id.nav_full_court) {
                     mainLayout.setBackgroundResource(R.drawable.basketball_court_full);
-                    courtType = "Full Court";
                     return true;
                 }
                 if (menuItem.getItemId() == R.id.nav_half_court) {
                     mainLayout.setBackgroundResource(R.drawable.basketball_court_half);
-                    courtType = "Half Court";
                     return true;
                 }
                 return false;
@@ -268,6 +275,11 @@ public class CoachesBoardFragment extends Fragment {
                 clearSelectedItemsBackgrounds();
                 selectedItem = itemName;
                 imageView.setBackgroundResource(R.drawable.black_border);
+
+                if (!selectedItem.equals("Movement") || !selectedItem.equals("Pass")) {
+                    drawLine.setDraw(false);
+                    drawDashedLine.setDraw(false);
+                }
             }
         });
     }
@@ -278,11 +290,8 @@ public class CoachesBoardFragment extends Fragment {
         defensivePlayerIv.setBackgroundResource(R.drawable.transparent_border);
         movementIv.setBackgroundResource(R.drawable.transparent_border);
         passingIv.setBackgroundResource(R.drawable.transparent_border);
-        screenIv.setBackgroundResource(R.drawable.transparent_border);
         removeItemIv.setBackgroundResource(R.drawable.transparent_border);
         addItemIv.setBackgroundResource(R.drawable.transparent_border);
-        addPageIv.setBackgroundResource(R.drawable.transparent_border);
-        deletePageIv.setBackgroundResource(R.drawable.transparent_border);
         menuIv.setBackgroundResource(R.drawable.transparent_border);
     }
 }
