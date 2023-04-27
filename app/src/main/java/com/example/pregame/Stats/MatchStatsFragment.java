@@ -174,15 +174,15 @@ public class MatchStatsFragment extends Fragment {
         averagePointsTv = view.findViewById(R.id.average_points_per_game);
         totalPointsAllowedTv = view.findViewById(R.id.total_points_allowed);
         averagePointsAllowedTv = view.findViewById(R.id.average_points_allowed_per_game);
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
         double pointsScored = (double) points / (double) totalMatchesPlayed;
         double pointsAllowed = (double) opponentPoints / (double) totalMatchesPlayed;
-        DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
         totalPointsTv.setText(decimalFormat.format(points));
-        averagePointsTv.setText(String.valueOf(pointsScored));
+        averagePointsTv.setText(decimalFormat.format(pointsScored));
         totalPointsAllowedTv.setText(decimalFormat.format(opponentPoints));
-        averagePointsAllowedTv.setText(String.valueOf(pointsAllowed));
+        averagePointsAllowedTv.setText(decimalFormat.format(pointsAllowed));
     }
 
     private void calculateEfficiency() {

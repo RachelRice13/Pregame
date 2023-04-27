@@ -21,42 +21,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_below="@id/team_name">
 
         <Button
             android:id="@+id/general_stats_button"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/general"
             android:layout_weight="1"
+            android:text="@string/general"
             android:layout_margin="5dp"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textColor="@color/black"
             app:background="@drawable/black_border"
             android:backgroundTint="@color/white"/>
 
         <Button
             android:id="@+id/match_stats_button"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/match"
             android:layout_weight="1"
+            android:text="@string/match"
             android:layout_margin="5dp"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textColor="@color/black"
             app:background="@drawable/black_border"
             android:backgroundTint="@color/white"/>
 
         <Button
             android:id="@+id/individual_match_stats_button"
-            android:layout_width="0dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:text="@string/individual"
             android:layout_weight="1"
+            android:text="@string/individual"
             android:layout_margin="5dp"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textColor="@color/black"
             app:background="@drawable/black_border"
             android:backgroundTint="@color/white"/>
@@ -74,7 +74,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="380dp"
+                android:layout_width="match_parent"
                 android:layout_height="240dp"
                 android:layout_margin="20dp"
                 android:layout_gravity="center_horizontal"
@@ -203,7 +203,7 @@
 
                         <Button
                             android:id="@+id/free_throw_button"
-                            android:layout_width="wrap_content"
+                            android:layout_width="110dp"
                             android:layout_height="wrap_content"
                             android:text="@string/free_throw"
                             android:layout_weight="1"
@@ -216,7 +216,7 @@
 
                         <Button
                             android:id="@+id/two_point_button"
-                            android:layout_width="wrap_content"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
                             android:text="@string/plus_two"
                             android:layout_weight="1"
@@ -229,7 +229,7 @@
 
                         <Button
                             android:id="@+id/three_point_button"
-                            android:layout_width="wrap_content"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
                             android:text="@string/plus_three"
                             android:layout_weight="1"
@@ -260,7 +260,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/points_breakdown_for_the_season"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textColor="@color/black"
                         android:gravity="center_horizontal"
                         android:textStyle="bold"
@@ -474,7 +474,7 @@
                         android:gravity="center_horizontal"
                         android:text="@string/possessions_breakdown"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -683,7 +683,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/assist_breakdown_for_the_season"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textColor="@color/black"
                         android:gravity="center_horizontal"
                         android:textStyle="bold"
@@ -868,7 +868,7 @@
                         android:gravity="center_horizontal"
                         android:text="@string/rebounds_breakdown"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <ImageView

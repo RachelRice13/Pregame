@@ -48,6 +48,7 @@ public class SelectPlayersFragment extends Fragment {
     private FragmentTransaction transaction;
     private LinearLayout playerTable;
     private ArrayList<DocumentReference> selectedPlayers;
+    private Button startMatchButton;
 
     public SelectPlayersFragment() {}
 
@@ -60,6 +61,7 @@ public class SelectPlayersFragment extends Fragment {
         setNumberOfPlayers();
         getPlayerDetails();
         setTableRow("Player Name", "Availability", true, false, null);
+        getMatchStatus();
 
         return view;
     }
@@ -116,7 +118,7 @@ public class SelectPlayersFragment extends Fragment {
         LinearLayout rowLayout = new LinearLayout(getContext());
 
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 70);
         rowLayout.setLayoutParams(layoutParams);
         rowLayout.setPadding(1, 1, 1, 2);
         rowLayout.setBackgroundColor(getResources().getColor(R.color.black));
@@ -138,7 +140,7 @@ public class SelectPlayersFragment extends Fragment {
         column.setLayoutParams(columnLayoutParams);
 
         TextView textView = new TextView(getContext());
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 48);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 68);
         textView.setBackgroundColor(getResources().getColor(R.color.white));
         textView.setGravity(Gravity.CENTER_VERTICAL);
         textView.setPadding(10, 0, 10, 0);
@@ -162,7 +164,7 @@ public class SelectPlayersFragment extends Fragment {
         column.setLayoutParams(columnLayoutParams);
 
         CheckBox checkBox = new CheckBox(getContext());
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 48);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 68);
         checkBox.setPadding(0,1,0,1);
         checkBox.setLayoutParams(params);
 
@@ -198,7 +200,7 @@ public class SelectPlayersFragment extends Fragment {
     }
 
     private void startMatch() {
-        if (selectedPlayers.size() >= 0) {
+        if (selectedPlayers.size() >= 3) {
             ArrayList<IndividualStats> players = new ArrayList<>();
             for (DocumentReference reference : selectedPlayers) {
                 IndividualStats individualStats = new IndividualStats(reference, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -247,14 +249,7 @@ public class SelectPlayersFragment extends Fragment {
         playerTable = view.findViewById(R.id.player_table);
         TextView opponentNameTv = view.findViewById(R.id.opponent_name_tv);
         opponentNameTv.setText(matchStats.getOpponent());
-
-        Button startMatch = view.findViewById(R.id.start_match_button);
-        startMatch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startMatch();
-            }
-        });
+        startMatchButton = view.findViewById(R.id.start_match_button);
 
         Button cancelButton = view.findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -264,5 +259,45 @@ public class SelectPlayersFragment extends Fragment {
                 transaction.replace(R.id.container, new GameStatsFragment()).commit();
             }
         });
+    }
+
+    private void getMatchStatus() {
+        firebaseFirestore.collection("team").document(teamDoc).collection("training_match").whereEqualTo("id", matchStats.getId()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                MatchTraining matchTraining = documentSnapshot.toObject(MatchTraining.class);
+
+                                if (matchTraining.getStatus().equals("Haven't Played")) {
+                                    startMatchButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            startMatch();
+                                        }
+                                    });
+                                } else {
+                                    String viewStats = "View Stats";
+                                    startMatchButton.setText(viewStats);
+                                    startMatchButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            ViewMatchStatsFragment viewMatchStatsFragment = new ViewMatchStatsFragment();
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString("matchStatId", matchStats.StatsId);
+                                            bundle.putString("teamDoc", teamDoc);
+                                            bundle.putSerializable("matchStats", matchStats);
+                                            viewMatchStatsFragment.setArguments(bundle);
+                                            transaction.replace(R.id.container, viewMatchStatsFragment).commit();
+                                        }
+                                    });
+                                }
+                            }
+                        } else {
+                            Log.e(TAG, "No match with that id");
+                        }
+                    }
+                });
     }
 }

@@ -252,6 +252,7 @@
     <string name="fouls">Fouls</string>
     <string name="turnovers">Turnovers</string>
     <string name="assists">Assists</string>
+    <string name="individual_stats">Individual Stats</string>
 
     <!-- Injury Report -->
     <string name="injury_report">Injury Report</string>
