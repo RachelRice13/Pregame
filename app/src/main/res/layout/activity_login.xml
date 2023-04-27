@@ -89,6 +89,7 @@
         android:layout_height="wrap_content"
         android:text="@string/login_button"
         android:textSize="20sp"
+        android:textColor="@color/white"
         android:layout_above="@id/landing_page_button"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"/>

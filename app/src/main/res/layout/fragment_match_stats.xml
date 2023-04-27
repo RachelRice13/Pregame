@@ -10,10 +10,11 @@
     <TextView
         android:id="@+id/team_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:text="@string/team_name"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="@color/black"/>
 
     <LinearLayout

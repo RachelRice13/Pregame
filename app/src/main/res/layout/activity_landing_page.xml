@@ -33,9 +33,9 @@
         android:layout_below="@id/basketball_player_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:background="@drawable/transparent_button"
+        app:backgroundTint="@color/dark_blue"
+        android:textColor="@color/white"
         android:text="@string/register_button"
-        android:textColor="@color/black"
         android:textSize="20sp"/>
 
     <Button
@@ -45,9 +45,9 @@
         android:layout_below="@id/register_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:background="@drawable/transparent_button"
+        app:backgroundTint="@color/dark_blue"
+        android:textColor="@color/white"
         android:text="@string/login_button"
-        android:textColor="@color/black"
         android:textSize="20sp"/>
 
 </RelativeLayout>
