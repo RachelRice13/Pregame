@@ -171,7 +171,7 @@ public class UploadDocsFragment extends Fragment {
 
     private void chooseFile() {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        View view = layoutInflater.inflate(R.layout.add_document_name, null);
+        View view = layoutInflater.inflate(R.layout.dialogue_add_document_name, null);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
 
         EditText documentNameET = view.findViewById(R.id.document_name_et);
