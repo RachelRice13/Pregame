@@ -64,7 +64,6 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp">
 
-            <!-- Email TextView -->
             <TextView
                 android:id="@+id/profile_email_tv"
                 android:layout_width="match_parent"
@@ -76,7 +75,6 @@
                 android:drawablePadding="15dp"
                 android:layout_marginBottom="15dp"/>
 
-            <!-- Phone Number TextView -->
             <TextView
                 android:id="@+id/profile_phone_tv"
                 android:layout_width="match_parent"
@@ -88,7 +86,18 @@
                 android:drawablePadding="15dp"
                 android:layout_marginBottom="15dp" />
 
-            <!-- DOB TextView -->
+            <TextView
+                android:id="@+id/profile_password_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_password"
+                android:password="true"
+                android:drawablePadding="15dp"
+                android:layout_marginBottom="15dp" />
+
             <TextView
                 android:id="@+id/profile_dob_tv"
                 android:layout_width="match_parent"
@@ -101,7 +110,6 @@
 
     </LinearLayout>
 
-    <!-- Profile Settings TextView -->
     <TextView
         android:id="@+id/profile_settings_tv"
         android:layout_width="match_parent"
@@ -116,9 +124,8 @@
         app:drawableStartCompat="@drawable/ic_profile"
         app:drawableEndCompat="@drawable/ic_arrow_forward"
         android:drawablePadding="15dp"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="20dp"/>
 
-    <!-- View Injury Reports TextView -->
     <TextView
         android:id="@+id/profile_injury_tv"
         android:layout_width="match_parent"
@@ -133,5 +140,21 @@
         app:drawableStartCompat="@drawable/ic_injury"
         app:drawableEndCompat="@drawable/ic_arrow_forward"
         android:drawablePadding="15dp"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/profile_purchase_history_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_injury_tv"
+        android:background="@drawable/custom_border_grey"
+        android:text="@string/purchase_history"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:textColor="#000"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/ic_details"
+        app:drawableEndCompat="@drawable/ic_arrow_forward"
+        android:drawablePadding="15dp"
+        android:layout_marginTop="20dp"/>
 </RelativeLayout>

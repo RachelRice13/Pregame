@@ -47,6 +47,11 @@
     <string name="edit_phone_number">Edit Phone Number</string>
     <string name="edit">Edit</string>
     <string name="my_teams">My Teams</string>
+    <string name="purchase_history">Purchase History</string>
+    <string name="list_of_purchases">List of Purchases</string>
+    <string name="discount_type">Discount Type</string>
+    <string name="total">Total</string>
+    <string name="items">Items</string>
 
     <!-- Team -->
     <string name="create_team">Create Team</string>
@@ -360,5 +365,6 @@
     <string name="clear_screen">Clear Screen</string>
     <string name="full_court">Full Court</string>
     <string name="half_court">Half Court</string>
+    <string name="erase_line_from_screen">Erase line from screen</string>
 
 </resources>

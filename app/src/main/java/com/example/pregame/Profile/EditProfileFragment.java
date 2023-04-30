@@ -4,8 +4,6 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -25,16 +23,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pregame.Common.Validation;
+import com.example.pregame.HomePage.PlayerHomeActivity;
 import com.example.pregame.Model.User;
 import com.example.pregame.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -45,12 +46,12 @@ import com.squareup.picasso.Picasso;
 public class EditProfileFragment extends Fragment {
     public static final String TAG = "EditProfile";
     private View view;
-    private FirebaseAuth firebaseAuth;
+    private User user;
+    private String userType;
     private FirebaseUser currentUser;
     private FirebaseFirestore firebaseFirestore;
-    private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
-    private TextView fullNameTv, emailTv, phoneTv, passwordTv;
+    private TextView fullNameTv, phoneTv, passwordTv, emailTv;
     private ImageView profilePicIv;
     private Uri profileUri;
 
@@ -60,56 +61,25 @@ public class EditProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
-        storageReference = firebaseStorage.getReference();
-        currentUser = firebaseAuth.getCurrentUser();
-        profilePicIv = view.findViewById(R.id.edit_profile_pic);
-
+        setup();
         getUserDetails();
-
-        FloatingActionButton goBack = view.findViewById(R.id.edit_profile_go_back);
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, new ProfileFragment()).commit();
-            }
-        });
-
-        profilePicIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chooseProfilePicture();
-            }
-        });
-
-        TextView editFullNameButton = view.findViewById(R.id.edit_profile_full_name_tv);
-        editFullNameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editFullName();
-            }
-        });
-
-        TextView editPhoneNumberButton = view.findViewById(R.id.edit_profile_phone_tv);
-        editPhoneNumberButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editPhoneNumber();
-            }
-        });
 
         return view;
     }
 
-    public void getUserDetails() {
-        fullNameTv = view.findViewById(R.id.edit_profile_full_name_tv);
-        emailTv = view.findViewById(R.id.edit_profile_email_tv);
-        phoneTv = view.findViewById(R.id.edit_profile_phone_tv);
-        passwordTv = view.findViewById(R.id.edit_profile_password_tv);
+    private void getUserDetails() {
+        TextView dobTv = view.findViewById(R.id.edit_profile_dob_tv);
 
+        getProfilePicture();
+
+        fullNameTv.setText(user.getFirstName() + " " + user.getSurname());
+        emailTv.setText(user.getEmail());
+        phoneTv.setText(user.getPhoneNumber());
+        passwordTv.setText(user.getPassword());
+        dobTv.setText(user.getDob());
+    }
+
+    private void getProfilePicture() {
         storageReference.child("users/" + currentUser.getUid() + "/profile_pic")
                 .getDownloadUrl()
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -122,36 +92,6 @@ public class EditProfileFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         profilePicIv.setImageResource(R.drawable.ic_profile);
-                    }
-                });
-
-        firebaseFirestore.collection("player").document(currentUser.getUid()).get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            User player = documentSnapshot.toObject(User.class);
-
-                            fullNameTv.setText(player.getFirstName() + " " + player.getSurname());
-                            emailTv.setText(player.getEmail());
-                            phoneTv.setText(player.getPhoneNumber());
-                            passwordTv.setText(player.getPassword());
-                        } else {
-                            firebaseFirestore.collection("coach").document(currentUser.getUid()).get()
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                            if (documentSnapshot.exists()) {
-                                                User coach = documentSnapshot.toObject(User.class);
-
-                                                fullNameTv.setText(coach.getFirstName() + " " + coach.getSurname());
-                                                emailTv.setText(coach.getEmail());
-                                                phoneTv.setText(coach.getPhoneNumber());
-                                                passwordTv.setText(coach.getPassword());
-                                            }
-                                        }
-                                    });
-                        }
                     }
                 });
     }
@@ -173,7 +113,7 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
-    public void uploadPicture() {
+    private void uploadPicture() {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Uploading Image....");
         progressDialog.show();
@@ -204,9 +144,9 @@ public class EditProfileFragment extends Fragment {
                 });
     }
 
-    public void editFullName() {
+    private void editFullName() {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        View editFullNameV = layoutInflater.inflate(R.layout.edit_full_name, null);
+        View editFullNameV = layoutInflater.inflate(R.layout.dialogue_edit_full_name, null);
         AlertDialog.Builder editFullNameAD = new AlertDialog.Builder(getContext());
 
         EditText editFirstNameEt = editFullNameV.findViewById(R.id.first_name_et);
@@ -216,13 +156,8 @@ public class EditProfileFragment extends Fragment {
         Button editFullNameButton = editFullNameV.findViewById(R.id.edit_full_name_button);
         Button goBack = editFullNameV.findViewById(R.id.cancel_full_name_button);
 
-        if (ProfileFragment.userType.equals("Player")) {
-            editFirstNameEt.setText(ProfileFragment.globalPlayer.getFirstName());
-            editSurnameEt.setText(ProfileFragment.globalPlayer.getSurname());
-        } else {
-            editFirstNameEt.setText(ProfileFragment.globalCoach.getFirstName());
-            editSurnameEt.setText(ProfileFragment.globalCoach.getSurname());
-        }
+        editFirstNameEt.setText(user.getFirstName());
+        editSurnameEt.setText(user.getSurname());
 
         editFullNameAD.setCancelable(false).setView(editFullNameV);
         AlertDialog alert = editFullNameAD.create();
@@ -234,19 +169,14 @@ public class EditProfileFragment extends Fragment {
                 String firstName = editFirstNameEt.getText().toString();
                 String surname = editSurnameEt.getText().toString();
 
-                if (firstName.isEmpty() || surname.isEmpty()) {
-                    editFirstNameLO.setError("This is required");
-                    editSurnameLO.setError("This is required");
-                } else {
-                    if (ProfileFragment.userType.equals("Player")) {
-                        updateFirestore("player", "firstName", firstName);
-                        updateFirestore("player", "surname", surname);
-                    } else {
-                        updateFirestore("coach", "firstName", firstName);
-                        updateFirestore("coach", "surname", surname);
-                    }
-                    Toast.makeText(getContext(), "Updated Full Name", Toast.LENGTH_SHORT).show();
+                boolean validFirst = Validation.validateBlank(firstName, editFirstNameLO);
+                boolean validSurname = Validation.validateBlank(surname, editSurnameLO);
+
+                if (validFirst && validSurname) {
+                    updateFirestore( "firstName", firstName);
+                    updateFirestore( "surname", surname);
                     alert.cancel();
+                    Snackbar.make(view, "Updated Full Name", Snackbar.LENGTH_SHORT).show();
                     getUserDetails();
                 }
             }
@@ -260,9 +190,9 @@ public class EditProfileFragment extends Fragment {
         });
     }
 
-    public void editPhoneNumber() {
+    private void editPhoneNumber() {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        View editPhoneV = layoutInflater.inflate(R.layout.edit_phone_number, null);
+        View editPhoneV = layoutInflater.inflate(R.layout.dialogue_edit_phone_number, null);
         AlertDialog.Builder editPhoneAD = new AlertDialog.Builder(getContext());
 
         EditText editPhoneEt = editPhoneV.findViewById(R.id.phone_number_et);
@@ -274,28 +204,20 @@ public class EditProfileFragment extends Fragment {
         AlertDialog alert = editPhoneAD.create();
         alert.show();
 
-        if (ProfileFragment.userType.equals("Player")) {
-            editPhoneEt.setText(ProfileFragment.globalPlayer.getPhoneNumber());
-        } else {
-            editPhoneEt.setText(ProfileFragment.globalCoach.getPhoneNumber());
-        }
+        editPhoneEt.setText(user.getPhoneNumber());
 
         editPhoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String newPhoneNumber = editPhoneEt.getText().toString();
 
-                if (newPhoneNumber.isEmpty()) {
-                    editPhoneLO.setError("This is required");
-                } else {
-                    if (ProfileFragment.userType.equals("Player")) {
-                        updateFirestore("player", "phoneNumber", newPhoneNumber);
-                    } else {
-                        updateFirestore("coach", "phoneNumber", newPhoneNumber);
-                    }
-                    Toast.makeText(getContext(), "Updated Phone Number", Toast.LENGTH_SHORT).show();
+                boolean validPhone = Validation.validatePhone(newPhoneNumber, editPhoneLO);
+
+                if (validPhone) {
+                    updateFirestore( "phoneNumber", newPhoneNumber);
                     alert.cancel();
                     getUserDetails();
+                    Snackbar.make(view, "Updated Phone Number", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -308,7 +230,114 @@ public class EditProfileFragment extends Fragment {
         });
     }
 
-    public void updateFirestore(String userType, String dataType, String data) {
+    private void editPassword() {
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        View editPhoneV = layoutInflater.inflate(R.layout.dialogue_edit_phone_number, null);
+        AlertDialog.Builder editPhoneAD = new AlertDialog.Builder(getContext());
+
+        EditText editPasswordEt = editPhoneV.findViewById(R.id.phone_number_et);
+        TextInputLayout editPasswordLO = editPhoneV.findViewById(R.id.phone_number);
+        Button editPasswordButton = editPhoneV.findViewById(R.id.edit_phone_number_button);
+        Button goBack = editPhoneV.findViewById(R.id.cancel_edit_phone_number_button);
+        TextView editPasswordTitleTv = editPhoneV.findViewById(R.id.edit_detail_details);
+
+        editPasswordEt.setText(user.getPassword());
+        editPasswordTitleTv.setText("Edit Password");
+        editPasswordLO.setHint("Password");
+        editPasswordLO.setStartIconDrawable(R.drawable.ic_password);
+
+        editPhoneAD.setCancelable(false).setView(editPhoneV);
+        AlertDialog alert = editPhoneAD.create();
+        alert.show();
+
+        editPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String password = editPasswordEt.getText().toString();
+                boolean validPassword = Validation.validatePassword(password, editPasswordLO);
+
+                if (validPassword) {
+                    currentUser.updatePassword(password)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        updateFirestore("password", password);
+                                        alert.cancel();
+                                        getUserDetails();
+                                        Snackbar.make(view, "Successfully updated password", Snackbar.LENGTH_SHORT).show();
+                                    } else {
+                                        Log.e(TAG, "Failed to updated password");
+                                    }
+                                }
+                            });
+                }
+            }
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.cancel();
+            }
+        });
+    }
+
+    private void editEmail() {
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        View editPhoneV = layoutInflater.inflate(R.layout.dialogue_edit_phone_number, null);
+        AlertDialog.Builder editPhoneAD = new AlertDialog.Builder(getContext());
+
+        EditText editEmailEt = editPhoneV.findViewById(R.id.phone_number_et);
+        TextInputLayout editEmailLO = editPhoneV.findViewById(R.id.phone_number);
+        Button editEmailButton = editPhoneV.findViewById(R.id.edit_phone_number_button);
+        Button goBack = editPhoneV.findViewById(R.id.cancel_edit_phone_number_button);
+        TextView editEmailTitleTv = editPhoneV.findViewById(R.id.edit_detail_details);
+
+        editEmailEt.setText(user.getEmail());
+        editEmailTitleTv.setText("Edit Email");
+        editEmailLO.setHint("Email");
+        editEmailLO.setStartIconDrawable(R.drawable.ic_email);
+
+        editPhoneAD.setCancelable(false).setView(editPhoneV);
+        AlertDialog alert = editPhoneAD.create();
+        alert.show();
+
+        editEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = editEmailEt.getText().toString();
+
+                boolean validEmail = Validation.validateBlank(email, editEmailLO);
+
+                if (validEmail) {
+                    currentUser.updateEmail(email)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        updateFirestore("email", email);
+                                        alert.cancel();
+                                        getUserDetails();
+                                        Snackbar.make(view, "Successfully updated email", Snackbar.LENGTH_SHORT).show();
+                                    } else {
+                                        Log.e(TAG, "Failed to updated password");
+                                    }
+                                }
+                            });
+                }
+            }
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.cancel();
+            }
+        });
+    }
+
+    private void updateFirestore(String dataType, String data) {
         firebaseFirestore.collection(userType).document(currentUser.getUid())
                 .update(dataType, data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -323,5 +352,67 @@ public class EditProfileFragment extends Fragment {
                         Log.e(TAG, "Failed to update phone number for " + currentUser.getEmail() + "\n" + e.getMessage());
                     }
                 });
+    }
+
+    private void setup() {
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
+        currentUser = firebaseAuth.getCurrentUser();
+        profilePicIv = view.findViewById(R.id.edit_profile_pic);
+
+        Bundle bundle = getArguments();
+        user = (User) bundle.getSerializable("user");
+        userType = bundle.getString("userType");
+
+        FloatingActionButton goBack = view.findViewById(R.id.edit_profile_go_back);
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, new ProfileFragment()).commit();
+            }
+        });
+
+        fullNameTv = view.findViewById(R.id.edit_profile_full_name_tv);
+        fullNameTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editFullName();
+            }
+        });
+
+        phoneTv = view.findViewById(R.id.edit_profile_phone_tv);
+        phoneTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editPhoneNumber();
+            }
+        });
+
+        passwordTv = view.findViewById(R.id.edit_profile_password_tv);
+        passwordTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editPassword();
+            }
+        });
+
+
+        emailTv = view.findViewById(R.id.edit_profile_email_tv);
+        emailTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editEmail();
+            }
+        });
+
+        profilePicIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseProfilePicture();
+            }
+        });
     }
 }
