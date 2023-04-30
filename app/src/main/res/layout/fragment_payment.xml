@@ -29,8 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/card_number"
-            android:paddingStart="45dp"
-            android:paddingEnd="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/grey"
             app:boxStrokeWidth="1dp"
@@ -53,8 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/cardholder_s_name"
-            android:paddingStart="45dp"
-            android:paddingEnd="45dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/grey"
             app:boxStrokeWidth="1dp"
@@ -95,8 +95,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingStart="45dp"
-                    android:paddingEnd="45dp">
+                    android:layout_marginStart="20dp">
 
                     <EditText
                         android:id="@+id/expiry_date_month_et"
@@ -187,6 +186,7 @@
                 android:id="@+id/payment_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:layout_weight="1"
                 android:layout_marginEnd="10dp"
                 android:text="@string/payment"/>
@@ -195,6 +195,7 @@
                 android:id="@+id/cancel_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:layout_weight="1"
                 android:layout_marginStart="10dp"
                 android:text="@string/cancel"/>

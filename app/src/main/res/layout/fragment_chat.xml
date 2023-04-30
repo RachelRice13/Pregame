@@ -11,7 +11,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#D5D3D3"
+        android:background="@color/dark_blue"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_marginTop="60dp"
@@ -25,6 +25,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+            app:tint="@color/white"
             android:padding="7dp"
             app:srcCompat="@drawable/ic_arrow_back"
             tools:ignore="VectorDrawableCompat" />
@@ -38,7 +39,7 @@
             android:padding="10dp"
             android:text="@string/textview"
             android:textAlignment="viewStart"
-            android:textColor="#000000"
+            android:textColor="@color/white"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -55,7 +56,6 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#D5D3D3"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#FFFFFF"
+            android:background="@drawable/grey_border"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/type_a_message"
@@ -81,6 +81,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            app:backgroundTint="@color/dark_blue"
+            app:tint="@color/white"
             android:clickable="true"
             android:focusable="true"
             app:srcCompat="@drawable/ic_arrow_forward" />
