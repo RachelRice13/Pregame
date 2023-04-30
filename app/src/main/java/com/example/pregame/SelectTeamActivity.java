@@ -39,12 +39,9 @@ import java.util.UUID;
 
 public class SelectTeamActivity extends CommonActivity {
     private static final String TAG = "SelectTeam";
-    private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseUser currentUser;
     private ArrayList<Team> teams;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private TeamListAdapter adapter;
     private Button createTeamButton;
 
@@ -53,33 +50,12 @@ public class SelectTeamActivity extends CommonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_team);
 
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        currentUser = firebaseAuth.getCurrentUser();
-
-        buildRecyclerView();
-        getUserDetails();
-
-        Button joinTeamButton = findViewById(R.id.join_team_button);
-        joinTeamButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                joinTeam();
-            }
-        });
-
-        createTeamButton = findViewById(R.id.create_team_button);
-        createTeamButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createTeam();
-            }
-        });
+        setup();
 
         hideActionBar();
     }
 
-    public void getUserDetails() {
+    private void getUserDetails() {
         firebaseFirestore.collection("player").document(currentUser.getUid()).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -107,7 +83,7 @@ public class SelectTeamActivity extends CommonActivity {
                 });
     }
 
-    public void getUserData(String userType) {
+    private void getUserData(String userType) {
         firebaseFirestore.collection(userType).document(currentUser.getUid()).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -127,7 +103,7 @@ public class SelectTeamActivity extends CommonActivity {
                 });
     }
 
-    public void displayTeams(ArrayList<DocumentReference> teamsReference) {
+    private void displayTeams(ArrayList<DocumentReference> teamsReference) {
         for (int i = 0; i < teamsReference.size(); i++) {
             DocumentReference reference = teamsReference.get(i);
 
@@ -149,20 +125,20 @@ public class SelectTeamActivity extends CommonActivity {
         }
     }
 
-    public void buildRecyclerView() {
+    private void buildRecyclerView() {
         teams = new ArrayList<>();
-        recyclerView = findViewById(R.id.team_list_rv);
+        RecyclerView recyclerView = findViewById(R.id.team_list_rv);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         adapter = new TeamListAdapter(teams, this);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
-    public void createTeam() {
+    private void createTeam() {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View createTeamV = layoutInflater.inflate(R.layout.create_new_team, null);
+        View createTeamV = layoutInflater.inflate(R.layout.dialogue_create_new_team, null);
         AlertDialog.Builder createTeamAD = new AlertDialog.Builder(this);
         EditText teamNameEt = createTeamV.findViewById(R.id.team_name_et);
         Button createTeam = createTeamV.findViewById(R.id.create_new_team_button);
@@ -213,9 +189,9 @@ public class SelectTeamActivity extends CommonActivity {
         });
     }
 
-    public void joinTeam() {
+    private void joinTeam() {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View joinTeamV = layoutInflater.inflate(R.layout.join_new_team, null);
+        View joinTeamV = layoutInflater.inflate(R.layout.dialogue_join_new_team, null);
         AlertDialog.Builder joinTeamAD = new AlertDialog.Builder(this);
 
         EditText teamCode1 = joinTeamV.findViewById(R.id.team_code_1);
@@ -266,7 +242,7 @@ public class SelectTeamActivity extends CommonActivity {
         });
     }
 
-    public void isThisTheTeam(Team team, String id, AlertDialog alert) {
+    private void isThisTheTeam(Team team, String id, AlertDialog alert) {
         AlertDialog.Builder isTeamAD = new AlertDialog.Builder(SelectTeamActivity.this);
 
         isTeamAD
@@ -320,7 +296,7 @@ public class SelectTeamActivity extends CommonActivity {
         alertDialog.show();
     }
 
-    public void addToFireStore(String refType, String refId, String collectionType, String collectionId, String arrayName) {
+    private void addToFireStore(String refType, String refId, String collectionType, String collectionId, String arrayName) {
         DocumentReference reference = firebaseFirestore.collection(refType).document(refId);
 
         firebaseFirestore.collection(collectionType).document(collectionId).update(arrayName, FieldValue.arrayUnion(reference))
@@ -338,7 +314,7 @@ public class SelectTeamActivity extends CommonActivity {
                 });
     }
 
-    public boolean containsUser(ArrayList<DocumentReference> references) {
+    private boolean containsUser(ArrayList<DocumentReference> references) {
         for (int i = 0; i < references.size(); i++) {
             DocumentReference reference = references.get(i);
             if (reference.getId().equals(currentUser.getUid())) {
@@ -347,5 +323,30 @@ public class SelectTeamActivity extends CommonActivity {
             }
         }
         return false;
+    }
+
+    private void setup() {
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
+
+        buildRecyclerView();
+        getUserDetails();
+
+        Button joinTeamButton = findViewById(R.id.join_team_button);
+        joinTeamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                joinTeam();
+            }
+        });
+
+        createTeamButton = findViewById(R.id.create_team_button);
+        createTeamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createTeam();
+            }
+        });
     }
 }
