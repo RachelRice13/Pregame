@@ -458,6 +458,7 @@
                 android:id="@+id/offensive_rebound_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="@string/offensive_rebounds"
                 android:layout_margin="10dp" />
 
@@ -465,6 +466,7 @@
                 android:id="@+id/defensive_rebound_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="@string/defensive_rebounds"
                 android:layout_margin="10dp" />
 
@@ -472,6 +474,7 @@
                 android:id="@+id/assist_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="@string/assist"
                 android:layout_margin="10dp"/>
 
@@ -479,6 +482,7 @@
                 android:id="@+id/block_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="@string/block"
                 android:layout_margin="10dp"/>
 
@@ -486,6 +490,7 @@
                 android:id="@+id/turnover_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="@string/turnover"
                 android:layout_margin="10dp" />
 
@@ -493,6 +498,7 @@
                 android:id="@+id/steal_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="@string/steal"
                 android:layout_margin="10dp"/>
 
@@ -500,6 +506,7 @@
                 android:id="@+id/foul_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="@string/foul"
                 android:layout_margin="10dp"/>
 
