@@ -8,10 +8,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -19,7 +16,6 @@ public class DrawLine extends View {
     private Paint paint;
     private Path path;
     private boolean draw;
-    private float xStart, yStart, xEnd, yEnd;
 
     public DrawLine(Context context, AttributeSet attrs, boolean draw) {
         super(context, attrs);
@@ -48,22 +44,18 @@ public class DrawLine extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (draw) {
+        float xCord = event.getX();
+        float yCord = event.getY();
 
+        if (draw) {
             switch (event.getAction()) {
                 case ACTION_DOWN:
-                    xStart = event.getX();
-                    yStart = event.getY();
-                    path.moveTo(xStart, yStart);
-                    Log.e("DrawLine", "Start: " + xStart + ", " + yStart);
+                    path.moveTo(xCord, yCord);
                     return true;
                 case ACTION_MOVE:
-                    xEnd = event.getX();
-                    yEnd = event.getY();
-                    path.lineTo(xEnd, yEnd);
+                    path.lineTo(xCord, yCord);
                     break;
                 case ACTION_UP:
-                    Log.e("DrawLine", "End: " + xEnd + ", " + yEnd);
                     break;
                 default:
                     return false;
@@ -78,10 +70,4 @@ public class DrawLine extends View {
         this.draw = draw;
     }
 
-    public void onClickEraser(boolean isEraserOn) {
-        if (isEraserOn)
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-        else
-            paint.setXfermode(null);
-    }
 }

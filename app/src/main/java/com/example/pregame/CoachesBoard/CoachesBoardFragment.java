@@ -26,7 +26,7 @@ public class CoachesBoardFragment extends Fragment {
     public static final String TAG = "CoachesBoardFragment";
     private View view;
     private ViewGroup mainLayout;
-    private boolean drawLineB = true, drawDashedLineB = false;
+    private boolean linesOnScreen;
     private DrawLine drawLine;
     private DrawDashedLine drawDashedLine;
     private ImageView basketballIv, offensivePlayerIv, defensivePlayerIv, movementIv, passingIv, removeItemIv, addItemIv, menuIv;
@@ -181,10 +181,11 @@ public class CoachesBoardFragment extends Fragment {
         addItemIv = view.findViewById(R.id.hsv_add_item_iv);
         menuIv = view.findViewById(R.id.hsv_play_menu_iv);
         mainLayout = view.findViewById(R.id.basketball_court);
-        drawLine = new DrawLine(getContext(), null, drawLineB);
-        drawDashedLine = new DrawDashedLine(getContext(), null, drawDashedLineB);
+        drawLine = new DrawLine(getContext(), null, false);
+        drawDashedLine = new DrawDashedLine(getContext(), null, false);
         mainLayout.addView(drawLine);
         mainLayout.addView(drawDashedLine);
+        linesOnScreen = true;
 
         removeItemIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,9 +228,17 @@ public class CoachesBoardFragment extends Fragment {
                     } else if (selectedItem.equals("Defence") && defensivePlayerCount < 5) {
                         createItem(xCord, yCord);
                     } else if (selectedItem.equals("Movement")) {
+                        if (!linesOnScreen) {
+                            drawLine = new DrawLine(getContext(), null, true);
+                            mainLayout.addView(drawLine);
+                        }
                         drawDashedLine.setDraw(false);
                         drawLine.setDraw(true);
                     } else if (selectedItem.equals("Pass")) {
+                        if (!linesOnScreen) {
+                            drawDashedLine = new DrawDashedLine(getContext(), null, true);
+                            mainLayout.addView(drawDashedLine);
+                        }
                         drawLine.setDraw(false);
                         drawDashedLine.setDraw(true);
                     } else
@@ -252,6 +261,7 @@ public class CoachesBoardFragment extends Fragment {
                     basketballCount = 0; defensivePlayerCount = 0; offensivePlayerCount = 0;
                     itemsOnScreen.removeAll(itemsOnScreen); removedItems.removeAll(removedItems);
                     mainLayout.removeAllViews();
+                    linesOnScreen = false;
                     return true;
                 }
                 if (menuItem.getItemId() == R.id.nav_full_court) {
@@ -275,11 +285,8 @@ public class CoachesBoardFragment extends Fragment {
                 clearSelectedItemsBackgrounds();
                 selectedItem = itemName;
                 imageView.setBackgroundResource(R.drawable.black_border);
-
-                if (!selectedItem.equals("Movement") || !selectedItem.equals("Pass")) {
-                    drawLine.setDraw(false);
-                    drawDashedLine.setDraw(false);
-                }
+                drawLine.setDraw(false);
+                drawDashedLine.setDraw(false);
             }
         });
     }
