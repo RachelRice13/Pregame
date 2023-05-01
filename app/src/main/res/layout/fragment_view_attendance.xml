@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".TrainingMatch.ViewAttendanceFragment"
+    android:layout_marginTop="70dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+        <Button
+            android:id="@+id/yes_response_button"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/yes"
+            android:layout_margin="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            app:background="@drawable/black_border"
+            android:backgroundTint="@color/white"/>
+
+        <Button
+            android:id="@+id/no_response_button"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/no"
+            android:layout_margin="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            app:background="@drawable/black_border"
+            android:backgroundTint="@color/white"/>
+
+        <Button
+            android:id="@+id/pending_response_button"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/pending"
+            android:layout_margin="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            app:background="@drawable/black_border"
+            android:backgroundTint="@color/white"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/response_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:scrollbars="vertical"/>
+
+</LinearLayout>

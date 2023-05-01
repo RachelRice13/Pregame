@@ -222,6 +222,18 @@ public class ViewMatchTrainingFragment extends Fragment {
         yesIv = view.findViewById(R.id.yes_button);
         noIv = view.findViewById(R.id.no_button);
 
+        LinearLayout goToResponse = view.findViewById(R.id.event_responses_ll);
+        goToResponse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewAttendanceFragment viewAttendanceFragment = new ViewAttendanceFragment();
+                Bundle goBundle = new Bundle();
+                goBundle.putSerializable("matchTraining", matchTraining);
+                viewAttendanceFragment.setArguments(goBundle);
+                transaction.replace(R.id.container, viewAttendanceFragment).commit();
+            }
+        });
+
         FloatingActionButton goBack = view.findViewById(R.id.go_back_button);
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
