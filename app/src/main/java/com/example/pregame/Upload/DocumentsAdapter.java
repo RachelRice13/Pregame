@@ -66,7 +66,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.Exam
     @NonNull
     @Override
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(context).inflate(R.layout.document_row_layout, parent, false);
+        view = LayoutInflater.from(context).inflate(R.layout.row_layout_document, parent, false);
         return new ExampleViewHolder(view);
     }
 

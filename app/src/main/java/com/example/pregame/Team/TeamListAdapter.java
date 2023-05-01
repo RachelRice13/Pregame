@@ -59,7 +59,7 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListAdapter.Exampl
     @NonNull
     @Override
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.team_list_row_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.row_layout_team_list, parent, false);
 
         return new ExampleViewHolder(view);
     }
