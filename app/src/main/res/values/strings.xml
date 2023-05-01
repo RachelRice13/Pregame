@@ -62,6 +62,7 @@
     <string name="enter_team_code">Enter Team Code</string>
     <string name="join_team_message_1">Don\'t have one?</string>
     <string name="join_team_message_2">Ask your coach or a teammate</string>
+    <string name="teams">Teams</string>
 
     <!-- Trainings & Matches -->
     <string name="add_match">Add Match</string>

@@ -66,7 +66,7 @@ public class TeamFragment extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            User player = documentSnapshot.toObject(User.class);
+                            User player = documentSnapshot.toObject(User.class).withId(documentSnapshot.getId());
                             players.add(player);
                             adapter.notifyDataSetChanged();
                         }
@@ -86,7 +86,7 @@ public class TeamFragment extends Fragment {
         recyclerView = view.findViewById(R.id.team_list_rv);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(view.getContext());
-        adapter = new PlayerListAdapter(players, getContext());
+        adapter = new PlayerListAdapter(players, getContext(), getFragmentManager());
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
