@@ -14,11 +14,10 @@ import com.example.pregame.R;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ExampleViewHolder> {
-    List<Message> messageList;
-    String userName;
-    boolean status;
-    int send;
-    int receive;
+    private final List<Message> messageList;
+    private final String userName;
+    private boolean status;
+    private final int send, receive;
 
     public MessageAdapter(List<Message> messageList, String userName) {
         this.messageList = messageList;
@@ -47,9 +46,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ExampleV
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (viewType == send)  {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_send,parent,false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_card_send,parent,false);
         } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_received,parent,false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout_card_received,parent,false);
         }
         return new ExampleViewHolder(view);
     }

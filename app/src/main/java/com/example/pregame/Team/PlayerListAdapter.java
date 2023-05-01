@@ -2,8 +2,6 @@ package com.example.pregame.Team;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,10 +32,9 @@ import java.util.List;
 
 public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.ExampleViewHolder>{
     public static final String PLAYER = "Player";
-    private List<User> players;
-    private Context context;
+    private final List<User> players;
+    private final Context context;
     private FirebaseFirestore firebaseFirestore;
-    private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
 
     public PlayerListAdapter(List<User> players, Context context) {
@@ -54,7 +51,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Ex
             super(itemView);
 
             firebaseFirestore = FirebaseFirestore.getInstance();
-            firebaseStorage = FirebaseStorage.getInstance();
+            FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             storageReference = firebaseStorage.getReference();
             fullNameTv = itemView.findViewById(R.id.player_full_name);
             profilePic = itemView.findViewById(R.id.profile_pic);
@@ -75,7 +72,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Ex
     @NonNull
     @Override
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.player_row_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.row_layout_player, parent, false);
 
         return new ExampleViewHolder(view);
     }

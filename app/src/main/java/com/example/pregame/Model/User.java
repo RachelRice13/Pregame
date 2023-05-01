@@ -5,7 +5,7 @@ import com.google.firebase.firestore.DocumentReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User implements Serializable {
+public class User extends UserId implements Serializable {
     private String firstName, surname, dob, phoneNumber, email, password, profilePicPath;
     private ArrayList<DocumentReference> teams;
 

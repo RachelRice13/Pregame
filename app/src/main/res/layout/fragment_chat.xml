@@ -23,6 +23,7 @@
             android:id="@+id/back_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="@string/go_back"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             app:tint="@color/white"
@@ -74,18 +75,21 @@
             android:inputType="textMultiLine"
             android:padding="15dp"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:importantForAutofill="no" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/send_message_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:backgroundTint="@color/dark_blue"
-            app:tint="@color/white"
             android:clickable="true"
+            android:contentDescription="@string/send_message_button"
             android:focusable="true"
-            app:srcCompat="@drawable/ic_arrow_forward" />
+            app:backgroundTint="@color/dark_blue"
+            app:srcCompat="@drawable/ic_arrow_forward"
+            app:tint="@color/white"
+            tools:ignore="RedundantDescriptionCheck" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

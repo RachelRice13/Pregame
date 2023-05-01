@@ -28,9 +28,7 @@ import java.util.List;
 public class MessageFragment extends Fragment {
     public static final String TAG = "MessageFragment";
     private View view;
-    private List<String> teamMembersList;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
+    private List<User> teamMembersList;
     private TeamMembersAdapter adapter;
 
     public MessageFragment() {}
@@ -65,9 +63,8 @@ public class MessageFragment extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            User user = documentSnapshot.toObject(User.class);
-                            String username = user.getFirstName() + " " + user.getSurname();
-                            teamMembersList.add(username);
+                            User user = documentSnapshot.toObject(User.class).withId(documentSnapshot.getId());
+                            teamMembersList.add(user);
                             adapter.notifyDataSetChanged();
                         }
                     })
@@ -82,11 +79,10 @@ public class MessageFragment extends Fragment {
 
     private void buildRecyclerView() {
         teamMembersList = new ArrayList<>();
-        recyclerView = view.findViewById(R.id.team_members_list);
+        RecyclerView recyclerView = view.findViewById(R.id.team_members_list);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(view.getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         adapter = new TeamMembersAdapter(teamMembersList, getContext(), getFragmentManager());
-
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }

@@ -1,6 +1,7 @@
 package com.example.pregame.Message;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,20 +24,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class TeamMembersAdapter extends RecyclerView.Adapter<TeamMembersAdapter.ExampleViewHolder> {
-    public static final String TeamMember = "TeamMember";
-    private List<String> teamMembers;
-    private Context context;
-    private String currentUserType, currentUserName;
-    private FragmentManager fragmentManager;
-    private FirebaseAuth firebaseAuth;
+    private final List<User> teamMembers;
+    private final Context context;
+    private String currentUserName;
+    private final FragmentManager fragmentManager;
     private FirebaseFirestore firebaseFirestore;
+    private StorageReference storageReference;
     private FirebaseUser currentUser;
 
-    public TeamMembersAdapter(List<String> teamMembers, Context context, FragmentManager fragmentManager) {
+    public TeamMembersAdapter(List<User> teamMembers, Context context, FragmentManager fragmentManager) {
         this.teamMembers = teamMembers;
         this.context = context;
         this.fragmentManager = fragmentManager;
@@ -50,8 +53,10 @@ public class TeamMembersAdapter extends RecyclerView.Adapter<TeamMembersAdapter.
         public ExampleViewHolder(View itemView) {
             super(itemView);
 
-            firebaseAuth = FirebaseAuth.getInstance();
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             currentUser = firebaseAuth.getCurrentUser();
+            FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+            storageReference = firebaseStorage.getReference();
             firebaseFirestore = FirebaseFirestore.getInstance();
             fullNameTv = itemView.findViewById(R.id.player_full_name);
             profilePic = itemView.findViewById(R.id.profile_pic);
@@ -62,26 +67,42 @@ public class TeamMembersAdapter extends RecyclerView.Adapter<TeamMembersAdapter.
     @NonNull
     @Override
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.player_row_layout, parent, false);
-
+        View view = LayoutInflater.from(context).inflate(R.layout.row_layout_player, parent, false);
         return new ExampleViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
-        String teamMember = teamMembers.get(position);
+        User teamMember = teamMembers.get(position);
+        String fullName = teamMember.getFirstName() + " " + teamMember.getSurname();
 
-        holder.fullNameTv.setText(teamMember);
+        holder.fullNameTv.setText(fullName);
+
+        storageReference.child("users").child(teamMember.UserId).child("profile_pic")
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri.toString()).fit().centerCrop().into(holder.profilePic);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        holder.profilePic.setImageResource(R.drawable.ic_profile);
+                    }
+                });
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSenderReceiverDetails(teamMember);
+                getSenderReceiverDetails(fullName);
             }
         });
     }
 
     private void getSenderReceiverDetails(String teamMember) {
+        String currentUserType;
         if (PlayerHomeActivity.userType.equals("Player")) {
             currentUserType = "player";
         } else {

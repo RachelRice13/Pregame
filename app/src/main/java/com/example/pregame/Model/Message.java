@@ -1,11 +1,15 @@
 package com.example.pregame.Model;
 
-public class Message {
-    private String sender, message;
+import java.util.Date;
 
-    public Message (String sender, String message) {
+public class Message {
+    String sender, message;
+    Date date;
+
+    public Message (String sender, String message, Date date) {
         this.sender = sender;
         this.message = message;
+        this.date = date;
     }
     public Message () {
         this.sender = "";
@@ -24,5 +28,12 @@ public class Message {
     }
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
