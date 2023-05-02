@@ -43,7 +43,7 @@
     <TextView
         android:id="@+id/human_body"
         android:layout_width="wrap_content"
-        android:layout_height="450dp"
+        android:layout_height="500dp"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
         android:layout_below="@id/buttons"

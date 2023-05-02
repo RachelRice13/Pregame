@@ -47,30 +47,30 @@ public class InjuryReportFragment extends Fragment {
     }
 
     private void getBodyPart(int xCord, int yCord) {
-        selectBodyPartBack(xCord, 450, 650, yCord, 310, 470, "Head", "Head");
-        selectBodyPartBack(xCord, 470, 610, yCord, 471, 530, "Neck", "Neck");
-        selectBodyPartBack(xCord, 430, 670, yCord, 531, 715, "Chest", "Upper Back");
-        selectBodyPartBack(xCord, 430, 670, yCord, 716, 870, "Stomach", "Lower Back");
+        selectBodyPartBack(xCord, 450, 650, yCord, 360, 540, "Head", "Head");
+        selectBodyPartBack(xCord, 470, 610, yCord, 541, 610, "Neck", "Neck");
+        selectBodyPartBack(xCord, 430, 670, yCord, 611, 900, "Chest", "Upper Back");
+        selectBodyPartBack(xCord, 430, 670, yCord, 901, 1100, "Stomach", "Lower Back");
 
-        selectBodyPartBack(xCord, 370, 540, yCord, 865, 1060, "Right Quad", "Left Hamstring");
-        selectBodyPartBack(xCord, 410, 520, yCord, 1061, 1150, "Right Knee", "Left Knee");
-        selectBodyPartBack(xCord, 390, 515, yCord, 1150, 1370, "Right Shin", "Left Calf");
-        selectBodyPartBack(xCord, 345, 490, yCord, 1371, 1490, "Right Foot", "Left Foot");
+        selectBodyPartBack(xCord, 370, 540, yCord, 1101, 1295, "Right Quad", "Left Hamstring");
+        selectBodyPartBack(xCord, 410, 520, yCord, 1300, 1450, "Right Knee", "Left Knee");
+        selectBodyPartBack(xCord, 390, 515, yCord, 1451, 1670, "Right Shin", "Left Calf");
+        selectBodyPartBack(xCord, 345, 490, yCord, 1671, 1820, "Right Foot", "Left Foot");
 
-        selectBodyPartBack(xCord, 335, 429, yCord, 500, 595, "Right Shoulder", "Left Shoulder");
-        selectBodyPartBack(xCord, 315, 429, yCord, 600, 710, "Right Bicep", "Left Tricep");
-        selectBodyPartBack(xCord, 255, 395, yCord, 715, 860, "Right Forearm", "Left Forearm");
-        selectBodyPartBack(xCord, 180, 330, yCord, 865, 980, "Right Hand", "Left Hand");
+        selectBodyPartBack(xCord, 335, 429, yCord, 610, 715, "Right Shoulder", "Left Shoulder");
+        selectBodyPartBack(xCord, 315, 429, yCord, 716, 825, "Right Bicep", "Left Tricep");
+        selectBodyPartBack(xCord, 255, 395, yCord, 826, 1005, "Right Forearm", "Left Forearm");
+        selectBodyPartBack(xCord, 180, 330, yCord, 1006, 1121, "Right Hand", "Left Hand");
 
-        selectBodyPartBack(xCord, 550, 720, yCord, 865, 1060, "Left Quad", "Right Hamstring");
-        selectBodyPartBack(xCord, 575, 685, yCord, 1065, 1145, "Left Knee", "Right Knee");
-        selectBodyPartBack(xCord, 580, 705, yCord, 1150, 1370, "Left Shin", "Right Calf");
-        selectBodyPartBack(xCord, 610, 755, yCord, 1375, 1490, "Left Foot", "Right Foot");
+        selectBodyPartBack(xCord, 550, 720, yCord, 1101, 1295, "Left Quad", "Right Hamstring");
+        selectBodyPartBack(xCord, 575, 685, yCord, 1300, 1445, "Left Knee", "Right Knee");
+        selectBodyPartBack(xCord, 580, 705, yCord, 1450, 1670, "Left Shin", "Right Calf");
+        selectBodyPartBack(xCord, 610, 755, yCord, 1675, 1820, "Left Foot", "Right Foot");
 
-        selectBodyPartBack(xCord, 671, 755, yCord, 500, 595, "Left Shoulder", "Right Shoulder");
-        selectBodyPartBack(xCord, 671, 780, yCord, 600, 710, "Left Bicep", "Right Tricep");
-        selectBodyPartBack(xCord, 700, 840, yCord, 715, 860, "Left Forearm", "Right Forearm");
-        selectBodyPartBack(xCord, 765, 905, yCord, 865, 980, "Left Hand", "Right Hand");
+        selectBodyPartBack(xCord, 671, 755, yCord, 610, 715, "Left Shoulder", "Right Shoulder");
+        selectBodyPartBack(xCord, 671, 780, yCord, 716, 825, "Left Bicep", "Right Tricep");
+        selectBodyPartBack(xCord, 700, 840, yCord, 826, 1005, "Left Forearm", "Right Forearm");
+        selectBodyPartBack(xCord, 765, 905, yCord, 1006, 1121, "Left Hand", "Right Hand");
     }
 
     private void selectBodyPartBack(int xCord, int xCordGreater, int xCordLess, int yCord, int yCordGreater, int yCordLess, String frontBodyPart, String backBodyPart) {
