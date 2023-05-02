@@ -115,6 +115,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <RelativeLayout
+        android:id="@+id/status_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/location"
@@ -160,7 +161,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/status_rl"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal"
         android:gravity="center_horizontal">
