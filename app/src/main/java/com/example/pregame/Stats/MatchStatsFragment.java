@@ -60,7 +60,7 @@ public class MatchStatsFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            totalMatchesPlayed = 0; totalShotsMade = 0; totalShotsMissed = 0; totalShotsTaken = 0; turnovers = 0; fouls = 0; steals = 0; offensiveReb = 0;defensiveReb = 0; assist = 0; blocks = 0; points = 0; opponentPoints = 0; fTTaken = 0; twoTaken = 0; threeTaken = 0; twoMade = 0; threeMade = 0;
+                            totalShotsMade = 0; totalShotsMissed = 0; totalShotsTaken = 0; turnovers = 0; fouls = 0; steals = 0; offensiveReb = 0;defensiveReb = 0; assist = 0; blocks = 0; points = 0; opponentPoints = 0; fTTaken = 0; twoTaken = 0; threeTaken = 0; twoMade = 0; threeMade = 0;
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 MatchStats matchStats = document.toObject(MatchStats.class);
@@ -81,7 +81,6 @@ public class MatchStatsFragment extends Fragment {
     }
 
     private void calculateTotalStats(MatchStats matchStats) {
-        totalMatchesPlayed += 1;
         turnovers += matchStats.getTurnovers();
         fouls += matchStats.getFouls();
         steals += matchStats.getSteals();
@@ -176,6 +175,7 @@ public class MatchStatsFragment extends Fragment {
         averagePointsAllowedTv = view.findViewById(R.id.average_points_allowed_per_game);
         DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
+        Log.e(TAG, "Matches Played: " + totalMatchesPlayed);
         double pointsScored = (double) points / (double) totalMatchesPlayed;
         double pointsAllowed = (double) opponentPoints / (double) totalMatchesPlayed;
 
@@ -253,6 +253,7 @@ public class MatchStatsFragment extends Fragment {
         teamType = "My Team"; shotType = "Free Throw";
         Bundle bundle = getArguments();
         teamDoc = bundle.getString("teamDoc");
+        totalMatchesPlayed = bundle.getInt("matchesPlayed");
         Team team = (Team) bundle.getSerializable("myTeam");
         firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -275,6 +276,7 @@ public class MatchStatsFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("teamDoc", teamDoc);
                 bundle.putSerializable("myTeam", team);
+                bundle.putInt("matchesPlayed", totalMatchesPlayed);
                 individualStatsFragment.setArguments(bundle);
                 transaction.replace(R.id.container, individualStatsFragment).commit();
             }

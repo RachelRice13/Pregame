@@ -346,6 +346,7 @@ public class IndividualStatsFragment extends Fragment {
         Bundle bundle = getArguments();
         teamDoc = bundle.getString("teamDoc");
         Team team = (Team) bundle.getSerializable("myTeam");
+        int totalMatchesPlayed = bundle.getInt("matchesPlayed");
 
         columnNames = new ArrayList<>();
         statsList = new ArrayList<>();
@@ -383,6 +384,7 @@ public class IndividualStatsFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("teamDoc", teamDoc);
                 bundle.putSerializable("myTeam", team);
+                bundle.putInt("matchesPlayed", totalMatchesPlayed);
                 matchStatsFragment.setArguments(bundle);
                 transaction.replace(R.id.container, matchStatsFragment).commit();
             }
