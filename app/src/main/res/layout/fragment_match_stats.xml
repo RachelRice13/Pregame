@@ -306,13 +306,15 @@
                         </androidx.cardview.widget.CardView>
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:gravity="center_horizontal"
                             android:text="@string/total_points_scored"
-                            android:textSize="11sp"
+                            android:textSize="9sp"
                             android:textStyle="bold"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            tools:ignore="SmallSp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -343,9 +345,10 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:text="@string/average_points_per_game"
-                            android:textSize="11sp"
+                            android:textSize="9sp"
                             android:textStyle="bold"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            tools:ignore="SmallSp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -372,13 +375,15 @@
                         </androidx.cardview.widget.CardView>
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:gravity="center_horizontal"
                             android:text="@string/total_points_allowed"
-                            android:textSize="11sp"
+                            android:textSize="9sp"
                             android:textStyle="bold"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            tools:ignore="SmallSp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -409,9 +414,10 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:text="@string/average_points_allowed_per_game"
-                            android:textSize="11sp"
+                            android:textSize="9sp"
                             android:textStyle="bold"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            tools:ignore="SmallSp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -523,7 +529,7 @@
                             android:gravity="center"
                             android:text="@string/total_possessions"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textSize="8sp"
                             android:textStyle="bold"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
@@ -557,7 +563,7 @@
                             android:gravity="center_horizontal"
                             android:text="@string/points_per_possession"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textSize="8sp"
                             android:textStyle="bold"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
@@ -591,7 +597,7 @@
                             android:gravity="center"
                             android:text="@string/offensive_efficiency"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textSize="8sp"
                             android:textStyle="bold"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
@@ -625,7 +631,7 @@
                             android:gravity="center_horizontal"
                             android:text="@string/points_allowed_per_possession"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textSize="8sp"
                             android:textStyle="bold"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
@@ -659,7 +665,7 @@
                             android:gravity="center"
                             android:text="@string/defensive_efficiency"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textSize="8sp"
                             android:textStyle="bold"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
@@ -734,7 +740,7 @@
                             android:layout_gravity="center_horizontal"
                             android:gravity="center"
                             android:text="@string/average_assists_per_game"
-                            android:textSize="10sp"
+                            android:textSize="8sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
                             tools:ignore="SmallSp" />
@@ -768,7 +774,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:text="@string/averaged_assisted_field_goals"
-                            android:textSize="10sp"
+                            android:textSize="8sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
                             tools:ignore="SmallSp" />
@@ -802,7 +808,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/average_turnovers_per_game"
-                            android:textSize="10sp"
+                            android:textSize="8sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
                             tools:ignore="SmallSp" />
@@ -838,7 +844,7 @@
                             android:layout_gravity="center_horizontal"
                             android:text="@string/assist_to_turnovers"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textSize="8sp"
                             android:textStyle="bold"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
@@ -917,7 +923,7 @@
                             android:gravity="center"
                             android:text="@string/total_rebounds"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textSize="9sp"
                             android:textStyle="bold"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
@@ -951,7 +957,7 @@
                             android:gravity="center_horizontal"
                             android:text="@string/average_def_rebounds"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textSize="9sp"
                             android:textStyle="bold"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
@@ -985,7 +991,7 @@
                             android:gravity="center"
                             android:text="@string/of_def_rebounds_for_the_season"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textSize="9sp"
                             android:textStyle="bold"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
@@ -1019,7 +1025,7 @@
                             android:gravity="center_horizontal"
                             android:text="@string/average_off_rebounds"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textSize="9sp"
                             android:textStyle="bold"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
@@ -1053,7 +1059,7 @@
                             android:gravity="center"
                             android:text="@string/of_off_rebounds_for_the_season"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textSize="9sp"
                             android:textStyle="bold"
                             tools:ignore="SmallSp" />
                     </LinearLayout>
